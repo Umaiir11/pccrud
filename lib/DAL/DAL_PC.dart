@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
+import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../QueryGen/QueryGenSaleDetails.dart';
@@ -11,16 +11,15 @@ class DAL_PC extends GetxController {
   Fnc_Cud(List<ModSaleDetailsDB> l_SaleDetailsList, ModSaleDB l_ModSaleDB) async {
     Database? l_Database = await DBHelper().FncGetDatabaseIns();
 
-    List<String> l_SaleDetailsQueries = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(l_SaleDetailsList);
     List<String> l_SaleInfoQueries = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(l_ModSaleDB);
+    List<String> l_SaleDetailsQueries = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(l_SaleDetailsList);
 
     final batch = l_Database!.batch();
 
-    for (String query in l_SaleDetailsQueries) {
+    for (String query in l_SaleInfoQueries) {
       batch.execute(query);
     }
-
-    for (String query in l_SaleInfoQueries) {
+    for (String query in l_SaleDetailsQueries) {
       batch.execute(query);
     }
 
