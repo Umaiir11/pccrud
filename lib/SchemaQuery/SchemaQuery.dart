@@ -1,7 +1,9 @@
 import 'package:sqflite/sqflite.dart';
 
 class SchemaQuery {
-  Future<void> FncCreateTable(Database l_DataBase) async {
+  Future<void> FncSchemaQuries(Database l_DataBase) async {
+
+    //CreateTab1
     await l_DataBase.execute('''
       CREATE TABLE IF NOT EXISTS TBUSalesInfo (
         ID INTEGER ,
@@ -12,8 +14,8 @@ class SchemaQuery {
         Operation INTEGER
       )
     ''');
-
- await l_DataBase.execute('''
+    //CreateTab1
+    await l_DataBase.execute('''
       CREATE TABLE IF NOT EXISTS TBUSalesDetails (
         ID INTEGER ,
         PKGUID TEXT PRIMARY KEY,
@@ -25,12 +27,13 @@ class SchemaQuery {
       )
     ''');
 
+    //Altertable1
     await FncCheckAndAddColumns(l_DataBase, 'TBUSalesInfo', {
       'DATA': 'INTEGER',
 
     });
     await FncCreateView(l_DataBase, 'TBUSalesInfo');
-
+    //Altertable1
     await FncCheckAndAddColumns(l_DataBase, 'TBUSalesDetails', {
       'DATA': 'INTEGER',
 

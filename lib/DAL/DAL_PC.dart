@@ -26,6 +26,6 @@ class DAL_PC extends GetxController {
     await batch.commit();
 
     // Clear the lists after the data is stored in the database.
-    l_SaleDetailsList.clear();
+    //l_SaleDetailsList.clear();
   }
 }
