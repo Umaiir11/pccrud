@@ -1,7 +1,7 @@
 import '../MVVM/Model/DB/ModSaleDB.dart';
 
 class QueryGenSaleInfo {
-  Future<List<String>> FncGenCrudQueries(ModSaleDB l_ModSaleDB) async {
+  Future<List<String>> FncGenCrudQueriesSaleInfo(ModSaleDB l_ModSaleDB) async {
     List<String> l_Queries = [];
 
     if (l_ModSaleDB.Pr_Operation == 1) {
