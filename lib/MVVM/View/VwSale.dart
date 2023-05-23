@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/DAL/DALSale.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/Validation/DVMSale.dart';
@@ -242,7 +243,9 @@ class _VwSaleState extends State<VwSale> {
                 if (_formKey.currentState!.validate()) {
                   l_VmSale.FncFillModel();
                   if (l_VmSale.l_ModSaleDB != null) {
+                    DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
                     _showSaleDetailsDialog(context,PrHeight,PrWidth);
+
 
                     l_Pr_CustIDController.clear();
                     l_Pr_GrandTotalController.clear();
