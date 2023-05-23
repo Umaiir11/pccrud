@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/DAL/DALSaleDetails.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/Validation/DVMSale.dart';
 import 'package:tuple/tuple.dart';
 
-import '../../DAL/DALSale.dart';
+import '../../DAL/DAL_PC.dart';
 import '../../Validation/DVMSaleDetails.dart';
 import '../ViewModel/VmSale.dart';
 
@@ -52,7 +51,9 @@ class _VwSaleState extends State<VwSale> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: () async {},
+              onPressed: () async {
+                DAL_PC().Fnc_Cud(l_VmSale.l_ModSaleDetailsDBList, l_VmSale.l_ModSaleDB);
+              },
               child: Icon(Icons.save),
               backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
               foregroundColor: Colors.black, // Set the color of the icon
