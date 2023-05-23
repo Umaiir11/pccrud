@@ -113,12 +113,12 @@ class VmSale extends GetxController {
     l_PrRate.value = value;
   }
 
-  ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
 
   FncFillModelList() {
     String l_Uuid = const Uuid().v4();
+    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB.Pr_PKGUID;
