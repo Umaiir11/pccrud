@@ -19,10 +19,6 @@ class DVMSale {
       lErrorMsgs.add('Enter your voucher.');
       lFieldNames.add('Pr_Voucher');
     }
-    if (l_ModSaleDB.Pr_Operation == null || l_ModSaleDB.Pr_Operation == 0) {
-      lErrorMsgs.add('Enter your Operation.');
-      lFieldNames.add('Pr_Operation');
-    }
 
     // Add more field validation here as needed
 
