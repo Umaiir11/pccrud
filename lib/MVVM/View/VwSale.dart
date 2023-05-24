@@ -199,9 +199,13 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               l_VmSale.Pr_txtOperation_Text = 1;
+
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
+
+
+
 
                                 await showModalBottomSheet(
                                 context: context,
