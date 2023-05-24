@@ -2,7 +2,6 @@ import 'package:sqflite/sqflite.dart';
 
 class SchemaQuery {
   Future<void> FncSchemaQuries(Database l_DataBase) async {
-
     //CreateTab1
     await l_DataBase.execute('''
       CREATE TABLE IF NOT EXISTS TBUSalesInfo (
@@ -30,18 +29,13 @@ class SchemaQuery {
     //Altertable1
     await FncCheckAndAddColumns(l_DataBase, 'TBUSalesInfo', {
       'DATA': 'INTEGER',
-
     });
     await FncCreateView(l_DataBase, 'TBUSalesInfo');
     //Altertable1
     await FncCheckAndAddColumns(l_DataBase, 'TBUSalesDetails', {
       'DATA': 'INTEGER',
-
     });
     await FncCreateView(l_DataBase, 'TBUSalesDetails');
-
-
-
   }
 
   Future<void> FncCheckAndAddColumns(Database l_DataBase, String l_TableName, Map<String, String> l_ColumnsToAdd) async {
@@ -49,7 +43,7 @@ class SchemaQuery {
     List<String> l_ExistingColumnNames = l_ExistingColumns.map((column) => column['name'] as String).toList();
 
     List<String> l_NewColumnNames =
-    l_ColumnsToAdd.keys.where((columnName) => !l_ExistingColumnNames.contains(columnName)).toList();
+        l_ColumnsToAdd.keys.where((columnName) => !l_ExistingColumnNames.contains(columnName)).toList();
 
     for (String columnName in l_NewColumnNames) {
       String columnType = l_ColumnsToAdd[columnName]!;
