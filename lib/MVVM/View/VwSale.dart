@@ -195,6 +195,8 @@ class _VwSaleState extends State<VwSale> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+
+
                         SizedBox(
                           width: PrWidth * 0.235,
                           child: ElevatedButton(
