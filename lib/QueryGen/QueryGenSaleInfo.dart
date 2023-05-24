@@ -21,13 +21,13 @@ class QueryGenSaleInfo {
       Voucher = '${l_ModSaleDB.Pr_Voucher}',
       GrandTotal = '${l_ModSaleDB.Pr_GrandTotal}',
       Operation = '${l_ModSaleDB.Pr_Operation}'
-    WHERE Fname = '${l_ModSaleDB.Pr_CustID}'
+    WHERE Pr_CustID = '${l_ModSaleDB.Pr_CustID}'
     ''';
       l_Queries.add(query);
     } else if (l_ModSaleDB.Pr_Operation == 3) {
       final query = '''
-    DELETE FROM Users
-    WHERE Fname = '${l_ModSaleDB.Pr_CustID}'
+    DELETE FROM TBUSalesInfo
+    WHERE Pr_CustID = '${l_ModSaleDB.Pr_CustID}'
     ''';
       l_Queries.add(query);
     }
