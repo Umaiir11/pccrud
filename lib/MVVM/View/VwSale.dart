@@ -47,9 +47,9 @@ class _VwSaleState extends State<VwSale> {
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
-        floatingActionButton:  FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            if(l_VmSale.l_ModSaleDetailsDBList.isNotEmpty){
+            if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
               DAL_PC().Fnc_Cud(l_VmSale.l_ModSaleDetailsDBList, l_VmSale.l_ModSaleDB);
             }
           },
@@ -197,8 +197,6 @@ class _VwSaleState extends State<VwSale> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-
-
                         SizedBox(
                           width: PrWidth * 0.235,
                           child: ElevatedButton(
@@ -210,182 +208,333 @@ class _VwSaleState extends State<VwSale> {
                                 if (l_VmSale.l_ModSaleDB != null) {
                                   //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
 
+                                  return showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Sale Details'),
+                                        content: Container(
+                                          height: PrHeight*0.30,
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                child: SizedBox(
+                                                  width: PrWidth * .745,
+                                                  child: TextFormField(
+                                                    controller: l_Pr_ItemController,
+                                                    decoration: InputDecoration(
+                                                      filled: true,
+                                                      fillColor: Colors.lightBlueAccent,
+                                                      hintText: 'Item',
+                                                      hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                      border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                    ),
+                                                    validator: (value) {
+                                                      l_ModSaleDetailsDB.Pr_Item = value ?? '';
+                                                      Tuple2<List<String>?, List<String>?> errors =
+                                                          DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                      if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
+                                                        return errors.item1![errors.item2!.indexOf('Pr_Item')];
+                                                      }
 
+                                                      return null;
+                                                    },
+                                                    onChanged: (value) {
+                                                      l_VmSale.Pr_txtItem_Text = value;
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                child: SizedBox(
+                                                  width: PrWidth * .745,
+                                                  child: TextFormField(
+                                                    controller: l_Pr_QuantityController,
+                                                    decoration: InputDecoration(
+                                                      filled: true,
+                                                      fillColor: Colors.lightBlueAccent,
+                                                      hintText: 'Quantity',
+                                                      hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                      border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                    ),
+                                                    validator: (value) {
+                                                      l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
+                                                      Tuple2<List<String>?, List<String>?> errors =
+                                                          DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                      if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
+                                                        return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
+                                                      }
 
+                                                      return null;
+                                                    },
+                                                    onChanged: (value) {
+                                                      l_VmSale.Pr_txtQuantity_Text = value;
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                child: SizedBox(
+                                                  width: PrWidth * .745,
+                                                  child: TextFormField(
+                                                    controller: l_Pr_RateController,
+                                                    decoration: InputDecoration(
+                                                      filled: true,
+                                                      fillColor: Colors.lightBlueAccent,
+                                                      hintText: 'Rate',
+                                                      hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                      border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                    ),
+                                                    validator: (value) {
+                                                      int? parsedValue = int.tryParse(value ?? '');
+                                                      l_ModSaleDetailsDB.Pr_Rate = parsedValue;
 
-                                  await showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (BuildContext context) {
-                                    return GestureDetector(
-                                        onTap: () {
-                                          FocusScope.of(context).requestFocus(FocusNode());
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage("assets/bk.png"), // Replace with your image path
-                                              fit: BoxFit.cover,
+                                                      Tuple2<List<String>?, List<String>?> errors =
+                                                          DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                      if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
+                                                        return errors.item1![errors.item2!
+                                                            .indexOf('Pr_Rate')]; // Return the error message for Pr_EmailID
+                                                      }
+                                                      return null;
+                                                    },
+                                                    onChanged: (value) {
+                                                      int parsedValue = int.tryParse(value) ?? 0;
+                                                      l_VmSale.Pr_txtRate_Text = parsedValue;
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(5), // <-- Radius
+                                                ),
+                                                backgroundColor: Colors.cyan),
+                                            onPressed: () async {
+                                              if (_formKey.currentState!.validate()) {
+                                                l_VmSale.FncFillModelList();
+                                                if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
+                                                  //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
+                                                  print(l_VmSale.l_ModSaleDetailsDBList);
+
+                                                  l_Pr_QuantityController.clear();
+                                                  l_Pr_ItemController.clear();
+                                                  l_Pr_RateController.clear();
+                                                }
+                                              } else {
+                                                l_VmSale.l_TextFieldsValidation.value = true;
+                                              }
+                                            },
+                                            child: Text(
+                                              "Add",
+                                              style: TextStyle(color: Colors.white),
                                             ),
                                           ),
-                                          child: FractionallySizedBox(
-                                            heightFactor: 0.5,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(16.0),
-                                              // Set the border radius value as per your preference
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                        top: PrHeight * 0.05,
-                                                      ),
-                                                      child: Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(
-                                                          "Enter your sale details information",
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(top: PrHeight * 0.01),
-                                                      child: SizedBox(
-                                                        width: PrWidth * .745,
-                                                        child: TextFormField(
-                                                          controller: l_Pr_ItemController,
-                                                          decoration: InputDecoration(
-                                                            filled: true,
-                                                            fillColor: Colors.lightBlueAccent,
-                                                            hintText: 'Item',
-                                                            hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
-                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                            border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                                                          ),
-                                                          validator: (value) {
-                                                            l_ModSaleDetailsDB.Pr_Item = value ?? '';
-                                                            Tuple2<List<String>?, List<String>?> errors =
-                                                            DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                                                            if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
-                                                              return errors.item1![errors.item2!.indexOf('Pr_Item')];
-                                                            }
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              // Dismiss the dialog without updating
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
 
-                                                            return null;
-                                                          },
-                                                          onChanged: (value) {
-                                                            l_VmSale.Pr_txtItem_Text = value;
-                                                          },
+                                  await showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return GestureDetector(
+                                          onTap: () {
+                                            FocusScope.of(context).requestFocus(FocusNode());
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage("assets/bk.png"), // Replace with your image path
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            child: FractionallySizedBox(
+                                              heightFactor: 0.5,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(16.0),
+                                                // Set the border radius value as per your preference
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets.only(
+                                                          top: PrHeight * 0.05,
                                                         ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(top: PrHeight * 0.01),
-                                                      child: SizedBox(
-                                                        width: PrWidth * .745,
-                                                        child: TextFormField(
-                                                          controller: l_Pr_QuantityController,
-                                                          decoration: InputDecoration(
-                                                            filled: true,
-                                                            fillColor: Colors.lightBlueAccent,
-                                                            hintText: 'Quantity',
-                                                            hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
-                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                            border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                        child: Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text(
+                                                            "Enter your sale details information",
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
                                                           ),
-                                                          validator: (value) {
-                                                            l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
-                                                            Tuple2<List<String>?, List<String>?> errors =
-                                                            DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                                                            if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
-                                                              return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
-                                                            }
-
-                                                            return null;
-                                                          },
-                                                          onChanged: (value) {
-                                                            l_VmSale.Pr_txtQuantity_Text = value;
-                                                          },
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(top: PrHeight * 0.01),
-                                                      child: SizedBox(
-                                                        width: PrWidth * .745,
-                                                        child: TextFormField(
-                                                          controller: l_Pr_RateController,
-                                                          decoration: InputDecoration(
-                                                            filled: true,
-                                                            fillColor: Colors.lightBlueAccent,
-                                                            hintText: 'Rate',
-                                                            hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
-                                                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                                                            border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                                                          ),
-                                                          validator: (value) {
-                                                            int? parsedValue = int.tryParse(value ?? '');
-                                                            l_ModSaleDetailsDB.Pr_Rate = parsedValue;
-
-                                                            Tuple2<List<String>?, List<String>?> errors =
-                                                            DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                                                            if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
-                                                              return errors.item1![errors.item2!
-                                                                  .indexOf('Pr_Rate')]; // Return the error message for Pr_EmailID
-                                                            }
-                                                            return null;
-                                                          },
-                                                          onChanged: (value) {
-                                                            int parsedValue = int.tryParse(value) ?? 0;
-                                                            l_VmSale.Pr_txtRate_Text = parsedValue;
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(top: PrHeight * 0.02),
-                                                      child: Center(
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: PrHeight * 0.01),
                                                         child: SizedBox(
-                                                            width: PrWidth * .645,
-                                                            height: 50,
-                                                            child: ElevatedButton(
-                                                              style: ElevatedButton.styleFrom(
-                                                                  shape: RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(5), // <-- Radius
-                                                                  ),
-                                                                  backgroundColor: Colors.cyan),
-                                                              onPressed: () async {
-                                                                if (_formKey.currentState!.validate()) {
-                                                                  l_VmSale.FncFillModelList();
-                                                                  if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
-                                                                    //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                                                                    print(l_VmSale.l_ModSaleDetailsDBList);
+                                                          width: PrWidth * .745,
+                                                          child: TextFormField(
+                                                            controller: l_Pr_ItemController,
+                                                            decoration: InputDecoration(
+                                                              filled: true,
+                                                              fillColor: Colors.lightBlueAccent,
+                                                              hintText: 'Item',
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
+                                                            ),
+                                                            validator: (value) {
+                                                              l_ModSaleDetailsDB.Pr_Item = value ?? '';
+                                                              Tuple2<List<String>?, List<String>?> errors =
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                              if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
+                                                                return errors.item1![errors.item2!.indexOf('Pr_Item')];
+                                                              }
 
-                                                                    l_Pr_QuantityController.clear();
-                                                                    l_Pr_ItemController.clear();
-                                                                    l_Pr_RateController.clear();
-                                                                  }
-                                                                } else {
-                                                                  l_VmSale.l_TextFieldsValidation.value = true;
-                                                                }
-                                                              },
-                                                              child: Text(
-                                                                "Add",
-                                                                style: TextStyle(color: Colors.white),
-                                                              ),
-                                                            )),
+                                                              return null;
+                                                            },
+                                                            onChanged: (value) {
+                                                              l_VmSale.Pr_txtItem_Text = value;
+                                                            },
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                        child: SizedBox(
+                                                          width: PrWidth * .745,
+                                                          child: TextFormField(
+                                                            controller: l_Pr_QuantityController,
+                                                            decoration: InputDecoration(
+                                                              filled: true,
+                                                              fillColor: Colors.lightBlueAccent,
+                                                              hintText: 'Quantity',
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
+                                                            ),
+                                                            validator: (value) {
+                                                              l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
+                                                              Tuple2<List<String>?, List<String>?> errors =
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                              if (errors.item2 != null &&
+                                                                  errors.item2!.contains('Pr_Quantity')) {
+                                                                return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
+                                                              }
+
+                                                              return null;
+                                                            },
+                                                            onChanged: (value) {
+                                                              l_VmSale.Pr_txtQuantity_Text = value;
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                        child: SizedBox(
+                                                          width: PrWidth * .745,
+                                                          child: TextFormField(
+                                                            controller: l_Pr_RateController,
+                                                            decoration: InputDecoration(
+                                                              filled: true,
+                                                              fillColor: Colors.lightBlueAccent,
+                                                              hintText: 'Rate',
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
+                                                            ),
+                                                            validator: (value) {
+                                                              int? parsedValue = int.tryParse(value ?? '');
+                                                              l_ModSaleDetailsDB.Pr_Rate = parsedValue;
+
+                                                              Tuple2<List<String>?, List<String>?> errors =
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                              if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
+                                                                return errors.item1![errors.item2!.indexOf(
+                                                                    'Pr_Rate')]; // Return the error message for Pr_EmailID
+                                                              }
+                                                              return null;
+                                                            },
+                                                            onChanged: (value) {
+                                                              int parsedValue = int.tryParse(value) ?? 0;
+                                                              l_VmSale.Pr_txtRate_Text = parsedValue;
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: PrHeight * 0.02),
+                                                        child: Center(
+                                                          child: SizedBox(
+                                                              width: PrWidth * .645,
+                                                              height: 50,
+                                                              child: ElevatedButton(
+                                                                style: ElevatedButton.styleFrom(
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(5), // <-- Radius
+                                                                    ),
+                                                                    backgroundColor: Colors.cyan),
+                                                                onPressed: () async {
+                                                                  if (_formKey.currentState!.validate()) {
+                                                                    l_VmSale.FncFillModelList();
+                                                                    if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
+                                                                      //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
+                                                                      print(l_VmSale.l_ModSaleDetailsDBList);
+
+                                                                      l_Pr_QuantityController.clear();
+                                                                      l_Pr_ItemController.clear();
+                                                                      l_Pr_RateController.clear();
+                                                                    }
+                                                                  } else {
+                                                                    l_VmSale.l_TextFieldsValidation.value = true;
+                                                                  }
+                                                                },
+                                                                child: Text(
+                                                                  "Add",
+                                                                  style: TextStyle(color: Colors.white),
+                                                                ),
+                                                              )),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ));
-                                  },
+                                          ));
+                                    },
                                   );
 
                                   l_Pr_CustIDController.clear();
@@ -412,9 +561,6 @@ class _VwSaleState extends State<VwSale> {
                             ),
                           ),
                         ),
-
-
-
                         SizedBox(
                           width: PrWidth * 0.235,
                           child: ElevatedButton(
@@ -471,15 +617,17 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Item',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               l_ModSaleDetailsDB.Pr_Item = value ?? '';
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
                                                               if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
                                                                 return errors.item1![errors.item2!.indexOf('Pr_Item')];
                                                               }
@@ -502,16 +650,19 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Quantity',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                                                              if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                              if (errors.item2 != null &&
+                                                                  errors.item2!.contains('Pr_Quantity')) {
                                                                 return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
                                                               }
 
@@ -533,20 +684,22 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Rate',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               int? parsedValue = int.tryParse(value ?? '');
                                                               l_ModSaleDetailsDB.Pr_Rate = parsedValue;
 
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
                                                               if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
-                                                                return errors.item1![errors.item2!
-                                                                    .indexOf('Pr_Rate')]; // Return the error message for Pr_EmailID
+                                                                return errors.item1![errors.item2!.indexOf(
+                                                                    'Pr_Rate')]; // Return the error message for Pr_EmailID
                                                               }
                                                               return null;
                                                             },
@@ -680,15 +833,17 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Item',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               l_ModSaleDetailsDB.Pr_Item = value ?? '';
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
                                                               if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
                                                                 return errors.item1![errors.item2!.indexOf('Pr_Item')];
                                                               }
@@ -711,16 +866,19 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Quantity',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                                                              if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                              if (errors.item2 != null &&
+                                                                  errors.item2!.contains('Pr_Quantity')) {
                                                                 return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
                                                               }
 
@@ -742,20 +900,22 @@ class _VwSaleState extends State<VwSale> {
                                                               filled: true,
                                                               fillColor: Colors.lightBlueAccent,
                                                               hintText: 'Rate',
-                                                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                                                              hintStyle:
+                                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                                               floatingLabelBehavior: FloatingLabelBehavior.always,
                                                               border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                             validator: (value) {
                                                               int? parsedValue = int.tryParse(value ?? '');
                                                               l_ModSaleDetailsDB.Pr_Rate = parsedValue;
 
                                                               Tuple2<List<String>?, List<String>?> errors =
-                                                              DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
+                                                                  DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
                                                               if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
-                                                                return errors.item1![errors.item2!
-                                                                    .indexOf('Pr_Rate')]; // Return the error message for Pr_EmailID
+                                                                return errors.item1![errors.item2!.indexOf(
+                                                                    'Pr_Rate')]; // Return the error message for Pr_EmailID
                                                               }
                                                               return null;
                                                             },
@@ -837,171 +997,173 @@ class _VwSaleState extends State<VwSale> {
                     ),
                   ),
 
-
-
-
                   SizedBox(
                     height: PrHeight * 0.01,
                   ),
 
-
-
-
-
                   // Display the list builder here
                   Expanded(
                     child: Obx(() => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: l_VmSale.l_ModSaleDetailsDBList.length,
-                      itemBuilder: (context, index) {
-                        final item = l_VmSale.l_ModSaleDetailsDBList[index];
-                        return Card(
-                          color: Colors.cyan,
-                          elevation: 15,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          shrinkWrap: true,
+                          itemCount: l_VmSale.l_ModSaleDetailsDBList.length,
+                          itemBuilder: (context, index) {
+                            final item = l_VmSale.l_ModSaleDetailsDBList[index];
+                            return Card(
+                              color: Colors.cyan,
+                              elevation: 15,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconButton(
-                                      icon: Icon(Icons.edit,color: Colors.white,),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            String l_updatedItem = item.Pr_Item.toString();
-                                            String l_updateQuantity = item.Pr_Quantity.toString();
-                                            String L_updateRate = item.Pr_Rate.toString();
-                                            return AlertDialog(
-                                              title: Text('Update Details'),
-                                              content: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  TextField(
-                                                    onChanged: (value) {
-                                                      l_updatedItem = value;
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Item',
-                                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                String l_updatedItem = item.Pr_Item.toString();
+                                                String l_updateQuantity = item.Pr_Quantity.toString();
+                                                String L_updateRate = item.Pr_Rate.toString();
+                                                return AlertDialog(
+                                                  title: Text('Update Details'),
+                                                  content: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      TextField(
+                                                        onChanged: (value) {
+                                                          l_updatedItem = value;
+                                                        },
+                                                        decoration: InputDecoration(
+                                                          labelText: 'Item',
+                                                        ),
+                                                      ),
+                                                      TextField(
+                                                        onChanged: (value) {
+                                                          l_updateQuantity = value;
+                                                        },
+                                                        decoration: InputDecoration(
+                                                          labelText: 'Quantity',
+                                                        ),
+                                                      ),
+                                                      TextField(
+                                                        onChanged: (value) {
+                                                          L_updateRate = value;
+                                                        },
+                                                        decoration: InputDecoration(
+                                                          labelText: 'Rate',
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  TextField(
-                                                    onChanged: (value) {
-                                                      l_updateQuantity = value;
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Quantity',
-                                                    ),
-                                                  ),
-                                                  TextField(
-                                                    onChanged: (value) {
-                                                      L_updateRate = value;
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Rate',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Update the values of the current index object
-                                                    l_VmSale.Pr_txtOperation_Text = 2;
-                                                    l_VmSale.FncFillModel();
-                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Item = l_updatedItem;
-                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity = l_updateQuantity;
-                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Rate = int.parse(L_updateRate);
-                                                    l_VmSale.l_ModSaleDetailsDBList.refresh();
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        // Update the values of the current index object
+                                                        l_VmSale.Pr_txtOperation_Text = 2;
+                                                        l_VmSale.FncFillModel();
+                                                        l_VmSale.l_ModSaleDetailsDBList[index].Pr_Item = l_updatedItem;
+                                                        l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity = l_updateQuantity;
+                                                        l_VmSale.l_ModSaleDetailsDBList[index].Pr_Rate =
+                                                            int.parse(L_updateRate);
+                                                        l_VmSale.l_ModSaleDetailsDBList.refresh();
 
-                                                    // Dismiss the dialog
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('Update'),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Dismiss the dialog without updating
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('Cancel'),
-                                                ),
-                                              ],
+                                                        // Dismiss the dialog
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text('Update'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        // Dismiss the dialog without updating
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text('Cancel'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             );
                                           },
-                                        );
-                                      },
+                                        ),
+                                        Text(
+                                          'Sale Details',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.delete, color: Colors.red),
+                                          onPressed: () {
+                                            // Remove the current item from the list
+                                            l_VmSale.l_ModSaleDetailsDBList.removeAt(index);
+                                          },
+                                        )
+                                      ],
                                     ),
+                                    SizedBox(height: 8.0),
                                     Text(
-                                      'Sale Details',
+                                      'Customer: ${l_VmSale.l_ModSaleDB.Pr_CustID.toString()}',
                                       style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),SizedBox(height: 8.0),
+                                    Text(
+                                      'Item: ${item.Pr_Item.toString()}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
                                       ),
                                     ),
-                                    IconButton(
-                                      icon: Icon(Icons.delete,color: Colors.red),
-                                      onPressed: () {
-                                        // Remove the current item from the list
-                                        l_VmSale.l_ModSaleDetailsDBList.removeAt(index);
-                                      },
-                                    )
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      'VmDID: ${item.Pr_VmDID.toString()}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      'Quantity: ${item.Pr_Quantity.toString()}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      'Rate: ${item.Pr_Rate.toString()}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
                                   ],
                                 ),
-
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Item: ${item.Pr_Item.toString()}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                SizedBox(height: 4.0),
-                                Text(
-                                  'VmDID: ${item.Pr_VmDID.toString()}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                SizedBox(height: 4.0),
-                                Text(
-                                  'Quantity: ${item.Pr_Quantity.toString()}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                SizedBox(height: 4.0),
-                                Text(
-                                  'Rate: ${item.Pr_Rate.toString()}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    )),
+                              ),
+                            );
+                          },
+                        )),
                   )
-
-
-            ],
+                ],
               ),
             ),
           ),
