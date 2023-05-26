@@ -49,7 +49,9 @@ class _VwSaleState extends State<VwSale> {
       return Scaffold(
         floatingActionButton:  FloatingActionButton(
           onPressed: () async {
-            DAL_PC().Fnc_Cud(l_VmSale.l_ModSaleDetailsDBList, l_VmSale.l_ModSaleDB);
+            if(l_VmSale.l_ModSaleDetailsDBList.isNotEmpty){
+              DAL_PC().Fnc_Cud(l_VmSale.l_ModSaleDetailsDBList, l_VmSale.l_ModSaleDB);
+            }
           },
           child: Icon(Icons.save),
           backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
@@ -410,6 +412,9 @@ class _VwSaleState extends State<VwSale> {
                             ),
                           ),
                         ),
+
+
+
                         SizedBox(
                           width: PrWidth * 0.235,
                           child: ElevatedButton(
@@ -846,58 +851,157 @@ class _VwSaleState extends State<VwSale> {
                   // Display the list builder here
                   Expanded(
                     child: Obx(() => ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: l_VmSale.l_ModSaleDetailsDBList.length,
-                          itemBuilder: (context, index) {
-                            final item = l_VmSale.l_ModSaleDetailsDBList[index];
-                            return Card(
-                              color: Colors.cyan,
-                              elevation: 15,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                      shrinkWrap: true,
+                      itemCount: l_VmSale.l_ModSaleDetailsDBList.length,
+                      itemBuilder: (context, index) {
+                        final item = l_VmSale.l_ModSaleDetailsDBList[index];
+                        return Card(
+                          color: Colors.cyan,
+                          elevation: 15,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Center(
-                                      child: Text(
-                                        'Sale Details',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18.0,
-                                        ),
-                                      ),
+                                    IconButton(
+                                      icon: Icon(Icons.edit,color: Colors.white,),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            String l_updatedItem = item.Pr_Item.toString();
+                                            String l_updateQuantity = item.Pr_Quantity.toString();
+                                            String L_updateRate = item.Pr_Rate.toString();
+                                            return AlertDialog(
+                                              title: Text('Update Details'),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  TextField(
+                                                    onChanged: (value) {
+                                                      l_updatedItem = value;
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Item',
+                                                    ),
+                                                  ),
+                                                  TextField(
+                                                    onChanged: (value) {
+                                                      l_updateQuantity = value;
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Quantity',
+                                                    ),
+                                                  ),
+                                                  TextField(
+                                                    onChanged: (value) {
+                                                      L_updateRate = value;
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Rate',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              actions: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Update the values of the current index object
+                                                    l_VmSale.Pr_txtOperation_Text = 2;
+                                                    l_VmSale.FncFillModel();
+                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Item = l_updatedItem;
+                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity = l_updateQuantity;
+                                                    l_VmSale.l_ModSaleDetailsDBList[index].Pr_Rate = int.parse(L_updateRate);
+                                                    l_VmSale.l_ModSaleDetailsDBList.refresh();
+
+                                                    // Dismiss the dialog
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Update'),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Dismiss the dialog without updating
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Cancel'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
                                     ),
-                                    SizedBox(height: 8.0),
                                     Text(
-                                      'Item: ${item.Pr_Item.toString()}',
+                                      'Sale Details',
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18.0,
                                       ),
                                     ),
-                                    SizedBox(height: 4.0),
-                                    Text(
-                                      'VmDID: ${item.Pr_VmDID.toString()}',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.0,
-                                      ),
-                                    ),
-                                    // Add more fields from the ModSaleDetailsDB model as needed
+                                    IconButton(
+                                      icon: Icon(Icons.delete,color: Colors.red),
+                                      onPressed: () {
+                                        // Remove the current item from the list
+                                        l_VmSale.l_ModSaleDetailsDBList.removeAt(index);
+                                      },
+                                    )
                                   ],
                                 ),
-                              ),
-                            );
-                          },
-                        )),
-                  ),
-                ],
+
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'Item: ${item.Pr_Item.toString()}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                SizedBox(height: 4.0),
+                                Text(
+                                  'VmDID: ${item.Pr_VmDID.toString()}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                SizedBox(height: 4.0),
+                                Text(
+                                  'Quantity: ${item.Pr_Quantity.toString()}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                SizedBox(height: 4.0),
+                                Text(
+                                  'Rate: ${item.Pr_Rate.toString()}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )),
+                  )
+
+
+            ],
               ),
             ),
           ),
