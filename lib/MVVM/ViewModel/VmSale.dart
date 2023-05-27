@@ -113,6 +113,17 @@ class VmSale extends GetxController {
     l_PrRate.value = value;
   }
 
+  RxInt l_PrTotal = RxInt(0);
+
+  int get Pr_txtTotal_Text {
+    return l_PrTotal.value;
+  }
+
+  set Pr_txtTotal_Text(int value) {
+    l_PrTotal.value = value;
+  }
+
+
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
 
