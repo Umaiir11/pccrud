@@ -7,11 +7,12 @@ class BLSaleDetails{
   }
 
   int FncCalculateGrandTotal(List<ModSaleDetailsDB> itemList) {
-    int grandTotal = 0;
+    int lGrandTotal = 0;
     for (ModSaleDetailsDB item in itemList) {
-      grandTotal += item.Pr_ItemTotal!;
+      //a= a+b
+      lGrandTotal += item.Pr_ItemTotal!;
     }
-    return grandTotal;
+    return lGrandTotal;
   }
 
 
