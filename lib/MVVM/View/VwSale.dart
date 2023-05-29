@@ -351,10 +351,7 @@ class _VwSaleState extends State<VwSale> {
                                     );
                                   },
                                 );
-                                l_Pr_CustIDController.clear();
-                                l_Pr_GrandTotalController.clear();
-                                l_Pr_VoucherController.clear();
-                                l_Pr_l_Pr_OperationController.clear();
+
                               }
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
