@@ -50,9 +50,11 @@ class VmSale extends GetxController {
     l_PrOperation.value = value;
   }
 
-  ModSaleDB l_ModSaleDB = ModSaleDB();
 
+  ModSaleDB l_ModSaleDB = ModSaleDB();
   FncFillModel() {
+
+    ModPcSale l_ModPcSale = ModPcSale();
     String l_Uuid = const Uuid().v4();
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDB.Pr_Operation = Pr_txtOperation_Text;
@@ -61,6 +63,15 @@ class VmSale extends GetxController {
     l_ModSaleDB.Pr_GrandTotal = Pr_txtGrandTotal_Text;
     print(l_ModSaleDB);
     print(l_ModSaleDB);
+
+    l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
+    l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
+    l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
+    l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
+    l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
+
+    print(l_ModPcSale);
+    print(l_ModPcSale);
   }
 
 //==============================SaleDetails=========================================================
@@ -127,12 +138,12 @@ class VmSale extends GetxController {
   }
 
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
-
-
+  ModPcSale l_ModPcSale = ModPcSale();
   FncFillModelList() {
     String l_Uuid = const Uuid().v4();
 
     ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
+
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB.Pr_PKGUID;
@@ -141,22 +152,17 @@ class VmSale extends GetxController {
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
     print(l_ModSaleDetailsDB);
     l_ModSaleDetailsDBList.add(l_ModSaleDetailsDB);
+    l_ModPcSale.l_ModSaleDetailsDBListt.add(l_ModSaleDetailsDB);
+    print(l_ModPcSale.l_ModSaleDetailsDBListt);
 
-    l_ModSaleDetailsDB.Pr_ItemTotal =  BLSaleDetails().FncCalculateItemTotal(l_ModSaleDetailsDB);
+    l_ModSaleDetailsDB.Pr_ItemTotal = BLSaleDetails().FncCalculateItemTotal(l_ModSaleDetailsDB);
     Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
     Pr_txtGrandTotal_Text = BLSaleDetails().FncCalculateGrandTotal(l_ModSaleDetailsDBList);
-
-
   }
 
-
-
-
-
-  FncClearDetailModelFields(){
-
+  FncClearDetailModelFields() {
     // Clear the input fields for the next entry
-     Pr_txtItem_Text = '';
+    Pr_txtItem_Text = '';
     Pr_txtQuantity_Text = 0;
     Pr_txtRate_Text = 0;
   }
