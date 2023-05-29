@@ -1,6 +1,6 @@
-class ModSaleDB {
+ class   ModSaleDB {
 
-  ModSaleDB({
+   ModSaleDB({
     this.Pr_PKGUID,
     this.Pr_Operation,
     this.Pr_CustID,

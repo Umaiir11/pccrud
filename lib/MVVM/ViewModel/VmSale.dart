@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../BLSaleDetails/BLDetails.dart';
@@ -144,6 +145,7 @@ class VmSale extends GetxController {
     l_ModSaleDetailsDB.Pr_ItemTotal =  BLSaleDetails().FncCalculateItemTotal(l_ModSaleDetailsDB);
     Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
     Pr_txtGrandTotal_Text = BLSaleDetails().FncCalculateGrandTotal(l_ModSaleDetailsDBList);
+
 
   }
 
