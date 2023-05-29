@@ -159,8 +159,8 @@ class VmSale extends GetxController {
     Pr_txtGrandTotal_Text = l_listItemTotal;
 
     // Clear the input fields for the next entry
-    Pr_txtItem_Text = '';
-    Pr_txtQuantity_Text = 0;
-    Pr_txtRate_Text = 0;
+   // Pr_txtItem_Text = '';
+    //Pr_txtQuantity_Text = 0;
+    //Pr_txtRate_Text = 0;
   }
 }

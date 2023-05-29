@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/BLSaleDetails/BALDetails.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/Validation/DVMSale.dart';
@@ -198,6 +199,7 @@ class _VwSaleState extends State<VwSale> {
 
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
+
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
 
                                 return showDialog(
@@ -206,7 +208,7 @@ class _VwSaleState extends State<VwSale> {
                                     return AlertDialog(
                                       title: Text('Sale Details'),
                                       content: Container(
-                                        height: PrHeight * 0.25,
+                                        height: PrHeight * 0.28,
                                         child: Column(
                                           children: <Widget>[
                                             Padding(
@@ -310,6 +312,30 @@ class _VwSaleState extends State<VwSale> {
                                                 ),
                                               ),
                                             ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: PrHeight * 0.01,
+                                              ),
+                                              child: SizedBox(
+                                                  width: PrWidth * .745,
+                                                  height: PrHeight * .055,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.lightBlueAccent,
+                                                      borderRadius: BorderRadius.circular(5),
+                                                    ),
+                                                    padding: EdgeInsets.all(PrHeight * 0.007),
+                                                    child: Obx(() {
+                                                      return Text(
+                                                        'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w300,
+                                                        ),
+                                                      );
+                                                    }),
+                                                  )),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -325,6 +351,7 @@ class _VwSaleState extends State<VwSale> {
                                             if (_formKey.currentState!.validate()) {
                                               l_VmSale.FncFillModelList();
                                               if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
+                                                BLSaleDetails().FncCalculateItemTotalAtIndex(l_ModSaleDetailsDB);
                                                 //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                                                 print(l_VmSale.l_ModSaleDetailsDBList);
                                                 l_Pr_QuantityController.clear();
