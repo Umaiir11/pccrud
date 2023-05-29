@@ -1,5 +1,6 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
+import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:tuple/tuple.dart';
 
 class DVMSalePC {
@@ -25,21 +26,24 @@ class DVMSalePC {
     }
 
 
-    if (l_ModPcSale.l_ModSaleDetailsDBListt[0].Pr_Item?.isEmpty ?? true) {
-      lErrorMsgs.add('Enter your item.');
-      lFieldNames.add('Pr_Item');
-    }
+    for (ModSaleDetailsDB l_ModSaleDetailsDB in l_ModPcSale.l_ModSaleDetailsDBListt) {
+      if (l_ModSaleDetailsDB.Pr_Item?.isEmpty ?? true) {
+        lErrorMsgs.add('Enter your item.');
+        lFieldNames.add('Pr_Item');
+      }
 
-    if (l_ModPcSale.l_ModSaleDetailsDBListt[0].Pr_Quantity == null || l_ModPcSale.l_ModSaleDetailsDBListt[0].Pr_Quantity == 0) {
-      lErrorMsgs.add('Enter your Quantity.');
-      lFieldNames.add('Pr_Quantity');
-    }
+      if (l_ModSaleDetailsDB.Pr_Quantity == null || l_ModSaleDetailsDB.Pr_Quantity == 0) {
+        lErrorMsgs.add('Enter your Quantity.');
+        lFieldNames.add('Pr_Quantity');
+      }
 
-    if (l_ModPcSale.l_ModSaleDetailsDBListt[0].Pr_Rate == null || l_ModPcSale.l_ModSaleDetailsDBListt[0].Pr_Rate == 0) {
-      lErrorMsgs.add('Enter your Rate.');
-      lFieldNames.add('Pr_Rate');
-    }
+      if (l_ModSaleDetailsDB.Pr_Rate == null || l_ModSaleDetailsDB.Pr_Rate == 0) {
+        lErrorMsgs.add('Enter your Rate.');
+        lFieldNames.add('Pr_Rate');
+      }
 
+      // Add more field validation here as needed
+    }
     // Add more field validation here as needed
 
     if (lErrorMsgs.isNotEmpty || lFieldNames.isNotEmpty) {

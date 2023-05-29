@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/BLSaleDetails/BLDetails.dart';
+import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/Validation/DVMSale.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../DAL/DAL_PC.dart';
+import '../../Validation/DVMPC.dart';
 import '../../Validation/DVMSaleDetails.dart';
 import '../ViewModel/VmSale.dart';
 
@@ -23,7 +25,7 @@ class _VwSaleState extends State<VwSale> {
   final VmSale l_VmSale = Get.put(VmSale());
 
   //final DBHelper l_DBHelper = Get.put(DBHelper());
-  ModSaleDB l_ModSaleDB = ModSaleDB();
+  ModPcSale l_ModPcSale =ModPcSale();
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
   //Controllers For Sale TextFields
@@ -117,8 +119,8 @@ class _VwSaleState extends State<VwSale> {
                             contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
                           ),
                           validator: (value) {
-                            l_ModSaleDB.Pr_CustID = value ?? '';
-                            Tuple2<List<String>?, List<String>?> errors = DVMSale.Fnc_Validate(l_ModSaleDB);
+                            l_ModPcSale.Pr_CustID = value ?? '';
+                            Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_ModPcSale);
                             if (errors.item2 != null && errors.item2!.contains('Pr_CustID')) {
                               return errors.item1![errors.item2!.indexOf('Pr_CustID')];
                             }
@@ -147,8 +149,8 @@ class _VwSaleState extends State<VwSale> {
                               contentPadding: EdgeInsets.all(PrHeight * 0.007),
                             ),
                             validator: (value) {
-                              l_ModSaleDB.Pr_Voucher = value ?? '';
-                              Tuple2<List<String>?, List<String>?> errors = DVMSale.Fnc_Validate(l_ModSaleDB);
+                              l_ModPcSale.Pr_Voucher = value ?? '';
+                              Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_ModPcSale);
                               if (errors.item2 != null && errors.item2!.contains('Pr_Voucher')) {
                                 return errors
                                     .item1![errors.item2!.indexOf('Pr_Voucher')]; // Return the error message for Pr_FullName
