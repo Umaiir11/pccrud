@@ -11,7 +11,7 @@ class ModSaleDB {
   String? Pr_PKGUID;
   String? Pr_CustID;
   String? Pr_Voucher;
-  String? Pr_GrandTotal;
+  int? Pr_GrandTotal;
   int? Pr_Operation;
 
 

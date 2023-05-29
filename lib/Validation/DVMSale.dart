@@ -10,10 +10,13 @@ class DVMSale {
       lErrorMsgs.add('Enter your customer ID.');
       lFieldNames.add('Pr_CustID');
     }
-    if (l_ModSaleDB.Pr_GrandTotal?.isEmpty ?? true) {
-      lErrorMsgs.add('Enter your grand total.');
+
+    if (l_ModSaleDB.Pr_GrandTotal == null || l_ModSaleDB.Pr_GrandTotal == 0) {
+      lErrorMsgs.add('Enter your Rate.');
       lFieldNames.add('Pr_GrandTotal');
     }
+
+
 
     if (l_ModSaleDB.Pr_Voucher?.isEmpty ?? true) {
       lErrorMsgs.add('Enter your voucher.');

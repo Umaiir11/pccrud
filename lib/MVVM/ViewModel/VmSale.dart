@@ -28,13 +28,13 @@ class VmSale extends GetxController {
     l_PrVoucher.value = value;
   }
 
-  RxString l_PrGrandTotal = ''.obs;
+  RxInt l_PrGrandTotal = RxInt(0);
 
-  String get Pr_txtGrandTotal_Text {
+  int get Pr_txtGrandTotal_Text {
     return l_PrGrandTotal.value;
   }
 
-  set Pr_txtGrandTotal_Text(String value) {
+  set Pr_txtGrandTotal_Text(int value) {
     l_PrGrandTotal.value = value;
   }
 
@@ -84,13 +84,13 @@ class VmSale extends GetxController {
     l_PrItem.value = value;
   }
 
-  RxString l_PrQuantity = ''.obs;
+  RxInt l_PrQuantity = RxInt(0);
 
-  String get Pr_txtQuantity_Text {
+  int get Pr_txtQuantity_Text {
     return l_PrQuantity.value;
   }
 
-  set Pr_txtQuantity_Text(String value) {
+  set Pr_txtQuantity_Text(int value) {
     l_PrQuantity.value = value;
   }
 
@@ -103,6 +103,7 @@ class VmSale extends GetxController {
   set Pr_txtOperation2_Text(int value) {
     l_PrOperation.value = value;
   }
+
   RxInt l_PrRate = RxInt(0);
 
   int get Pr_txtRate_Text {
@@ -123,23 +124,43 @@ class VmSale extends GetxController {
     l_PrTotal.value = value;
   }
 
-
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
+  int FncCalculateItemTotalAtIndex(List<ModSaleDetailsDB> itemList, int index) {
+    ModSaleDetailsDB item = itemList[index];
+    return item.Pr_Quantity! * item.Pr_Rate!;
+  }
 
   FncFillModelList() {
     String l_Uuid = const Uuid().v4();
-    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
+
+    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB.Pr_PKGUID;
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
-    print(l_ModSaleDetailsDB);
+
     print(l_ModSaleDetailsDB);
     l_ModSaleDetailsDBList.add(l_ModSaleDetailsDB);
-    print(l_ModSaleDetailsDBList);
-  }
 
+    int l_listItemTotal = 0;
+
+    // Calculate the total for each item in the list
+    for (int indexofList = 0; indexofList < l_ModSaleDetailsDBList.length; indexofList++) {
+      int l_EachItemTotal = FncCalculateItemTotalAtIndex(l_ModSaleDetailsDBList, indexofList);
+      ModSaleDetailsDB item = l_ModSaleDetailsDBList[indexofList];
+      item.Pr_ItemTotal = l_EachItemTotal;
+      l_listItemTotal += l_EachItemTotal;
+    }
+
+    // Update the grand total with the new item's total
+    Pr_txtGrandTotal_Text = l_listItemTotal;
+
+    // Clear the input fields for the next entry
+    Pr_txtItem_Text = '';
+    Pr_txtQuantity_Text = 0;
+    Pr_txtRate_Text = 0;
+  }
 }

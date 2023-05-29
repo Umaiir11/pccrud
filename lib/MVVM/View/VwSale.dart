@@ -40,10 +40,9 @@ class _VwSaleState extends State<VwSale> {
     //For Sale TextFields
     l_Pr_CustIDController.text = l_VmSale.Pr_txtCustID_Text;
     l_Pr_VoucherController.text = l_VmSale.Pr_txtVoucher_Text;
-    l_Pr_GrandTotalController.text = l_VmSale.Pr_txtGrandTotal_Text;
-    //For SaleDetails TextFields
-    l_Pr_ItemController.text = l_VmSale.Pr_txtItem_Text;
-    l_Pr_QuantityController.text = l_VmSale.Pr_txtQuantity_Text;
+    l_Pr_GrandTotalController.text =
+        //For SaleDetails TextFields
+        l_Pr_ItemController.text = l_VmSale.Pr_txtItem_Text;
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
@@ -167,21 +166,22 @@ class _VwSaleState extends State<VwSale> {
                     child: SizedBox(
                         width: PrWidth * .745,
                         height: PrHeight * .055,
-                        child: TextFormField(
-                            controller: l_Pr_GrandTotalController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.lightBlueAccent,
-                              hintText: 'Grand Total',
-                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
-                            ),
-                            readOnly: true,
-                            onChanged: (value) {
-                              l_VmSale.Pr_txtGrandTotal_Text = value;
-                            })),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlueAccent,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: EdgeInsets.all(PrHeight * 0.007),
+                          child: Obx(() {
+                            return Text(
+                              'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            );
+                          }),
+                        )),
                   ),
 
                   Padding(
@@ -258,7 +258,8 @@ class _VwSaleState extends State<VwSale> {
                                                     contentPadding: EdgeInsets.all(PrHeight * 0.007),
                                                   ),
                                                   validator: (value) {
-                                                    l_ModSaleDetailsDB.Pr_Quantity = value ?? '';
+                                                    int? parsedValue = int.tryParse(value ?? '');
+                                                    l_ModSaleDetailsDB.Pr_Quantity = parsedValue;
                                                     Tuple2<List<String>?, List<String>?> errors =
                                                         DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
                                                     if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
@@ -268,7 +269,8 @@ class _VwSaleState extends State<VwSale> {
                                                     return null;
                                                   },
                                                   onChanged: (value) {
-                                                    l_VmSale.Pr_txtQuantity_Text = value;
+                                                    int parsedValue = int.tryParse(value) ?? 0;
+                                                    l_VmSale.Pr_txtQuantity_Text = parsedValue;
                                                   },
                                                 ),
                                               ),
@@ -314,17 +316,17 @@ class _VwSaleState extends State<VwSale> {
                                       actions: [
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(5), // <-- Radius
-                                              ),
-                                              backgroundColor: Colors.cyan),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5), // <-- Radius
+                                            ),
+                                            backgroundColor: Colors.cyan,
+                                          ),
                                           onPressed: () async {
                                             if (_formKey.currentState!.validate()) {
                                               l_VmSale.FncFillModelList();
                                               if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
                                                 //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                                                 print(l_VmSale.l_ModSaleDetailsDBList);
-
                                                 l_Pr_QuantityController.clear();
                                                 l_Pr_ItemController.clear();
                                                 l_Pr_RateController.clear();
@@ -389,7 +391,7 @@ class _VwSaleState extends State<VwSale> {
                           itemBuilder: (context, index) {
                             final item = l_VmSale.l_ModSaleDetailsDBList[index];
                             return SizedBox(
-                              height: PrHeight*.132,
+                              height: PrHeight * .132,
                               child: Card(
                                 color: Colors.cyan,
                                 elevation: 15,
@@ -453,9 +455,26 @@ class _VwSaleState extends State<VwSale> {
                                                         l_VmSale.Pr_txtOperation_Text = 2;
                                                         l_VmSale.FncFillModel();
                                                         l_VmSale.l_ModSaleDetailsDBList[index].Pr_Item = l_updatedItem;
-                                                        l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity = l_updateQuantity;
+                                                        l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity =
+                                                            int.parse(l_updateQuantity);
                                                         l_VmSale.l_ModSaleDetailsDBList[index].Pr_Rate =
                                                             int.parse(L_updateRate);
+
+                                                        int l_listItemTotal = 0;
+
+                                                        for (int indexofList = 0;
+                                                            indexofList < l_VmSale.l_ModSaleDetailsDBList.length;
+                                                            indexofList++) {
+                                                          int l_EachItemTotal =
+                                                          l_VmSale.FncCalculateItemTotalAtIndex(l_VmSale.l_ModSaleDetailsDBList, indexofList);
+                                                          ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[indexofList];
+                                                          item.Pr_ItemTotal = l_EachItemTotal;
+                                                          l_listItemTotal += l_EachItemTotal;
+
+                                                        }
+                                                        l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
+
+
                                                         l_VmSale.l_ModSaleDetailsDBList.refresh();
 
                                                         // Dismiss the dialog
@@ -486,8 +505,14 @@ class _VwSaleState extends State<VwSale> {
                                         ),
                                         IconButton(
                                           icon: Icon(Icons.delete, color: Colors.red),
-                                          iconSize: 12.0, // Adjust the icon size as needed
+                                          iconSize: 12.0,
                                           onPressed: () {
+                                            // Get the item at the current index
+                                            ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[index];
+
+                                            // Subtract the item total from the grand total
+                                            l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
+
                                             // Remove the current item from the list
                                             l_VmSale.l_ModSaleDetailsDBList.removeAt(index);
                                           },
@@ -604,7 +629,7 @@ class _VwSaleState extends State<VwSale> {
                                           ),
                                         ),
                                         SizedBox(
-                                          width: PrWidth * 0.42,
+                                          width: PrWidth * 0.35,
                                         ),
                                         Text.rich(
                                           TextSpan(
@@ -618,7 +643,7 @@ class _VwSaleState extends State<VwSale> {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: item.Pr_Rate.toString(),
+                                                text: item.Pr_ItemTotal.toString(),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,

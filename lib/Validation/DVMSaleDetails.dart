@@ -10,7 +10,8 @@ class DVMSaleDetails {
       lErrorMsgs.add('Enter your item.');
       lFieldNames.add('Pr_Item');
     }
-    if (l_ModSaleDetailsDB.Pr_Quantity?.isEmpty ?? true) {
+
+    if (l_ModSaleDetailsDB.Pr_Quantity == null || l_ModSaleDetailsDB.Pr_Quantity == 0) {
       lErrorMsgs.add('Enter your Quantity.');
       lFieldNames.add('Pr_Quantity');
     }

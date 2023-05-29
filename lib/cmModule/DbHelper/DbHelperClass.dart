@@ -35,7 +35,7 @@ class DBHelper {
         final l_SchemaQuery = SchemaQuery();
         await l_SchemaQuery.FncSchemaQuries(l_Database!);
       } catch (e) {
-        await deleteDatabase(dbPath);
+        //await deleteDatabase(dbPath);
         await FncCreateDataBase();
       }
     }
