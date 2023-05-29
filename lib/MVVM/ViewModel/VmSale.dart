@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../BLSaleDetails/BLDetails.dart';
 import '../Model/DB/ModSaleDB.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 
@@ -126,10 +127,6 @@ class VmSale extends GetxController {
 
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
-  int FncCalculateItemTotalAtIndex(List<ModSaleDetailsDB> itemList, int index) {
-    ModSaleDetailsDB item = itemList[index];
-    return item.Pr_Quantity! * item.Pr_Rate!;
-  }
 
   FncFillModelList() {
     String l_Uuid = const Uuid().v4();
@@ -141,26 +138,24 @@ class VmSale extends GetxController {
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
-
     print(l_ModSaleDetailsDB);
     l_ModSaleDetailsDBList.add(l_ModSaleDetailsDB);
 
-    int l_listItemTotal = 0;
+    l_ModSaleDetailsDB.Pr_ItemTotal =  BLSaleDetails().FncCalculateItemTotal(l_ModSaleDetailsDB);
+    Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
+    Pr_txtGrandTotal_Text = BLSaleDetails().FncCalculateGrandTotal(l_ModSaleDetailsDBList);
 
-    // Calculate the total for each item in the list
-    for (int indexofList = 0; indexofList < l_ModSaleDetailsDBList.length; indexofList++) {
-      int l_EachItemTotal = FncCalculateItemTotalAtIndex(l_ModSaleDetailsDBList, indexofList);
-      ModSaleDetailsDB item = l_ModSaleDetailsDBList[indexofList];
-      item.Pr_ItemTotal = l_EachItemTotal;
-      l_listItemTotal += l_EachItemTotal;
-    }
+  }
 
-    // Update the grand total with the new item's total
-    Pr_txtGrandTotal_Text = l_listItemTotal;
+
+
+
+
+  FncClearDetailModelFields(){
 
     // Clear the input fields for the next entry
-   // Pr_txtItem_Text = '';
-    //Pr_txtQuantity_Text = 0;
-    //Pr_txtRate_Text = 0;
+     Pr_txtItem_Text = '';
+    Pr_txtQuantity_Text = 0;
+    Pr_txtRate_Text = 0;
   }
 }

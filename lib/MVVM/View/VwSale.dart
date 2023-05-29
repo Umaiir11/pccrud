@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/BLSaleDetails/BALDetails.dart';
+import 'package:pccrud/BLSaleDetails/BLDetails.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/Validation/DVMSale.dart';
@@ -196,7 +196,7 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               l_VmSale.Pr_txtOperation_Text = 1;
-
+                              l_VmSale.Pr_txtTotal_Text= 0;
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
 
@@ -313,28 +313,37 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsets.only(
-                                                top: PrHeight * 0.01,
-                                              ),
+                                              padding: EdgeInsets.only(top: PrHeight * 0.01),
                                               child: SizedBox(
-                                                  width: PrWidth * .745,
-                                                  height: PrHeight * .055,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.lightBlueAccent,
-                                                      borderRadius: BorderRadius.circular(5),
-                                                    ),
-                                                    padding: EdgeInsets.all(PrHeight * 0.007),
-                                                    child: Obx(() {
+                                                width: PrWidth * .745,
+                                                height: PrHeight * .055,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.lightBlueAccent,
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                  padding: EdgeInsets.all(PrHeight * 0.007),
+                                                  child: Obx(() {
+                                                    if (l_VmSale.Pr_txtQuantity_Text == 0 && l_VmSale.Pr_txtRate_Text == 0) {
                                                       return Text(
-                                                        'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
+                                                        'Total: 0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight: FontWeight.w300,
                                                         ),
                                                       );
-                                                    }),
-                                                  )),
+                                                    } else {
+                                                      return Text(
+                                                        'Total: ${l_VmSale.Pr_txtTotal_Text.toString()}',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.w300,
+                                                        ),
+                                                      );
+                                                    }
+                                                  }),
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -351,12 +360,14 @@ class _VwSaleState extends State<VwSale> {
                                             if (_formKey.currentState!.validate()) {
                                               l_VmSale.FncFillModelList();
                                               if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
-                                                BLSaleDetails().FncCalculateItemTotalAtIndex(l_ModSaleDetailsDB);
                                                 //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                                                 print(l_VmSale.l_ModSaleDetailsDBList);
                                                 l_Pr_QuantityController.clear();
                                                 l_Pr_ItemController.clear();
                                                 l_Pr_RateController.clear();
+
+
+
                                               }
                                             } else {
                                               l_VmSale.l_TextFieldsValidation.value = true;
@@ -370,9 +381,14 @@ class _VwSaleState extends State<VwSale> {
                                         ElevatedButton(
                                           onPressed: () {
                                             // Dismiss the dialog without updating
+                                            l_VmSale.FncClearDetailModelFields();
+                                            l_Pr_QuantityController.clear();
+                                            l_Pr_ItemController.clear();
+                                            l_Pr_RateController.clear();
                                             Navigator.pop(context);
+
                                           },
-                                          child: Text('Cancel'),
+                                          child: Text('Close'),
                                         ),
                                       ],
                                     );
@@ -470,6 +486,41 @@ class _VwSaleState extends State<VwSale> {
                                                           labelText: 'Rate',
                                                         ),
                                                       ),
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                                        child: SizedBox(
+                                                          width: PrWidth * .745,
+                                                          height: PrHeight * .055,
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.lightBlueAccent,
+                                                              borderRadius: BorderRadius.circular(5),
+                                                            ),
+                                                            padding: EdgeInsets.all(PrHeight * 0.007),
+                                                            child: Obx(() {
+                                                              if (l_VmSale.Pr_txtQuantity_Text == 0 && l_VmSale.Pr_txtRate_Text == 0) {
+                                                                return Text(
+                                                                  'Total: 0',
+                                                                  style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.w300,
+                                                                  ),
+                                                                );
+                                                              } else {
+                                                                return Text(
+                                                                  'Total: ${l_VmSale.Pr_txtTotal_Text.toString()}',
+                                                                  style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.w300,
+                                                                  ),
+                                                                );
+                                                              }
+                                                            }),
+                                                          ),
+                                                        ),
+                                                      ),
+
                                                     ],
                                                   ),
                                                   actions: [
@@ -486,17 +537,18 @@ class _VwSaleState extends State<VwSale> {
 
                                                         int l_listItemTotal = 0;
 
-                                                        for (int indexofList = 0;
-                                                            indexofList < l_VmSale.l_ModSaleDetailsDBList.length;
-                                                            indexofList++) {
-                                                          int l_EachItemTotal =
-                                                          l_VmSale.FncCalculateItemTotalAtIndex(l_VmSale.l_ModSaleDetailsDBList, indexofList);
-                                                          ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[indexofList];
-                                                          item.Pr_ItemTotal = l_EachItemTotal;
-                                                          l_listItemTotal += l_EachItemTotal;
 
-                                                        }
-                                                        l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
+                                                       // for (int indexofList = 0;
+                                                         //   indexofList < l_VmSale.l_ModSaleDetailsDBList.length;
+                                                           // indexofList++) {
+                                                          //int l_EachItemTotal =
+                                                          //l_VmSale.FncCalculateItemTotalAtIndex(l_VmSale.l_ModSaleDetailsDBList, indexofList);
+                                                          //ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[indexofList];
+                                                          //item.Pr_ItemTotal = l_EachItemTotal;
+                                                          //l_listItemTotal += l_EachItemTotal;
+
+                                                        //}
+                                                        //l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
 
 
                                                         l_VmSale.l_ModSaleDetailsDBList.refresh();
