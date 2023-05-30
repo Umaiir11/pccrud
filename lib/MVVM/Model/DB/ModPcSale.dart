@@ -5,13 +5,13 @@ import 'ModSaleDetailsDB.dart';
 
 
 class ModPcSale extends ModSaleDB {
-  RxList<ModSaleDetailsDB> l_ModSaleDetailsDBListt = <ModSaleDetailsDB>[].obs;
+  RxList<ModSaleDetailsDB> l_PCSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
   Map<String, dynamic> toJson() {
     final jsonMap = super.UserToJson(); // Call the superclass's toJson method
 
     // Convert l_ModSaleDetailsDBList to JSON
-    jsonMap['l_ModSaleDetailsDBList'] = l_ModSaleDetailsDBListt.map((item) => item.UserToJson()).toList();
+    jsonMap['l_ModSaleDetailsDBList'] = l_PCSaleDetailsDBList.map((item) => item.UserToJson()).toList();
 
     return jsonMap;
   }

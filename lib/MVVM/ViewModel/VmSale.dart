@@ -54,7 +54,7 @@ class VmSale extends GetxController {
   ModSaleDB l_ModSaleDB = ModSaleDB();
   FncFillModel() {
 
-    ModPcSale l_ModPcSale = ModPcSale();
+    ModPcSale l_ModSalePc = ModPcSale();
     String l_Uuid = const Uuid().v4();
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDB.Pr_Operation = Pr_txtOperation_Text;
@@ -64,14 +64,14 @@ class VmSale extends GetxController {
     print(l_ModSaleDB);
     print(l_ModSaleDB);
 
-    l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
-    l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
-    l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
-    l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
-    l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
+    l_ModSalePc.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
+    l_ModSalePc.Pr_Operation = l_ModSaleDB.Pr_Operation;
+    l_ModSalePc.Pr_CustID = l_ModSaleDB.Pr_CustID;
+    l_ModSalePc.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
+    l_ModSalePc.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
 
-    print(l_ModPcSale);
-    print(l_ModPcSale);
+    print(l_ModSalePc);
+    print(l_ModSalePc);
   }
 
 //==============================SaleDetails=========================================================
@@ -152,14 +152,21 @@ class VmSale extends GetxController {
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
     print(l_ModSaleDetailsDB);
     l_ModSaleDetailsDBList.add(l_ModSaleDetailsDB);
-    l_ModPcSale.l_ModSaleDetailsDBListt.add(l_ModSaleDetailsDB);
-    print(l_ModPcSale.l_ModSaleDetailsDBListt);
+    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB);
+    print(l_ModPcSale.l_PCSaleDetailsDBList);
 
-    l_ModSaleDetailsDB.Pr_ItemTotal = BLSaleDetails().FncCalculateItemTotal(l_ModSaleDetailsDB);
-    Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
-    Pr_txtGrandTotal_Text = BLSaleDetails().FncCalculateGrandTotal(l_ModSaleDetailsDBList);
+
+
+
+    for (int indexofList = 0; indexofList < l_ModPcSale.l_PCSaleDetailsDBList.length; indexofList++) {
+      int l_EachItemTotal = BLSaleDetails().FncCalculateItemTotal(l_ModPcSale, indexofList);
+      ModSaleDetailsDB item = l_ModPcSale.l_PCSaleDetailsDBList[indexofList];
+      item.Pr_ItemTotal = l_EachItemTotal;
+    }
+      Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
+      Pr_txtGrandTotal_Text = BLSaleDetails().FncCalculateGrandTotal(l_ModPcSale);
+
   }
-
   FncClearDetailModelFields() {
     // Clear the input fields for the next entry
     Pr_txtItem_Text = '';

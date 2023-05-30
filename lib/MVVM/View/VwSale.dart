@@ -50,8 +50,8 @@
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
-                DAL_PC().Fnc_Cud(l_VmSale.l_ModSaleDetailsDBList, l_VmSale.l_ModSaleDB);
+              if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
+                DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList, l_VmSale.l_ModSaleDB);
               }
             },
             child: Icon(Icons.save),
@@ -362,9 +362,9 @@
                                               onPressed: () async {
                                                 if (formKey2.currentState!.validate()) {
                                                   l_VmSale.FncFillModelList();
-                                                  if (l_VmSale.l_ModSaleDetailsDBList.isNotEmpty) {
+                                                  if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
                                                     //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                                                    print(l_VmSale.l_ModSaleDetailsDBList);
+                                                    print(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList);
                                                     l_Pr_QuantityController.clear();
                                                     l_Pr_ItemController.clear();
                                                     l_Pr_RateController.clear();
@@ -431,9 +431,9 @@
                     Expanded(
                       child: Obx(() => ListView.builder(
                             shrinkWrap: true,
-                            itemCount: l_VmSale.l_ModSaleDetailsDBList.length,
+                            itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
                             itemBuilder: (context, index) {
-                              final item = l_VmSale.l_ModSaleDetailsDBList[index];
+                              final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
                               return SizedBox(
                                 height: PrHeight * .132,
                                 child: Card(
@@ -533,10 +533,10 @@
                                                           // Update the values of the current index object
                                                           l_VmSale.Pr_txtOperation_Text = 2;
                                                           l_VmSale.FncFillModel();
-                                                          l_VmSale.l_ModSaleDetailsDBList[index].Pr_Item = l_updatedItem;
-                                                          l_VmSale.l_ModSaleDetailsDBList[index].Pr_Quantity =
+                                                          l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item = l_updatedItem;
+                                                          l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
                                                               int.parse(l_updateQuantity);
-                                                          l_VmSale.l_ModSaleDetailsDBList[index].Pr_Rate =
+                                                          l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
                                                               int.parse(L_updateRate);
   
                                                           int l_listItemTotal = 0;
@@ -555,7 +555,7 @@
                                                           //l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
   
   
-                                                          l_VmSale.l_ModSaleDetailsDBList.refresh();
+                                                          l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
   
                                                           // Dismiss the dialog
                                                           Navigator.pop(context);
@@ -588,13 +588,13 @@
                                             iconSize: 12.0,
                                             onPressed: () {
                                               // Get the item at the current index
-                                              ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[index];
+                                              ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
   
                                               // Subtract the item total from the grand total
                                               l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
   
                                               // Remove the current item from the list
-                                              l_VmSale.l_ModSaleDetailsDBList.removeAt(index);
+                                              l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
                                             },
                                           )
   
