@@ -1,10 +1,12 @@
+import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
+
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 
 class QueryGenSaleDetails {
-  Future<List<String>> FncGenCrudQueriesSaleDetails(List<ModSaleDetailsDB> l_SaleDetailsList) async {
+  Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale l_ModPcSale) async {
     List<String> l_Queries = [];
 
-    for (ModSaleDetailsDB l_ModUserDB in l_SaleDetailsList) {
+    for (ModSaleDetailsDB l_ModUserDB in l_ModPcSale.l_PCSaleDetailsDBList) {
       if (l_ModUserDB.Pr_Operation == 1) {
         final query = '''
         INSERT INTO TBUSalesDetails (

@@ -48,10 +48,11 @@ class _VwSaleState extends State<VwSale> {
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
-              DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList, l_VmSale.l_ModSaleDB);
+              DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             }
           },
           child: Icon(Icons.save),
@@ -308,9 +309,12 @@ class _VwSaleState extends State<VwSale> {
                                                       return null;
                                                     },
                                                     onChanged: (value) {
+                                                     // l_VmSale.FncCalculateItemTotal();
                                                       int parsedValue = int.tryParse(value) ?? 0;
                                                       l_VmSale.Pr_txtRate_Text = parsedValue;
+                                                      // Call the function here
                                                     },
+
                                                   ),
                                                 ),
                                               ),

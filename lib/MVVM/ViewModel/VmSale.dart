@@ -54,7 +54,7 @@ class VmSale extends GetxController {
   ModSaleDB l_ModSaleDB = ModSaleDB();
   FncFillModel() {
 
-    ModPcSale l_ModSalePc = ModPcSale();
+
     String l_Uuid = const Uuid().v4();
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDB.Pr_Operation = Pr_txtOperation_Text;
@@ -64,14 +64,8 @@ class VmSale extends GetxController {
     print(l_ModSaleDB);
     print(l_ModSaleDB);
 
-    l_ModSalePc.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
-    l_ModSalePc.Pr_Operation = l_ModSaleDB.Pr_Operation;
-    l_ModSalePc.Pr_CustID = l_ModSaleDB.Pr_CustID;
-    l_ModSalePc.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
-    l_ModSalePc.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
 
-    print(l_ModSalePc);
-    print(l_ModSalePc);
+
   }
 
 //==============================SaleDetails=========================================================
@@ -144,6 +138,13 @@ class VmSale extends GetxController {
 
     ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
+
+    l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
+    l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
+    l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
+    l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
+    l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
+
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB.Pr_PKGUID;
@@ -155,11 +156,7 @@ class VmSale extends GetxController {
     l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
-      l_ModPcSale = BLSaleDetails().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
-      l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
-      Pr_txtTotal_Text= item.Pr_ItemTotal!;
-    });
-      Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+    FncCalculateItemTotal();
 
   }
   FncClearDetailModelFields() {
@@ -168,4 +165,16 @@ class VmSale extends GetxController {
     Pr_txtQuantity_Text = 0;
     Pr_txtRate_Text = 0;
   }
+  FncCalculateItemTotal(){
+    l_ModPcSale = BLSaleDetails().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
+    l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
+      Pr_txtTotal_Text= item.Pr_ItemTotal!;
+    });
+    Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+
+    print("Done");
+  }
+
+
+
 }
