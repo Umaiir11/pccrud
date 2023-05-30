@@ -156,8 +156,10 @@ class VmSale extends GetxController {
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
       l_ModPcSale = BLSaleDetails().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
-
-       Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+      l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
+      Pr_txtTotal_Text= item.Pr_ItemTotal!;
+    });
+      Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
 
   }
   FncClearDetailModelFields() {
