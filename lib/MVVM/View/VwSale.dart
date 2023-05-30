@@ -176,7 +176,7 @@
                             padding: EdgeInsets.all(PrHeight * 0.007),
                             child: Obx(() {
                               return Text(
-                                'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
+                                'Grand Total: ${l_VmSale.l_ModPcSale.Pr_GrandTotal.toString()}',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,
