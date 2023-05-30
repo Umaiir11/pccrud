@@ -8,11 +8,17 @@ class BLSaleDetails {
   ModPcSale FncCalculateItemTotalAndGrandTotal(ModPcSale l_ModPcSale) {
     l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
       item.Pr_ItemTotal = item.Pr_Quantity! * item.Pr_Rate!;
+
     });
-    l_ModPcSale.Pr_GrandTotal = l_ModPcSale.l_PCSaleDetailsDBList
-        .map((item) => item.Pr_ItemTotal)
-        .reduce((a, b) => a! + b!);
+
+    int grandTotal = 0;
+    for (ModSaleDetailsDB item in l_ModPcSale.l_PCSaleDetailsDBList) {
+      grandTotal += item.Pr_ItemTotal!;
+    }
+
+    l_ModPcSale.Pr_GrandTotal = grandTotal;
     return l_ModPcSale;
   }
+
 
 }
