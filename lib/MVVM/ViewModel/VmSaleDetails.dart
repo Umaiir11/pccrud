@@ -9,6 +9,7 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSaleDetails extends GetxController{
 
+  RxBool l_TextFieldsValidation = false.obs;
 
   final VmSale l_VmSale = Get.find<VmSale>();
 
@@ -75,10 +76,11 @@ class VmSaleDetails extends GetxController{
 
   RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
   ModPcSale l_ModPcSale = ModPcSale();
+  ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
+
   FncFillModelList() {
     String l_Uuid = const Uuid().v4();
 
-    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
     l_ModPcSale.Pr_PKGUID = l_VmSale.l_ModSaleDB.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_VmSale.l_ModSaleDB.Pr_Operation;
@@ -112,8 +114,9 @@ class VmSaleDetails extends GetxController{
       Pr_txtTotal_Text= item.Pr_ItemTotal!;
     });
     l_VmSale.Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
-
     print("Done");
+    print(Pr_txtTotal_Text);
+
   }
 
 
