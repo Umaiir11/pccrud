@@ -7,6 +7,7 @@ import 'package:tuple/tuple.dart';
 import '../../DAL/DAL_PC.dart';
 import '../../Validation/DVMPC.dart';
 import '../../Validation/DVMSaleDetails.dart';
+import '../../customWidget/customShowDialog.dart';
 import '../ViewModel/VmSale.dart';
 
 class VwSale extends StatefulWidget {
@@ -20,9 +21,9 @@ class _VwSaleState extends State<VwSale> {
   @override
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
-
+  final GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
-
+  CustomAlertDialog l_CustomAlertDialog = new CustomAlertDialog();
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   ModPcSale l_ModPcSale = ModPcSale();
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
@@ -246,7 +247,7 @@ class _VwSaleState extends State<VwSale> {
                                                   ),
                                                 ),
                                               ),
-                                              Padding(
+                                              Padding (
                                                 padding: EdgeInsets.only(top: PrHeight * 0.01),
                                                 child: SizedBox(
                                                   width: PrWidth * .745,
@@ -389,6 +390,7 @@ class _VwSaleState extends State<VwSale> {
                                               l_Pr_ItemController.clear();
                                               l_Pr_RateController.clear();
                                               Navigator.pop(context);
+                                              l_CustomAlertDialog.CustAlertDialog(context,"Add",PrHeight,PrWidth,formKey3);
                                             },
                                             child: Text('Close'),
                                           ),
