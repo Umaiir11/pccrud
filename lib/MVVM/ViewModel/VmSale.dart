@@ -11,6 +11,7 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 class VmSale extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
   String? l_Uuid;
+  VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
 
 //TextfieldsProp
   RxString l_PrCustID = ''.obs;
@@ -81,8 +82,8 @@ class VmSale extends GetxController {
     l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
     l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
-    ModSaleDetailsDB l_ModSaleDetailsDB =  VmSaleDetails().FncReturnModel();
-    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB);
+    ModSaleDetailsDB? l_ModSaleDetailsDB = l_VmSaleDetails?.l_ModSaleDetailsDB;
+    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
 
