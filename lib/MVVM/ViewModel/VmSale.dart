@@ -69,11 +69,6 @@ class VmSale extends GetxController {
 
   }
 
-  ModSaleDB FncReturnSaleModel() {
-    return l_ModSaleDB;
-  }
-
-
 //=======================================================================================
 
   ModPcSale l_ModPcSale = ModPcSale();

@@ -103,7 +103,7 @@ class CustomAlertDialog {
                         return null;
                       },
                       onChanged: (value) {
-                        //l_VmSaleDetails.  FncCalculateItemTotal();
+                        //l_VmSaleDetails.   FncItemtotal();;
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         // Call the function here

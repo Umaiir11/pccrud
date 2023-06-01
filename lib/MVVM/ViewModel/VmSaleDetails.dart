@@ -1,17 +1,15 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../BLSaleDetails/BLDetails.dart';
-import '../Model/DB/ModPcSale.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 
-class VmSaleDetails extends GetxController{
+class VmSaleDetails extends GetxController {
+  VmSale? l_VmSale = Get.find<VmSale>();
 
   RxBool l_TextFieldsValidation = false.obs;
-
 
   RxString l_PrVmDID = ''.obs;
 
@@ -73,34 +71,25 @@ class VmSaleDetails extends GetxController{
     l_PrTotal.value = value;
   }
 
-
-
-
-
-    // Retrieve the ModSaleDB object from the existing instance of VmSale
-
+  // Retrieve the ModSaleDB object from the existing instance of VmSale
 
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
-
   FncFillDetailsModel() {
-    ModSaleDB? l_ModSaleDB  = VmSale().FncReturnSaleModel();
+    ModSaleDB? l_ModSaleDB = l_VmSale?.l_ModSaleDB;
     String l_Uuid = const Uuid().v4();
 
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB?.Pr_Operation;
-      l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB?.Pr_PKGUID;
+    l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB?.Pr_PKGUID;
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
     print(l_ModSaleDetailsDB);
 
-  //  FncCalculateItemTotal();
+    //  FncCalculateItemTotal();
     FncItemtotal();
-
-
   }
-
 
   FncClearDetailModelFields() {
     // Clear the input fields for the next entry
@@ -109,19 +98,12 @@ class VmSaleDetails extends GetxController{
     Pr_txtRate_Text = 0;
   }
 
-
-  FncItemtotal(){
-      l_ModSaleDetailsDB  = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
-      Pr_txtTotal_Text= l_ModSaleDetailsDB.Pr_ItemTotal!;
+  FncItemtotal() {
+    l_ModSaleDetailsDB = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
+    Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
   }
 
-
-  ModSaleDetailsDB FncReturnModel(){
+  ModSaleDetailsDB FncReturnModel() {
     return l_ModSaleDetailsDB;
   }
-
-
-
-
-
 }
