@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
+import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../BLSaleDetails/BLDetails.dart';
 import '../Model/DB/ModSaleDB.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
+import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSale extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
+  String? l_Uuid;
 
 //TextfieldsProp
   RxString l_PrCustID = ''.obs;
@@ -49,11 +52,12 @@ class VmSale extends GetxController {
   set Pr_txtOperation_Text(int value) {
     l_PrOperation.value = value;
   }
+
+
   ModSaleDB l_ModSaleDB = ModSaleDB();
   FncFillModel() {
+     l_Uuid = const Uuid().v4();
 
-
-    String l_Uuid = const Uuid().v4();
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDB.Pr_Operation = Pr_txtOperation_Text;
     l_ModSaleDB.Pr_CustID = Pr_txtCustID_Text;
@@ -63,12 +67,31 @@ class VmSale extends GetxController {
     print(l_ModSaleDB);
 
 
-
   }
 
-//==============================SaleDetails=========================================================
+  ModSaleDB FncReturnSaleModel() {
+    return l_ModSaleDB;
+  }
+
+
+//=======================================================================================
+
+  ModPcSale l_ModPcSale = ModPcSale();
+
+  FncFillPCModelList() {
+
+
+    l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
+    l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
+    l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
+    l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
+    l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
+    ModSaleDetailsDB l_ModSaleDetailsDB =  VmSaleDetails().FncReturnModel();
+    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB);
+    print(l_ModPcSale.l_PCSaleDetailsDBList);
 
 
 
+  }
 
 }

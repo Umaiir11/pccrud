@@ -5,6 +5,12 @@ import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 class BLSaleDetails {
 
 
+  FncItemTotal(ModSaleDetailsDB l_ModSaleDetailsDB){
+    l_ModSaleDetailsDB.Pr_ItemTotal  =  l_ModSaleDetailsDB.Pr_Quantity! * l_ModSaleDetailsDB.Pr_Rate!;
+    return l_ModSaleDetailsDB;
+
+  }
+
   ModPcSale FncCalculateItemTotalAndGrandTotal(ModPcSale l_ModPcSale) {
     l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
       item.Pr_ItemTotal = item.Pr_Quantity! * item.Pr_Rate!;

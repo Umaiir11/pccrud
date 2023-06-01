@@ -27,7 +27,7 @@ class _VwSaleState extends State<VwSale> {
   CustomAlertDialog l_CustomAlertDialog = new CustomAlertDialog();
 
   //final DBHelper l_DBHelper = Get.put(DBHelper());
-  ModPcSale l_ModPcSale = ModPcSale();
+  //ModPcSale l_ModPcSale = ModPcSale();
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
   //Controllers For Sale TextFields
@@ -49,8 +49,8 @@ class _VwSaleState extends State<VwSale> {
         resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            if (l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
-              DAL_PC().Fnc_Cud(l_VmSaleDetails.l_ModPcSale);
+            if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
+              DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             }
           },
           child: Icon(Icons.save),
@@ -117,8 +117,8 @@ class _VwSaleState extends State<VwSale> {
                             contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
                           ),
                           validator: (value) {
-                            l_ModPcSale.Pr_CustID = value ?? '';
-                            Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_ModPcSale);
+                            l_VmSale.l_ModPcSale.Pr_CustID = value ?? '';
+                            Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
                             if (errors.item2 != null && errors.item2!.contains('Pr_CustID')) {
                               return errors.item1![errors.item2!.indexOf('Pr_CustID')];
                             }
@@ -147,8 +147,8 @@ class _VwSaleState extends State<VwSale> {
                               contentPadding: EdgeInsets.all(PrHeight * 0.007),
                             ),
                             validator: (value) {
-                              l_ModPcSale.Pr_Voucher = value ?? '';
-                              Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_ModPcSale);
+                              l_VmSale.l_ModPcSale.Pr_Voucher = value ?? '';
+                              Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
                               if (errors.item2 != null && errors.item2!.contains('Pr_Voucher')) {
                                 return errors
                                     .item1![errors.item2!.indexOf('Pr_Voucher')]; // Return the error message for Pr_FullName
@@ -232,9 +232,9 @@ class _VwSaleState extends State<VwSale> {
                   Expanded(
                     child: Obx(() => ListView.builder(
                           shrinkWrap: true,
-                          itemCount: l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.length,
+                          itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
                           itemBuilder: (context, index) {
-                            final item = l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
@@ -333,11 +333,11 @@ class _VwSaleState extends State<VwSale> {
                                                         // Update the values of the current index object
                                                         l_VmSale.Pr_txtOperation_Text = 2;
                                                         l_VmSale.FncFillModel();
-                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item =
+                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item =
                                                             l_updatedItem;
-                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
+                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
                                                             int.parse(l_updateQuantity);
-                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
+                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
                                                             int.parse(L_updateRate);
 
                                                         int l_listItemTotal = 0;
@@ -354,7 +354,7 @@ class _VwSaleState extends State<VwSale> {
                                                         //}
                                                         //l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
 
-                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
+                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
 
                                                         // Dismiss the dialog
                                                         Navigator.pop(context);
@@ -387,13 +387,13 @@ class _VwSaleState extends State<VwSale> {
                                           iconSize: 12.0,
                                           onPressed: () {
                                             // Get the item at the current index
-                                            ModSaleDetailsDB item = l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
-                                            l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
+                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
                                           },
                                         )
                                       ],

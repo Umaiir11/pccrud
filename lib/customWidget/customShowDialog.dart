@@ -103,7 +103,7 @@ class CustomAlertDialog {
                         return null;
                       },
                       onChanged: (value) {
-                        l_VmSaleDetails.  FncCalculateItemTotal();
+                        //l_VmSaleDetails.  FncCalculateItemTotal();
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         // Call the function here
@@ -162,10 +162,10 @@ class CustomAlertDialog {
                         ),
                         onPressed: () async {
                           if (key.currentState!.validate()) {
-                            l_VmSaleDetails.FncFillModelList();
-                            if (l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
+                            l_VmSaleDetails.FncFillDetailsModel();
+                            if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
                               //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                              print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
+                              //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
                               l_Pr_QuantityController.clear();
                               l_Pr_ItemController.clear();
                               l_Pr_RateController.clear();

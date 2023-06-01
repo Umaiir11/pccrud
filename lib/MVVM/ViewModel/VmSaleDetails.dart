@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:uuid/uuid.dart';
 
@@ -10,8 +11,6 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 class VmSaleDetails extends GetxController{
 
   RxBool l_TextFieldsValidation = false.obs;
-
-  final VmSale l_VmSale = Get.find<VmSale>();
 
 
   RxString l_PrVmDID = ''.obs;
@@ -74,50 +73,55 @@ class VmSaleDetails extends GetxController{
     l_PrTotal.value = value;
   }
 
-  RxList<ModSaleDetailsDB> l_ModSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
-  ModPcSale l_ModPcSale = ModPcSale();
+
+
+
+
+    // Retrieve the ModSaleDB object from the existing instance of VmSale
+
+
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
-  FncFillModelList() {
+
+  FncFillDetailsModel() {
+    ModSaleDB? l_ModSaleDB  = VmSale().FncReturnSaleModel();
     String l_Uuid = const Uuid().v4();
 
-
-    l_ModPcSale.Pr_PKGUID = l_VmSale.l_ModSaleDB.Pr_PKGUID;
-    l_ModPcSale.Pr_Operation = l_VmSale.l_ModSaleDB.Pr_Operation;
-    l_ModPcSale.Pr_CustID = l_VmSale.l_ModSaleDB.Pr_CustID;
-    l_ModPcSale.Pr_Voucher = l_VmSale.l_ModSaleDB.Pr_Voucher;
-    l_ModPcSale.Pr_GrandTotal = l_VmSale.l_ModSaleDB.Pr_GrandTotal;
-
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDetailsDB.Pr_Operation = l_VmSale.l_ModSaleDB.Pr_Operation;
-    l_ModSaleDetailsDB.Pr_VmDID = l_VmSale.l_ModSaleDB.Pr_PKGUID;
+    l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB?.Pr_Operation;
+      l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB?.Pr_PKGUID;
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
     print(l_ModSaleDetailsDB);
-    l_ModSaleDetailsDBList.add(l_ModSaleDetailsDB);
-    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB);
-    print(l_ModPcSale.l_PCSaleDetailsDBList);
 
-    FncCalculateItemTotal();
+  //  FncCalculateItemTotal();
+    FncItemtotal();
+
 
   }
+
+
   FncClearDetailModelFields() {
     // Clear the input fields for the next entry
     Pr_txtItem_Text = '';
     Pr_txtQuantity_Text = 0;
     Pr_txtRate_Text = 0;
   }
-  FncCalculateItemTotal(){
-    l_ModPcSale = BLSaleDetails().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
-    l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
-      Pr_txtTotal_Text= item.Pr_ItemTotal!;
-    });
-    l_VmSale.Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
-    print("Done");
-    print(Pr_txtTotal_Text);
 
+
+  FncItemtotal(){
+      l_ModSaleDetailsDB  = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
+      Pr_txtTotal_Text= l_ModSaleDetailsDB.Pr_ItemTotal!;
   }
+
+
+  ModSaleDetailsDB FncReturnModel(){
+    return l_ModSaleDetailsDB;
+  }
+
+
+
 
 
 }
