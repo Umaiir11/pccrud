@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
+import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../DAL/DAL_PC.dart';
 import '../../Validation/DVMPC.dart';
-import '../../Validation/DVMSaleDetails.dart';
 import '../../customWidget/customShowDialog.dart';
 import '../ViewModel/VmSale.dart';
 
@@ -23,7 +23,9 @@ class _VwSaleState extends State<VwSale> {
   final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
   final GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
+  final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   CustomAlertDialog l_CustomAlertDialog = new CustomAlertDialog();
+
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   ModPcSale l_ModPcSale = ModPcSale();
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
@@ -41,19 +43,14 @@ class _VwSaleState extends State<VwSale> {
 
   Widget build(BuildContext context) {
     //For Sale TextFields
-    l_Pr_CustIDController.text = l_VmSale.Pr_txtCustID_Text;
-    l_Pr_VoucherController.text = l_VmSale.Pr_txtVoucher_Text;
-    l_Pr_GrandTotalController.text =
-    //For SaleDetails TextFields
-    l_Pr_ItemController.text = l_VmSale.Pr_txtItem_Text;
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
-              DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
+            if (l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
+              DAL_PC().Fnc_Cud(l_VmSaleDetails.l_ModPcSale);
             }
           },
           child: Icon(Icons.save),
@@ -184,8 +181,7 @@ class _VwSaleState extends State<VwSale> {
                                   fontWeight: FontWeight.w300,
                                 ),
                               );
-                            })
-                        )),
+                            }))),
                   ),
 
                   Padding(
@@ -199,12 +195,11 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               l_VmSale.Pr_txtOperation_Text = 1;
-                              l_VmSale.Pr_txtTotal_Text = 0;
+                              l_VmSaleDetails.Pr_txtTotal_Text = 0;
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
-                                l_CustomAlertDialog.CustAlertDialog(context,"Add",PrHeight,PrWidth,formKey3);
-
+                                l_CustomAlertDialog.CustAlertDialog(context, "Add", PrHeight, PrWidth, formKey3);
                               }
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
@@ -235,12 +230,11 @@ class _VwSaleState extends State<VwSale> {
 
                   // Display the list builder here
                   Expanded(
-                    child: Obx(() =>
-                        ListView.builder(
+                    child: Obx(() => ListView.builder(
                           shrinkWrap: true,
-                          itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
+                          itemCount: l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.length,
                           itemBuilder: (context, index) {
-                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                            final item = l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
@@ -297,7 +291,6 @@ class _VwSaleState extends State<VwSale> {
                                                           labelText: 'Rate',
                                                         ),
                                                       ),
-
                                                       Padding(
                                                         padding: EdgeInsets.only(top: PrHeight * 0.01),
                                                         child: SizedBox(
@@ -310,8 +303,8 @@ class _VwSaleState extends State<VwSale> {
                                                             ),
                                                             padding: EdgeInsets.all(PrHeight * 0.007),
                                                             child: Obx(() {
-                                                              if (l_VmSale.Pr_txtQuantity_Text == 0 &&
-                                                                  l_VmSale.Pr_txtRate_Text == 0) {
+                                                              if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 &&
+                                                                  l_VmSaleDetails.Pr_txtRate_Text == 0) {
                                                                 return Text(
                                                                   'Total: 0',
                                                                   style: TextStyle(
@@ -321,7 +314,7 @@ class _VwSaleState extends State<VwSale> {
                                                                 );
                                                               } else {
                                                                 return Text(
-                                                                  'Total: ${l_VmSale.Pr_txtTotal_Text.toString()}',
+                                                                  'Total: ${l_VmSaleDetails.Pr_txtTotal_Text.toString()}',
                                                                   style: TextStyle(
                                                                     color: Colors.black,
                                                                     fontWeight: FontWeight.w300,
@@ -332,7 +325,6 @@ class _VwSaleState extends State<VwSale> {
                                                           ),
                                                         ),
                                                       ),
-
                                                     ],
                                                   ),
                                                   actions: [
@@ -341,15 +333,14 @@ class _VwSaleState extends State<VwSale> {
                                                         // Update the values of the current index object
                                                         l_VmSale.Pr_txtOperation_Text = 2;
                                                         l_VmSale.FncFillModel();
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item =
+                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item =
                                                             l_updatedItem;
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
+                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
                                                             int.parse(l_updateQuantity);
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
+                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
                                                             int.parse(L_updateRate);
 
                                                         int l_listItemTotal = 0;
-
 
                                                         // for (int indexofList = 0;
                                                         //   indexofList < l_VmSale.l_ModSaleDetailsDBList.length;
@@ -363,8 +354,7 @@ class _VwSaleState extends State<VwSale> {
                                                         //}
                                                         //l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
 
-
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
+                                                        l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
 
                                                         // Dismiss the dialog
                                                         Navigator.pop(context);
@@ -397,16 +387,15 @@ class _VwSaleState extends State<VwSale> {
                                           iconSize: 12.0,
                                           onPressed: () {
                                             // Get the item at the current index
-                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                                            ModSaleDetailsDB item = l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList[index];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
-                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
+                                            l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
                                           },
                                         )
-
                                       ],
                                     ),
                                     Row(
