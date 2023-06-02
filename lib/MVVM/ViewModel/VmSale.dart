@@ -1,17 +1,15 @@
 import 'package:get/get.dart';
+import 'package:pccrud/BLSaleDetails/BLPc.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../BLSaleDetails/BLDetails.dart';
 import '../Model/DB/ModSaleDB.dart';
-import '../Model/DB/ModSaleDetailsDB.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSale extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
   String? l_Uuid;
-  VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
 
 //TextfieldsProp
   RxString l_PrCustID = ''.obs;
@@ -76,7 +74,7 @@ class VmSale extends GetxController {
 
   FncFillPCModelList() {
 
-
+    VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
     l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
@@ -86,8 +84,18 @@ class VmSale extends GetxController {
     l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
-
+    FncCalculateItemTotal();
 
   }
+
+  FncCalculateItemTotal(){
+    l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
+    l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
+    });
+    Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+    print("Done");
+
+  }
+
 
 }

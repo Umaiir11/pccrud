@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:tuple/tuple.dart';
 
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
@@ -8,6 +9,7 @@ import '../Validation/DVMSaleDetails.dart';
 
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
+  final VmSale  l_VmSale = Get.put(VmSale());
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
   final TextEditingController l_Pr_ItemController = TextEditingController();
@@ -164,6 +166,7 @@ class CustomAlertDialog {
                           if (key.currentState!.validate()) {
                             l_VmSaleDetails.FncFillDetailsModel();
                             if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
+                              l_VmSale.FncFillPCModelList();
                               //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                               //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
                               l_Pr_QuantityController.clear();
