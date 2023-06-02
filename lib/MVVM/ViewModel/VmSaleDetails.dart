@@ -73,9 +73,12 @@ class VmSaleDetails extends GetxController {
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
-  ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
-  FncFillDetailsModel() {
+
+   FncFillDetailsModel() {
+    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
+
+    // Rest of your code
     ModSaleDB? l_ModSaleDB = l_VmSale?.l_ModSaleDB;
     String l_Uuid = const Uuid().v4();
 
@@ -85,10 +88,14 @@ class VmSaleDetails extends GetxController {
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
-    print(l_ModSaleDetailsDB);
 
-    //  FncCalculateItemTotal();
-    FncItemtotal();
+    // Rest of your code
+
+    print(l_ModSaleDetailsDB);
+    FncItemtotal(l_ModSaleDetailsDB);
+
+
+    return l_ModSaleDetailsDB; // Return the instance
   }
 
   FncClearDetailModelFields() {
@@ -98,12 +105,9 @@ class VmSaleDetails extends GetxController {
     Pr_txtRate_Text = 0;
   }
 
-  FncItemtotal() {
+  FncItemtotal( ModSaleDetailsDB l_ModSaleDetailsDB ) {
     l_ModSaleDetailsDB = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
     Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
   }
 
-  ModSaleDetailsDB FncReturnModel() {
-    return l_ModSaleDetailsDB;
-  }
 }

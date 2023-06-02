@@ -80,7 +80,7 @@ class VmSale extends GetxController {
     l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
     l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
-    ModSaleDetailsDB? l_ModSaleDetailsDB = l_VmSaleDetails?.l_ModSaleDetailsDB;
+    ModSaleDetailsDB? l_ModSaleDetailsDB = l_VmSaleDetails?.FncFillDetailsModel();
     l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
@@ -89,8 +89,12 @@ class VmSale extends GetxController {
   }
 
   FncCalculateItemTotal(){
+
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
+    VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
     l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
+      l_VmSaleDetails?.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+
     });
     Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
