@@ -296,11 +296,20 @@ class _VwSaleState extends State<VwSale> {
                                                 ),
                                                 onPressed: () async {
                                                   if (formKey3.currentState!.validate()) {
+                                                    // Update the fields of the model
                                                     l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
-                                                    l_VmSaleDetails.Pr_txtTotal_Text= 0;
+                                                    l_VmSaleDetails.Pr_txtItem_Text = l_CustomAlertDialog.l_Pr_ItemController.text;
+                                                    l_VmSaleDetails.Pr_txtQuantity_Text = int.parse(l_CustomAlertDialog.l_Pr_QuantityController.text);
+                                                    l_VmSaleDetails.Pr_txtRate_Text = int.parse(l_CustomAlertDialog.l_Pr_RateController.text);
+
+                                                    // Call the necessary methods to update the model and perform any calculations
                                                     l_VmSaleDetails.FncFillDetailsModel();
+
                                                     if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
+                                                      // Update the list of models
                                                       l_VmSale.FncFillPCModelList();
+
+                                                      // Clear the text fields
                                                       l_CustomAlertDialog.l_Pr_QuantityController.clear();
                                                       l_CustomAlertDialog.l_Pr_ItemController.clear();
                                                       l_CustomAlertDialog.l_Pr_RateController.clear();
@@ -313,12 +322,13 @@ class _VwSaleState extends State<VwSale> {
                                                   primary: Colors.lightGreen,
                                                   onPrimary: Colors.white,
                                                   elevation: 7,
-                                                  // minimumSize: Size(150, 48),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                 ),
                                               ),
+
+
                                             );
                                           },
                                         ),
