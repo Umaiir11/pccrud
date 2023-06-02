@@ -73,9 +73,7 @@ class VmSaleDetails extends GetxController {
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
-
-
-    FncFillDetailsModel() {
+  FncFillDetailsModel() {
     ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
 
     // Rest of your code
@@ -94,7 +92,6 @@ class VmSaleDetails extends GetxController {
     print(l_ModSaleDetailsDB);
     FncItemtotal(l_ModSaleDetailsDB);
 
-
     return l_ModSaleDetailsDB; // Return the instance
   }
 
@@ -105,9 +102,8 @@ class VmSaleDetails extends GetxController {
     Pr_txtRate_Text = 0;
   }
 
-  FncItemtotal( ModSaleDetailsDB l_ModSaleDetailsDB ) {
+  FncItemtotal(ModSaleDetailsDB l_ModSaleDetailsDB) {
     l_ModSaleDetailsDB = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
     Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
   }
-
 }

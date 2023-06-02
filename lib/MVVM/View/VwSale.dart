@@ -35,11 +35,6 @@ class _VwSaleState extends State<VwSale> {
   final TextEditingController l_Pr_GrandTotalController = TextEditingController();
   final TextEditingController l_Pr_l_Pr_OperationController = TextEditingController();
 
-  //Controllers For SaleDetails TextFields
-  final TextEditingController l_Pr_ItemController = TextEditingController();
-  final TextEditingController l_Pr_QuantityController = TextEditingController();
-  final TextEditingController l_Pr_RateController = TextEditingController();
-
   Widget build(BuildContext context) {
     //For Sale TextFields
 
@@ -313,6 +308,8 @@ class _VwSaleState extends State<VwSale> {
                                                       lModSaleDetailsDB.Pr_Item = l_UpdateCustomAlertDialog.l_Pr_ItemController.text;
                                                       lModSaleDetailsDB.Pr_Quantity = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
                                                       lModSaleDetailsDB.Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
+
+
                                                       l_VmSale.FncUpdateList(index,lModSaleDetailsDB );
 
                                                       // Clear the text fields
