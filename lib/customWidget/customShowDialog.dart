@@ -16,8 +16,8 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
-  void CustAlertDialog(BuildContext context, String submitButtonText, double PrHeight, PrWidth,
-      GlobalKey<FormState> l_ValidationKey, String l_title )
+  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth,
+      GlobalKey<FormState> l_ValidationKey, String l_title, ElevatedButton l_AddButton )
   {
     l_Pr_ItemController.text = l_VmSaleDetails.Pr_txtItem_Text;
 
@@ -158,36 +158,8 @@ class CustomAlertDialog {
                         },
                       ),
                       SizedBox(width: 8),
-                      ElevatedButton(
-                        child: Text(
-                          submitButtonText,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        onPressed: () async {
-                          if (l_ValidationKey.currentState!.validate()) {
-                            l_VmSaleDetails.FncFillDetailsModel();
-                            if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
-                              l_VmSale.FncFillPCModelList();
-                              //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                              //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
-                              l_Pr_QuantityController.clear();
-                              l_Pr_ItemController.clear();
-                              l_Pr_RateController.clear();
-                            }
-                          } else {
-                            l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.lightGreen,
-                          onPrimary: Colors.white,
-                          elevation: 7,
-                          // minimumSize: Size(150, 48),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                      ),
+                      l_AddButton,
+
                     ],
                   ),
                 ],

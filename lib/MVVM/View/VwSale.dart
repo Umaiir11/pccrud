@@ -194,12 +194,44 @@ class _VwSaleState extends State<VwSale> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              l_VmSale.Pr_txtOperation_Text = 1;
+                              l_VmSale.Pr_txtMainOperation_Text = 1;
                               l_VmSaleDetails.Pr_txtTotal_Text = 0;
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
-                                l_CustomAlertDialog.CustAlertDialog(context, "Add", PrHeight, PrWidth, formKey3,"Sale Details");
+                                l_CustomAlertDialog.CustAlertDialog(context,PrHeight, PrWidth, formKey3,"Sale Details",
+                                  ElevatedButton(
+                                    child: Text(
+                                      "Add",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    onPressed: () async {
+                                      if (formKey3.currentState!.validate()) {
+                                        l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
+                                        l_VmSaleDetails.FncFillDetailsModel();
+                                        if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
+                                          l_VmSale.FncFillPCModelList();
+                                          //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
+                                          //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
+                                          l_CustomAlertDialog.l_Pr_QuantityController.clear();
+                                          l_CustomAlertDialog.l_Pr_ItemController.clear();
+                                          l_CustomAlertDialog.l_Pr_RateController.clear();
+                                        }
+                                      } else {
+                                        l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.lightGreen,
+                                      onPrimary: Colors.white,
+                                      elevation: 7,
+                                      // minimumSize: Size(150, 48),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                  ),
+                                );
                               }
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
@@ -256,121 +288,37 @@ class _VwSaleState extends State<VwSale> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                String l_updatedItem = item.Pr_Item.toString();
-                                                String l_updateQuantity = item.Pr_Quantity.toString();
-                                                String L_updateRate = item.Pr_Rate.toString();
-                                                return AlertDialog(
-                                                  title: Text('Update Details'),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      TextField(
-                                                        onChanged: (value) {
-                                                          l_updatedItem = value;
-                                                        },
-                                                        decoration: InputDecoration(
-                                                          labelText: 'Item',
-                                                        ),
-                                                      ),
-                                                      TextField(
-                                                        onChanged: (value) {
-                                                          l_updateQuantity = value;
-                                                        },
-                                                        decoration: InputDecoration(
-                                                          labelText: 'Quantity',
-                                                        ),
-                                                      ),
-                                                      TextField(
-                                                        onChanged: (value) {
-                                                          L_updateRate = value;
-                                                        },
-                                                        decoration: InputDecoration(
-                                                          labelText: 'Rate',
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding: EdgeInsets.only(top: PrHeight * 0.01),
-                                                        child: SizedBox(
-                                                          width: PrWidth * .745,
-                                                          height: PrHeight * .055,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.lightBlueAccent,
-                                                              borderRadius: BorderRadius.circular(5),
-                                                            ),
-                                                            padding: EdgeInsets.all(PrHeight * 0.007),
-                                                            child: Obx(() {
-                                                              if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 &&
-                                                                  l_VmSaleDetails.Pr_txtRate_Text == 0) {
-                                                                return Text(
-                                                                  'Total: 0',
-                                                                  style: TextStyle(
-                                                                    color: Colors.black,
-                                                                    fontWeight: FontWeight.w300,
-                                                                  ),
-                                                                );
-                                                              } else {
-                                                                return Text(
-                                                                  'Total: ${l_VmSaleDetails.Pr_txtTotal_Text.toString()}',
-                                                                  style: TextStyle(
-                                                                    color: Colors.black,
-                                                                    fontWeight: FontWeight.w300,
-                                                                  ),
-                                                                );
-                                                              }
-                                                            }),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                            l_CustomAlertDialog.CustAlertDialog(context,PrHeight, PrWidth, formKey3,"Update Data",
+                                              ElevatedButton(
+                                                child: Text(
+                                                  "Update",
+                                                  style: TextStyle(fontSize: 15),
+                                                ),
+                                                onPressed: () async {
+                                                  if (formKey3.currentState!.validate()) {
+                                                    l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
+                                                    l_VmSaleDetails.Pr_txtTotal_Text= 0;
+                                                    l_VmSaleDetails.FncFillDetailsModel();
+                                                    if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
+                                                      l_VmSale.FncFillPCModelList();
+                                                      l_CustomAlertDialog.l_Pr_QuantityController.clear();
+                                                      l_CustomAlertDialog.l_Pr_ItemController.clear();
+                                                      l_CustomAlertDialog.l_Pr_RateController.clear();
+                                                    }
+                                                  } else {
+                                                    l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.lightGreen,
+                                                  onPrimary: Colors.white,
+                                                  elevation: 7,
+                                                  // minimumSize: Size(150, 48),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(5),
                                                   ),
-                                                  actions: [
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        // Update the values of the current index object
-                                                        l_VmSale.Pr_txtOperation_Text = 2;
-                                                        l_VmSale.FncFillModel();
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item =
-                                                            l_updatedItem;
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity =
-                                                            int.parse(l_updateQuantity);
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate =
-                                                            int.parse(L_updateRate);
-
-                                                        int l_listItemTotal = 0;
-
-                                                        // for (int indexofList = 0;
-                                                        //   indexofList < l_VmSale.l_ModSaleDetailsDBList.length;
-                                                        // indexofList++) {
-                                                        //int l_EachItemTotal =
-                                                        //l_VmSale.FncCalculateItemTotalAtIndex(l_VmSale.l_ModSaleDetailsDBList, indexofList);
-                                                        //ModSaleDetailsDB item = l_VmSale.l_ModSaleDetailsDBList[indexofList];
-                                                        //item.Pr_ItemTotal = l_EachItemTotal;
-                                                        //l_listItemTotal += l_EachItemTotal;
-
-                                                        //}
-                                                        //l_VmSale.Pr_txtGrandTotal_Text = l_listItemTotal;
-
-                                                        l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
-
-                                                        // Dismiss the dialog
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text('Update'),
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        // Dismiss the dialog without updating
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text('Cancel'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                                ),
+                                              ),
                                             );
                                           },
                                         ),

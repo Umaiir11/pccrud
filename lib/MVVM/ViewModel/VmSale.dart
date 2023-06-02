@@ -42,14 +42,14 @@ class VmSale extends GetxController {
     l_PrGrandTotal.value = value;
   }
 
-  RxInt l_PrOperation = RxInt(0);
+  RxInt l_PrMainOperation = RxInt(0);
 
-  int get Pr_txtOperation_Text {
-    return l_PrOperation.value;
+  int get Pr_txtMainOperation_Text {
+    return l_PrMainOperation.value;
   }
 
-  set Pr_txtOperation_Text(int value) {
-    l_PrOperation.value = value;
+  set Pr_txtMainOperation_Text(int value) {
+    l_PrMainOperation.value = value;
   }
 
 
@@ -58,7 +58,7 @@ class VmSale extends GetxController {
      l_Uuid = const Uuid().v4();
 
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDB.Pr_Operation = Pr_txtOperation_Text;
+    l_ModSaleDB.Pr_Operation = Pr_txtMainOperation_Text;
     l_ModSaleDB.Pr_CustID = Pr_txtCustID_Text;
     l_ModSaleDB.Pr_Voucher = Pr_txtVoucher_Text;
     l_ModSaleDB.Pr_GrandTotal = Pr_txtGrandTotal_Text;

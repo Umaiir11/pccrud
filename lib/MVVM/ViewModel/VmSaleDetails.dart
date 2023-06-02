@@ -41,14 +41,14 @@ class VmSaleDetails extends GetxController {
     l_PrQuantity.value = value;
   }
 
-  RxInt l_PrOperation2 = RxInt(0);
+  RxInt l_PrChildOperation = RxInt(0);
 
-  int get Pr_txtOperation2_Text {
-    return l_PrOperation2.value;
+  int get Pr_txtChildOperation_Text {
+    return l_PrChildOperation.value;
   }
 
-  set Pr_txtOperation2_Text(int value) {
-    l_PrOperation2.value = value;
+  set Pr_txtChildOperation_Text(int value) {
+    l_PrChildOperation.value = value;
   }
 
   RxInt l_PrRate = RxInt(0);
@@ -80,7 +80,7 @@ class VmSaleDetails extends GetxController {
     String l_Uuid = const Uuid().v4();
 
     l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDetailsDB.Pr_Operation = l_ModSaleDB?.Pr_Operation;
+    l_ModSaleDetailsDB.Pr_Operation = Pr_txtChildOperation_Text;
     l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB?.Pr_PKGUID;
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
