@@ -199,7 +199,7 @@ class _VwSaleState extends State<VwSale> {
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
-                                l_CustomAlertDialog.CustAlertDialog(context, "Add", PrHeight, PrWidth, formKey3);
+                                l_CustomAlertDialog.CustAlertDialog(context, "Add", PrHeight, PrWidth, formKey3,"Sale Details");
                               }
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;

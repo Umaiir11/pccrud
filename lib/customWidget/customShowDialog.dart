@@ -16,7 +16,8 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
-  void CustAlertDialog(BuildContext context, String submitButtonText, double PrHeight, PrWidth, GlobalKey<FormState> key)
+  void CustAlertDialog(BuildContext context, String submitButtonText, double PrHeight, PrWidth,
+      GlobalKey<FormState> l_ValidationKey, String l_title )
   {
     l_Pr_ItemController.text = l_VmSaleDetails.Pr_txtItem_Text;
 
@@ -32,12 +33,12 @@ class CustomAlertDialog {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: AlertDialog(title: Text(
-            'Sale Details',
+            l_title,
             style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
           ),
             insetPadding: EdgeInsets.zero,
             content:Form(
-              key: key,
+              key: l_ValidationKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -163,7 +164,7 @@ class CustomAlertDialog {
                           style: TextStyle(fontSize: 15),
                         ),
                         onPressed: () async {
-                          if (key.currentState!.validate()) {
+                          if (l_ValidationKey.currentState!.validate()) {
                             l_VmSaleDetails.FncFillDetailsModel();
                             if (l_VmSaleDetails.l_ModSaleDetailsDB != null) {
                               l_VmSale.FncFillPCModelList();
