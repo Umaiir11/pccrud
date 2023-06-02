@@ -307,8 +307,9 @@ class _VwSaleState extends State<VwSale> {
                                                     l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item = l_VmSaleDetails.Pr_txtItem_Text;
                                                     l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
                                                     l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
-
+                                                    l_VmSale.FncCalculateItemTotal();
                                                     // Refresh the list
+
                                                     l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
 
                                                     // Clear the text fields
