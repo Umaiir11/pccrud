@@ -17,9 +17,17 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_RateController = TextEditingController();
 
   void CustAlertDialog(BuildContext context, double PrHeight, PrWidth,
-      GlobalKey<FormState> l_ValidationKey, String l_title, ElevatedButton l_AddButton )
+      GlobalKey<FormState> l_ValidationKey, String l_title, ElevatedButton l_AddButton, int l_SelectedIndex  )
   {
-    l_Pr_ItemController.text = l_VmSaleDetails.Pr_txtItem_Text;
+
+    if (l_SelectedIndex >= 0 && l_SelectedIndex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
+      l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Item.toString();
+      l_Pr_QuantityController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Quantity.toString();
+      l_Pr_RateController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Rate.toString();
+      l_VmSaleDetails.Pr_txtTotal_Text = int.parse(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_ItemTotal.toString());
+    }
+
+
 
     showGeneralDialog(
       context: context,

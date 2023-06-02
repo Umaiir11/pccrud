@@ -199,6 +199,7 @@ class _VwSaleState extends State<VwSale> {
                                   PrWidth,
                                   formKey3,
                                   "Sale Details",
+
                                   ElevatedButton(
                                     child: Text(
                                       "Add",
@@ -230,6 +231,7 @@ class _VwSaleState extends State<VwSale> {
                                       ),
                                     ),
                                   ),
+                                  -1
                                 );
                               }
                             } else {
@@ -264,8 +266,8 @@ class _VwSaleState extends State<VwSale> {
                     child: Obx(() => ListView.builder(
                           shrinkWrap: true,
                           itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
-                          itemBuilder: (context, index) {
-                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                          itemBuilder: (context, l_ListIndex) {
+                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_ListIndex];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
@@ -294,6 +296,7 @@ class _VwSaleState extends State<VwSale> {
                                               PrWidth,
                                               formKey3,
                                               "Update Data",
+
                                               ElevatedButton(
                                                 child: Text(
                                                   "Update",
@@ -310,7 +313,7 @@ class _VwSaleState extends State<VwSale> {
                                                       lModSaleDetailsDB.Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
 
 
-                                                      l_VmSale.FncUpdateList(index,lModSaleDetailsDB );
+                                                      l_VmSale.FncUpdateList(l_ListIndex,lModSaleDetailsDB );
 
                                                       // Clear the text fields
                                                       l_UpdateCustomAlertDialog.l_Pr_QuantityController.clear();
@@ -333,7 +336,7 @@ class _VwSaleState extends State<VwSale> {
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                 ),
-                                              ),
+                                              ) ,l_ListIndex
                                             );
                                           },
                                         ),
@@ -350,13 +353,13 @@ class _VwSaleState extends State<VwSale> {
                                           iconSize: 12.0,
                                           onPressed: () {
                                             // Get the item at the current index
-                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index];
+                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_ListIndex];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
-                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(index);
+                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(l_ListIndex);
                                           },
                                         )
                                       ],

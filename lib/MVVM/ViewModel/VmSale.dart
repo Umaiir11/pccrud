@@ -88,6 +88,7 @@ class VmSale extends GetxController {
     if (l_SelectedIndex >= 0 && l_SelectedIndex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
       l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex] = l_ModSaleDetailsDB;
     }
+    FncCalculateItemTotal();
     l_ModPcSale.l_PCSaleDetailsDBList.refresh();
   }
 
