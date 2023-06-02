@@ -52,10 +52,10 @@ class VmSale extends GetxController {
     l_PrMainOperation.value = value;
   }
 
-
   ModSaleDB l_ModSaleDB = ModSaleDB();
+
   FncFillModel() {
-     l_Uuid = const Uuid().v4();
+    l_Uuid = const Uuid().v4();
 
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
     l_ModSaleDB.Pr_Operation = Pr_txtMainOperation_Text;
@@ -64,8 +64,6 @@ class VmSale extends GetxController {
     l_ModSaleDB.Pr_GrandTotal = Pr_txtGrandTotal_Text;
     print(l_ModSaleDB);
     print(l_ModSaleDB);
-
-
   }
 
 //=======================================================================================
@@ -73,7 +71,6 @@ class VmSale extends GetxController {
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-
     VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
     l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
@@ -85,21 +82,22 @@ class VmSale extends GetxController {
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
     FncCalculateItemTotal();
-
   }
 
-  FncCalculateItemTotal(){
+  FncUpdateList(int l_SelectedIndex, ModSaleDetailsDB l_ModSaleDetailsDB) {
+    if (l_SelectedIndex >= 0 && l_SelectedIndex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
+      l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex] = l_ModSaleDetailsDB;
+    }
+    l_ModPcSale.l_PCSaleDetailsDBList.refresh();
+  }
 
+  FncCalculateItemTotal() {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
     VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
     l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
       l_VmSaleDetails?.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
-
     });
     Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
-
   }
-
-
 }

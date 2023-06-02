@@ -75,7 +75,7 @@ class VmSaleDetails extends GetxController {
 
 
 
-   FncFillDetailsModel() {
+    FncFillDetailsModel() {
     ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
 
     // Rest of your code

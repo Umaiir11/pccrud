@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:tuple/tuple.dart';
@@ -199,7 +198,12 @@ class _VwSaleState extends State<VwSale> {
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
-                                l_CustomAlertDialog.CustAlertDialog(context,PrHeight, PrWidth, formKey3,"Sale Details",
+                                l_CustomAlertDialog.CustAlertDialog(
+                                  context,
+                                  PrHeight,
+                                  PrWidth,
+                                  formKey3,
+                                  "Sale Details",
                                   ElevatedButton(
                                     child: Text(
                                       "Add",
@@ -208,7 +212,7 @@ class _VwSaleState extends State<VwSale> {
                                     onPressed: () async {
                                       if (formKey3.currentState!.validate()) {
                                         l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
-                                         ModSaleDetailsDB lModSaleDetailsDB  =  l_VmSaleDetails.FncFillDetailsModel();
+                                        ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
                                         if (lModSaleDetailsDB != null) {
                                           l_VmSale.FncFillPCModelList();
                                           //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
@@ -288,52 +292,52 @@ class _VwSaleState extends State<VwSale> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
+                                            CustomAlertDialog l_UpdateCustomAlertDialog = CustomAlertDialog();
+                                            l_UpdateCustomAlertDialog.CustAlertDialog(
+                                              context,
+                                              PrHeight,
+                                              PrWidth,
+                                              formKey3,
+                                              "Update Data",
+                                              ElevatedButton(
+                                                child: Text(
+                                                  "Update",
+                                                  style: TextStyle(fontSize: 15),
+                                                ),
+                                                onPressed: () async {
+                                                  if (formKey3.currentState!.validate()) {
+                                                    // Update the model
+                                                    l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
+                                                    ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
+                                                    if (lModSaleDetailsDB != null) {
+                                                      lModSaleDetailsDB.Pr_Item = l_UpdateCustomAlertDialog.l_Pr_ItemController.text;
+                                                      lModSaleDetailsDB.Pr_Quantity = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
+                                                      lModSaleDetailsDB.Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
+                                                      l_VmSale.FncUpdateList(index,lModSaleDetailsDB );
 
-                                            CustomAlertDialog   l_UpdateCustomAlertDialog = CustomAlertDialog();
-                                            l_UpdateCustomAlertDialog.CustAlertDialog(context, PrHeight, PrWidth, formKey3, "Update Data", ElevatedButton(
-                                              child: Text(
-                                                "Update",
-                                                style: TextStyle(fontSize: 15),
-                                              ),
-                                              onPressed: () async {
-                                                if (formKey3.currentState!.validate()) {
-                                                  l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
-                                                  l_VmSaleDetails.Pr_txtItem_Text = l_UpdateCustomAlertDialog.l_Pr_ItemController.text;
-                                                  l_VmSaleDetails.Pr_txtQuantity_Text = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
-                                                  l_VmSaleDetails.Pr_txtRate_Text = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
+                                                      // Clear the text fields
+                                                      l_UpdateCustomAlertDialog.l_Pr_QuantityController.clear();
+                                                      l_UpdateCustomAlertDialog.l_Pr_ItemController.clear();
+                                                      l_UpdateCustomAlertDialog.l_Pr_RateController.clear();
 
-                                                  ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
-                                                  if (lModSaleDetailsDB != null) {
-                                                    l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Item = l_VmSaleDetails.Pr_txtItem_Text;
-                                                    l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Quantity = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
-                                                    l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[index].Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
-                                                    l_VmSale.FncCalculateItemTotal();
-                                                    // Refresh the list
-
-                                                    l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.refresh();
-
-                                                    // Clear the text fields
-                                                    l_UpdateCustomAlertDialog.l_Pr_QuantityController.clear();
-                                                    l_UpdateCustomAlertDialog.l_Pr_ItemController.clear();
-                                                    l_UpdateCustomAlertDialog.l_Pr_RateController.clear();
-
-                                                    // Close the dialog
-                                                    Navigator.of(context).pop();
+                                                      // Close the dialog
+                                                      Navigator.of(context).pop();
+                                                    }
+                                                  } else {
+                                                    l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                                   }
-                                                } else {
-                                                  l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                primary: Colors.lightGreen,
-                                                onPrimary: Colors.white,
-                                                elevation: 7,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(5),
+                                                },
+
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.lightGreen,
+                                                  onPrimary: Colors.white,
+                                                  elevation: 7,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
                                                 ),
                                               ),
-                                            ));
-
+                                            );
                                           },
                                         ),
                                         Text(
