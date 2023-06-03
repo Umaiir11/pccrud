@@ -186,8 +186,6 @@ class _VwSaleState extends State<VwSale> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
-                              l_VmSale.Pr_txtMainOperation_Text = 1;
-
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
@@ -303,10 +301,11 @@ class _VwSaleState extends State<VwSale> {
                                                       if (lModSaleDetailsDB != null) {
                                                         l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, l_UpdateCustomAlertDialog);
                                                         l_VmSale.FncUpdateList(l_ListIndex, lModSaleDetailsDB);
-                                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
+
 
                                                         // Close the dialog
                                                         Navigator.of(context).pop();
+                                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
                                                       }
                                                     } else {
                                                       l_VmSaleDetails.l_TextFieldsValidation.value = true;
