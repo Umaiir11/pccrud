@@ -89,7 +89,7 @@ class _VwSaleState extends State<VwSale> {
                       ),
                     ),
                   ),
-
+                  //TextWidgets
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
@@ -175,7 +175,7 @@ class _VwSaleState extends State<VwSale> {
                               );
                             }))),
                   ),
-
+                  //AlertDialogInsertion
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
@@ -250,11 +250,9 @@ class _VwSaleState extends State<VwSale> {
                           )),
                     ),
                   ),
-
                   SizedBox(
                     height: PrHeight * 0.01,
                   ),
-
                   // Display the list builder here
                   Expanded(
                     child: Obx(() => ListView.builder(
@@ -276,6 +274,7 @@ class _VwSaleState extends State<VwSale> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
+                                        //AlertDialogUpdate
                                         IconButton(
                                           iconSize: 12.0,
                                           icon: Icon(
@@ -333,6 +332,7 @@ class _VwSaleState extends State<VwSale> {
                                             fontSize: 16.0,
                                           ),
                                         ),
+                                        //DeleteButton
                                         IconButton(
                                           icon: Icon(Icons.delete, color: Colors.red),
                                           iconSize: 12.0,

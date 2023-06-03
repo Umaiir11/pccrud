@@ -18,6 +18,8 @@ class CustomAlertDialog {
 
   void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> l_ValidationKey, String l_title,
       ElevatedButton l_AddButton, int l_SelectedIndex) {
+
+    //Fetching Data and extraxt on Widgets
     if (l_SelectedIndex >= 0 && l_SelectedIndex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
       l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Item.toString();
       l_Pr_QuantityController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Quantity.toString();
@@ -48,6 +50,7 @@ class CustomAlertDialog {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //TextWidgets
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
@@ -121,6 +124,8 @@ class CustomAlertDialog {
                       },
                     ),
                   ),
+
+                  //Conatiner to add Show Data
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.03),
                     child: Row(
