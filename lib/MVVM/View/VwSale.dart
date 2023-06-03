@@ -210,7 +210,7 @@ class _VwSaleState extends State<VwSale> {
                                             l_VmSale.FncFillPCModelList();
                                             //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                                             //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
-                                            l_VmSaleDetails.FncClearDetailsModel(l_CustomAlertDialog);
+                                            l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
                                           }
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
@@ -304,7 +304,7 @@ class _VwSaleState extends State<VwSale> {
                                                       if (lModSaleDetailsDB != null) {
                                                         l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, l_UpdateCustomAlertDialog);
                                                         l_VmSale.FncUpdateList(l_ListIndex, lModSaleDetailsDB);
-                                                        l_VmSaleDetails.FncClearDetailsModel(l_CustomAlertDialog);
+                                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
 
                                                         // Close the dialog
                                                         Navigator.of(context).pop();

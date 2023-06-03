@@ -119,7 +119,7 @@ class VmSaleDetails extends GetxController {
     l_ModSaleDetailsDB.Pr_Quantity = int.parse(l_CustomAlertDialog.l_Pr_QuantityController.text);
     l_ModSaleDetailsDB.Pr_Rate = int.parse(l_CustomAlertDialog.l_Pr_RateController.text);
   }
-  FncClearDetailsModel(  CustomAlertDialog l_CustomAlertDialog  ){
+  FncClearDialog(  CustomAlertDialog l_CustomAlertDialog  ){
   l_CustomAlertDialog.l_Pr_QuantityController.clear();
   l_CustomAlertDialog.l_Pr_ItemController.clear();
   l_CustomAlertDialog.l_Pr_RateController.clear();
