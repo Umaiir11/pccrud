@@ -59,6 +59,9 @@ class VmSaleDetails extends GetxController {
 
   set Pr_txtRate_Text(int value) {
     l_PrRate.value = value;
+
+    FncFillDetailsModel();
+
   }
 
   RxInt l_PrTotal = RxInt(0);
@@ -86,9 +89,7 @@ class VmSaleDetails extends GetxController {
     l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
     l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
     l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
-
     // Rest of your code
-
     print(l_ModSaleDetailsDB);
     FncItemtotal(l_ModSaleDetailsDB);
 

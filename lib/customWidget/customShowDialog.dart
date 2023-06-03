@@ -93,6 +93,7 @@ class CustomAlertDialog {
                       onChanged: (value) {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtQuantity_Text = parsedValue;
+                      // l_VmSaleDetails.FncFillDetailsModel();
                       },
                     ),
                   ),
@@ -117,7 +118,7 @@ class CustomAlertDialog {
                         //l_VmSaleDetails.   FncItemtotal();;
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
-                        // Call the function here
+                        l_VmSaleDetails.FncFillDetailsModel();
                       },
                     ),
                   ),
