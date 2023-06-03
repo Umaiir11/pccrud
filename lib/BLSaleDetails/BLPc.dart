@@ -6,19 +6,19 @@ class BLPc {
 
 
 
-  ModPcSale FncCalculateItemTotalAndGrandTotal(ModPcSale l_ModPcSale) {
-    l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
+  ModPcSale FncCalculateItemTotalAndGrandTotal(ModPcSale lModpcsale) {
+    for (var item in lModpcsale.l_PCSaleDetailsDBList) {
       item.Pr_ItemTotal = item.Pr_Quantity! * item.Pr_Rate!;
 
-    });
+    }
 
     int grandTotal = 0;
-    for (ModSaleDetailsDB item in l_ModPcSale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetailsDB item in lModpcsale.l_PCSaleDetailsDBList) {
       grandTotal += item.Pr_ItemTotal!;
     }
 
-    l_ModPcSale.Pr_GrandTotal = grandTotal;
-    return l_ModPcSale;
+    lModpcsale.Pr_GrandTotal = grandTotal;
+    return lModpcsale;
   }
 
 

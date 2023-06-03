@@ -17,12 +17,12 @@ class VwSale extends StatefulWidget {
 }
 
 class _VwSaleState extends State<VwSale> {
-  @override
+
   final GlobalKey<FormState> G_MainValidationKey = GlobalKey<FormState>();
   final GlobalKey<FormState> G_DialogValidationKey = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
-  CustomAlertDialog l_CustomAlertDialog = new CustomAlertDialog();
+  CustomAlertDialog l_CustomAlertDialog = CustomAlertDialog();
 
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   //ModPcSale l_ModPcSale = ModPcSale();
@@ -33,6 +33,7 @@ class _VwSaleState extends State<VwSale> {
   final TextEditingController l_Pr_GrandTotalController = TextEditingController();
   final TextEditingController l_Pr_l_Pr_OperationController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     //For Sale TextFields
 
@@ -45,9 +46,9 @@ class _VwSaleState extends State<VwSale> {
               DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             }
           },
-          child: Icon(Icons.save),
           backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
-          foregroundColor: Colors.black, // Set the color of the icon
+          foregroundColor: Colors.black,
+          child: const Icon(Icons.save), // Set the color of the icon
         ),
         body: Form(
           key: G_MainValidationKey,
@@ -80,7 +81,7 @@ class _VwSaleState extends State<VwSale> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.03,
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
                       child: Text(
                         "Enter your sale information",
@@ -102,7 +103,7 @@ class _VwSaleState extends State<VwSale> {
                             filled: true,
                             fillColor: Colors.lightBlueAccent,
                             hintText: 'Customer ID',
-                            hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+                            hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             // Adjust the floating label behavior
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
@@ -133,7 +134,7 @@ class _VwSaleState extends State<VwSale> {
                               filled: true,
                               fillColor: Colors.lightBlueAccent,
                               hintText: 'Voucher',
-                              hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+                              hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
                               contentPadding: EdgeInsets.all(PrHeight * 0.007),
@@ -168,7 +169,7 @@ class _VwSaleState extends State<VwSale> {
                             child: Obx(() {
                               return Text(
                                 'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,
                                 ),
@@ -187,59 +188,52 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
                               l_VmSale.FncFillModel();
-                              if (l_VmSale.l_ModSaleDB != null) {
-                                //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
-                                l_CustomAlertDialog.CustAlertDialog(
-                                    context,
-                                    PrHeight,
-                                    PrWidth,
-                                    G_DialogValidationKey,
-                                    "Sale Details",
-                                    ElevatedButton(
-                                      child: Text(
-                                        "Add",
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                      onPressed: () async {
-                                        if (G_DialogValidationKey.currentState!.validate()) {
-                                          l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
-                                          ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
-                                          if (lModSaleDetailsDB != null) {
-                                            l_VmSale.FncFillPCModelList();
-                                            //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                                            //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
-                                            l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
-                                          }
-                                        } else {
-                                          l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.lightGreen,
-                                        onPrimary: Colors.white,
-                                        elevation: 7,
-                                        // minimumSize: Size(150, 48),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
+                              l_CustomAlertDialog.CustAlertDialog(
+                                  context,
+                                  PrHeight,
+                                  PrWidth,
+                                  G_DialogValidationKey,
+                                  "Sale Details",
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      if (G_DialogValidationKey.currentState!.validate()) {
+                                        l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
+                                        //ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
+                                        l_VmSale.FncFillPCModelList();
+                                        //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
+                                        //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
+                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
+                                      } else {
+                                        l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                                      elevation: 7,
+                                      // minimumSize: Size(150, 48),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                     ),
-                                    -1);
-                              }
+                                    child: const Text(
+                                      "Add",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  -1);
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.lightGreen,
-                            onPrimary: Colors.white,
+                            foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
                             elevation: 7,
-                            minimumSize: Size(150, 48),
+                            minimumSize: const Size(150, 48),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
                           ),
-                          child: FittedBox(
+                          child: const FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
                               'Insert',
@@ -256,8 +250,8 @@ class _VwSaleState extends State<VwSale> {
                     child: Obx(() => ListView.builder(
                           shrinkWrap: true,
                           itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
-                          itemBuilder: (context, l_ListIndex) {
-                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_ListIndex];
+                          itemBuilder: (context, lListindex) {
+                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
@@ -275,55 +269,52 @@ class _VwSaleState extends State<VwSale> {
                                         //AlertDialogUpdate
                                         IconButton(
                                           iconSize: 12.0,
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.edit,
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            CustomAlertDialog l_UpdateCustomAlertDialog = CustomAlertDialog();
-                                            l_UpdateCustomAlertDialog.CustAlertDialog(
+                                            CustomAlertDialog lUpdatecustomalertdialog = CustomAlertDialog();
+                                            lUpdatecustomalertdialog.CustAlertDialog(
                                                 context,
                                                 PrHeight,
                                                 PrWidth,
                                                 G_DialogValidationKey,
                                                 "Update Data",
                                                 ElevatedButton(
-                                                  child: Text(
-                                                    "Update",
-                                                    style: TextStyle(fontSize: 15),
-                                                  ),
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
                                                       // Update the model
                                                       l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
                                                       ModSaleDetailsDB lModSaleDetailsDB =
                                                           l_VmSaleDetails.FncFillDetailsModel();
-                                                      if (lModSaleDetailsDB != null) {
-                                                        l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, l_UpdateCustomAlertDialog);
-                                                        l_VmSale.FncUpdateList(l_ListIndex, lModSaleDetailsDB);
+                                                      l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, lUpdatecustomalertdialog);
+                                                      l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
 
 
-                                                        // Close the dialog
-                                                        Navigator.of(context).pop();
-                                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
-                                                      }
+                                                      // Close the dialog
+                                                      Navigator.of(context).pop();
+                                                      l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
                                                     } else {
                                                       l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                                     }
                                                   },
                                                   style: ElevatedButton.styleFrom(
-                                                    primary: Colors.lightGreen,
-                                                    onPrimary: Colors.white,
+                                                    foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
                                                     elevation: 7,
                                                     shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(5),
                                                     ),
                                                   ),
+                                                  child: const Text(
+                                                    "Update",
+                                                    style: TextStyle(fontSize: 15),
+                                                  ),
                                                 ),
-                                                l_ListIndex);
+                                                lListindex);
                                           },
                                         ),
-                                        Text(
+                                        const Text(
                                           'Sale Details',
                                           style: TextStyle(
                                             color: Colors.black,
@@ -333,17 +324,17 @@ class _VwSaleState extends State<VwSale> {
                                         ),
                                         //DeleteButton
                                         IconButton(
-                                          icon: Icon(Icons.delete, color: Colors.red),
+                                          icon: const Icon(Icons.delete, color: Colors.red),
                                           iconSize: 12.0,
                                           onPressed: () {
                                             // Get the item at the current index
-                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_ListIndex];
+                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
-                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(l_ListIndex);
+                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(lListindex);
                                           },
                                         )
                                       ],
@@ -357,7 +348,7 @@ class _VwSaleState extends State<VwSale> {
                                         Text.rich(
                                           TextSpan(
                                             children: [
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: 'Customer: ',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -367,7 +358,7 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                               TextSpan(
                                                 text: l_VmSale.l_ModSaleDB.Pr_CustID.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 16.0,
@@ -382,7 +373,7 @@ class _VwSaleState extends State<VwSale> {
                                         Text.rich(
                                           TextSpan(
                                             children: [
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: 'Item: ',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -392,7 +383,7 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                               TextSpan(
                                                 text: item.Pr_Item.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 16.0,
@@ -407,7 +398,7 @@ class _VwSaleState extends State<VwSale> {
                                         Text.rich(
                                           TextSpan(
                                             children: [
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: 'Quantity: ',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -417,7 +408,7 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                               TextSpan(
                                                 text: item.Pr_Quantity.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 16.0,
@@ -437,7 +428,7 @@ class _VwSaleState extends State<VwSale> {
                                         Text.rich(
                                           TextSpan(
                                             children: [
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: 'Rate: ',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -447,7 +438,7 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                               TextSpan(
                                                 text: item.Pr_Rate.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 16.0,
@@ -462,7 +453,7 @@ class _VwSaleState extends State<VwSale> {
                                         Text.rich(
                                           TextSpan(
                                             children: [
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: 'Total: ',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -472,7 +463,7 @@ class _VwSaleState extends State<VwSale> {
                                               ),
                                               TextSpan(
                                                 text: item.Pr_ItemTotal.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 16.0,

@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-import 'package:sqflite/sqflite.dart';
+//import 'package:sqflite/sqflite.dart';
 import '../MVVM/Model/DB/ModSaleDB.dart';
-import '../QueryGen/QueryGenSaleInfo.dart';
-import '../cmModule/DbHelper/DbHelperClass.dart';
+//import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DALSaleInfo extends GetxController {
-  Fnc_CudSaleInfo(ModSaleDB l_SaleInfo) async {
-    Database? l_Database = await DBHelper().FncGetDatabaseIns();
+  Fnc_CudSaleInfo(ModSaleDB lSaleinfo) async {
+   // Database? lDatabase = await DBHelper().FncGetDatabaseIns();
    // List<String> l_InsertionQuery = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(l_SaleInfo);
 
    // final batch = l_Database!.batch();

@@ -1,39 +1,38 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 
-import '../MVVM/Model/DB/ModSaleDB.dart';
 
 class QueryGenSaleInfo {
-  Future<List<String>> FncGenCrudQueriesSaleInfo(ModPcSale l_ModPcSale) async {
-    List<String> l_Queries = [];
+  Future<List<String>> FncGenCrudQueriesSaleInfo(ModPcSale lModpcsale) async {
+    List<String> lQueries = [];
 
-    if (l_ModPcSale.Pr_Operation == 1) {
+    if (lModpcsale.Pr_Operation == 1) {
       final query = '''
     INSERT INTO TBUSalesInfo (
       CustID, Voucher, GrandTotal, Operation, PKGUID
     ) VALUES (
-      '${l_ModPcSale.Pr_CustID}', '${l_ModPcSale.Pr_Voucher}', '${l_ModPcSale.Pr_GrandTotal}', 
-      '${l_ModPcSale.Pr_Operation}', '${l_ModPcSale.Pr_PKGUID}'
+      '${lModpcsale.Pr_CustID}', '${lModpcsale.Pr_Voucher}', '${lModpcsale.Pr_GrandTotal}', 
+      '${lModpcsale.Pr_Operation}', '${lModpcsale.Pr_PKGUID}'
     )
     ''';
-      l_Queries.add(query);
-    } else if (l_ModPcSale.Pr_Operation == 2) {
+      lQueries.add(query);
+    } else if (lModpcsale.Pr_Operation == 2) {
       final query = '''
     UPDATE TBUSalesInfo SET
-      CustID = '${l_ModPcSale.Pr_CustID}',
-      Voucher = '${l_ModPcSale.Pr_Voucher}',
-      GrandTotal = '${l_ModPcSale.Pr_GrandTotal}',
-      Operation = '${l_ModPcSale.Pr_Operation}'
-    WHERE Pr_CustID = '${l_ModPcSale.Pr_CustID}'
+      CustID = '${lModpcsale.Pr_CustID}',
+      Voucher = '${lModpcsale.Pr_Voucher}',
+      GrandTotal = '${lModpcsale.Pr_GrandTotal}',
+      Operation = '${lModpcsale.Pr_Operation}'
+    WHERE Pr_CustID = '${lModpcsale.Pr_CustID}'
     ''';
-      l_Queries.add(query);
-    } else if (l_ModPcSale.Pr_Operation == 3) {
+      lQueries.add(query);
+    } else if (lModpcsale.Pr_Operation == 3) {
       final query = '''
     DELETE FROM TBUSalesInfo
-    WHERE Pr_CustID = '${l_ModPcSale.Pr_CustID}'
+    WHERE Pr_CustID = '${lModpcsale.Pr_CustID}'
     ''';
-      l_Queries.add(query);
+      lQueries.add(query);
     }
 
-    return l_Queries;
+    return lQueries;
   }
 }

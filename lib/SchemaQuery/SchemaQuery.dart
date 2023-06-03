@@ -1,9 +1,9 @@
 import 'package:sqflite/sqflite.dart';
 
 class SchemaQuery {
-  Future<void> FncSchemaQuries(Database l_DataBase) async {
+  Future<void> FncSchemaQuries(Database lDatabase) async {
     //CreateTab1
-    await l_DataBase.execute('''
+    await lDatabase.execute('''
       CREATE TABLE IF NOT EXISTS TBUSalesInfo (
         ID INTEGER ,
         PKGUID TEXT PRIMARY KEY,
@@ -14,7 +14,7 @@ class SchemaQuery {
       )
     ''');
     //CreateTab1
-    await l_DataBase.execute('''
+    await lDatabase.execute('''
       CREATE TABLE IF NOT EXISTS TBUSalesDetails (
         ID INTEGER ,
         PKGUID TEXT PRIMARY KEY,
@@ -27,37 +27,37 @@ class SchemaQuery {
     ''');
 
     //Altertable1
-    await FncCheckAndAddColumns(l_DataBase, 'TBUSalesInfo', {
+    await FncCheckAndAddColumns(lDatabase, 'TBUSalesInfo', {
       'DATA': 'INTEGER',
     });
-    await FncCreateView(l_DataBase, 'TBUSalesInfo');
+    await FncCreateView(lDatabase, 'TBUSalesInfo');
     //Altertable1
-    await FncCheckAndAddColumns(l_DataBase, 'TBUSalesDetails', {
+    await FncCheckAndAddColumns(lDatabase, 'TBUSalesDetails', {
       'DATA': 'INTEGER',
     });
-    await FncCreateView(l_DataBase, 'TBUSalesDetails');
+    await FncCreateView(lDatabase, 'TBUSalesDetails');
   }
 
-  Future<void> FncCheckAndAddColumns(Database l_DataBase, String l_TableName, Map<String, String> l_ColumnsToAdd) async {
-    List<Map<String, dynamic>> l_ExistingColumns = await l_DataBase.rawQuery('PRAGMA table_info($l_TableName)');
-    List<String> l_ExistingColumnNames = l_ExistingColumns.map((column) => column['name'] as String).toList();
+  Future<void> FncCheckAndAddColumns(Database lDatabase, String lTablename, Map<String, String> lColumnstoadd) async {
+    List<Map<String, dynamic>> lExistingcolumns = await lDatabase.rawQuery('PRAGMA table_info($lTablename)');
+    List<String> lExistingcolumnnames = lExistingcolumns.map((column) => column['name'] as String).toList();
 
-    List<String> l_NewColumnNames =
-        l_ColumnsToAdd.keys.where((columnName) => !l_ExistingColumnNames.contains(columnName)).toList();
+    List<String> lNewcolumnnames =
+        lColumnstoadd.keys.where((columnName) => !lExistingcolumnnames.contains(columnName)).toList();
 
-    for (String columnName in l_NewColumnNames) {
-      String columnType = l_ColumnsToAdd[columnName]!;
-      await l_DataBase.execute('ALTER TABLE $l_TableName ADD COLUMN $columnName $columnType');
+    for (String columnName in lNewcolumnnames) {
+      String columnType = lColumnstoadd[columnName]!;
+      await lDatabase.execute('ALTER TABLE $lTablename ADD COLUMN $columnName $columnType');
     }
   }
 
-  Future<void> FncCreateView(Database l_DataBase, String l_TableName) async {
-    await l_DataBase.execute('DROP VIEW IF EXISTS ${l_TableName}View');
+  Future<void> FncCreateView(Database lDatabase, String lTablename) async {
+    await lDatabase.execute('DROP VIEW IF EXISTS ${lTablename}View');
 
-    await l_DataBase.execute('''
-      CREATE VIEW ${l_TableName}View AS
+    await lDatabase.execute('''
+      CREATE VIEW ${lTablename}View AS
       SELECT *
-      FROM $l_TableName
+      FROM $lTablename
     ''');
   }
 }

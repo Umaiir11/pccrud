@@ -18,7 +18,7 @@ class DBHelper {
 
   Future<void> FncCreateDataBase() async {
     final appDirectory = await getApplicationDocumentsDirectory();
-    final dbDirectory = Directory('${appDirectory.path}/PC5');
+    final dbDirectory = Directory('${appDirectory.path}/PC6');
     await dbDirectory.create(recursive: true);
     final dbPath = path.join(dbDirectory.path, 'Pc.db');
     final databaseExists = await databaseFactory.databaseExists(dbPath);
@@ -27,13 +27,13 @@ class DBHelper {
         dbPath,
         version: 1,
       );
-      final l_SchemaQuery = SchemaQuery();
-      await l_SchemaQuery.FncSchemaQuries(l_Database!);
+      final lSchemaquery = SchemaQuery();
+      await lSchemaquery.FncSchemaQuries(l_Database!);
     } else {
       try {
         l_Database = await openDatabase(dbPath);
-        final l_SchemaQuery = SchemaQuery();
-        await l_SchemaQuery.FncSchemaQuries(l_Database!);
+        final lSchemaquery = SchemaQuery();
+        await lSchemaquery.FncSchemaQuries(l_Database!);
       } catch (e) {
         //await deleteDatabase(dbPath);
         await FncCreateDataBase();

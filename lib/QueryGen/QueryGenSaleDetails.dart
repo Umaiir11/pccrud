@@ -3,10 +3,10 @@ import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 
 class QueryGenSaleDetails {
-  Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale l_ModPcSale) async {
-    List<String> l_Queries = [];
+  Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale lModpcsale) async {
+    List<String> lQueries = [];
 
-    for (ModSaleDetailsDB l_ModUserDB in l_ModPcSale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetailsDB l_ModUserDB in lModpcsale.l_PCSaleDetailsDBList) {
       if (l_ModUserDB.Pr_Operation == 1) {
         final query = '''
         INSERT INTO TBUSalesDetails (
@@ -16,7 +16,7 @@ class QueryGenSaleDetails {
           '${l_ModUserDB.Pr_VmDID}', '${l_ModUserDB.Pr_Operation}', '${l_ModUserDB.Pr_PKGUID}'
         )
       ''';
-        l_Queries.add(query);
+        lQueries.add(query);
       } else if (l_ModUserDB.Pr_Operation == 2) {
         final query = '''
         UPDATE TBUSalesDetails SET
@@ -26,16 +26,16 @@ class QueryGenSaleDetails {
           Operation = '${l_ModUserDB.Pr_Operation}'
         WHERE Item = '${l_ModUserDB.Pr_Item}'
       ''';
-        l_Queries.add(query); // Add the query to the list
+        lQueries.add(query); // Add the query to the list
       } else if (l_ModUserDB.Pr_Operation == 3) {
         final query = '''
         DELETE FROM TBUSalesDetails
         WHERE Item = '${l_ModUserDB.Pr_Item}'
       ''';
-        l_Queries.add(query);
+        lQueries.add(query);
       }
     }
 
-    return l_Queries;
+    return lQueries;
   }
 }

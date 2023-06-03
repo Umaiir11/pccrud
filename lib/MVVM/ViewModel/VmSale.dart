@@ -71,22 +71,22 @@ class VmSale extends GetxController {
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-    VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
     l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
     l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
-    ModSaleDetailsDB? l_ModSaleDetailsDB = l_VmSaleDetails?.FncFillDetailsModel();
-    l_ModPcSale.l_PCSaleDetailsDBList.add(l_ModSaleDetailsDB!);
+    ModSaleDetailsDB? lModsaledetailsdb = lVmsaledetails.FncFillDetailsModel();
+    l_ModPcSale.l_PCSaleDetailsDBList.add(lModsaledetailsdb!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
     FncCalculateItemTotal();
   }
 
-  FncUpdateList(int l_SelectedIndex, ModSaleDetailsDB l_ModSaleDetailsDB) {
-    if (l_SelectedIndex >= 0 && l_SelectedIndex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
-      l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex] = l_ModSaleDetailsDB;
+  FncUpdateList(int lSelectedindex, ModSaleDetailsDB lModsaledetailsdb) {
+    if (lSelectedindex >= 0 && lSelectedindex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
+      l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex] = lModsaledetailsdb;
     }
     FncCalculateItemTotal();
     l_ModPcSale.l_PCSaleDetailsDBList.refresh();
@@ -94,10 +94,10 @@ class VmSale extends GetxController {
 
   FncCalculateItemTotal() {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
-    VmSaleDetails? l_VmSaleDetails = Get.find<VmSaleDetails>();
-    l_ModPcSale.l_PCSaleDetailsDBList.forEach((item) {
-      l_VmSaleDetails?.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
-    });
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    for (var item in l_ModPcSale.l_PCSaleDetailsDBList) {
+      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+    }
     Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
   }

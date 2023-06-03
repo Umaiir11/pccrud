@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pccrud/MVVM/View/VwSale.dart';
 
 import '../ViewModel/VmSale.dart';
@@ -42,8 +41,8 @@ class _VwHomeState extends State<VwHome> {
             child: ElevatedButton(onPressed: (){
 
               l_VmSale.Pr_txtMainOperation_Text = 1;
-              Get.to(() => VwSale());
-            }, child: Text("TAP!")),
+              Get.to(() => const VwSale());
+            }, child: const Text("TAP!")),
           ),
         ) ,
       );

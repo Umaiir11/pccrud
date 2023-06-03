@@ -77,56 +77,56 @@ class VmSaleDetails extends GetxController {
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
   FncFillDetailsModel() {
-    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
+    ModSaleDetailsDB lModsaledetailsdb = ModSaleDetailsDB(); // Create a new instance
 
     // Rest of your code
-    ModSaleDB? l_ModSaleDB = l_VmSale?.l_ModSaleDB;
-    String l_Uuid = const Uuid().v4();
+    ModSaleDB? lModsaledb = l_VmSale?.l_ModSaleDB;
+    String lUuid = const Uuid().v4();
 
-    l_ModSaleDetailsDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDetailsDB.Pr_Operation = Pr_txtChildOperation_Text;
-    l_ModSaleDetailsDB.Pr_VmDID = l_ModSaleDB?.Pr_PKGUID;
-    l_ModSaleDetailsDB.Pr_Item = Pr_txtItem_Text;
-    l_ModSaleDetailsDB.Pr_Quantity = Pr_txtQuantity_Text;
-    l_ModSaleDetailsDB.Pr_Rate = Pr_txtRate_Text;
+    lModsaledetailsdb.Pr_PKGUID = lUuid;
+    lModsaledetailsdb.Pr_Operation = Pr_txtChildOperation_Text;
+    lModsaledetailsdb.Pr_VmDID = lModsaledb?.Pr_PKGUID;
+    lModsaledetailsdb.Pr_Item = Pr_txtItem_Text;
+    lModsaledetailsdb.Pr_Quantity = Pr_txtQuantity_Text;
+    lModsaledetailsdb.Pr_Rate = Pr_txtRate_Text;
     // Rest of your code
-    print(l_ModSaleDetailsDB);
-    FncItemtotal(l_ModSaleDetailsDB);
+    print(lModsaledetailsdb);
+    FncItemtotal(lModsaledetailsdb);
 
-    return l_ModSaleDetailsDB; // Return the instance
+    return lModsaledetailsdb; // Return the instance
   }
 
   void FncsetModelData(ModSaleDetailsDB model) {
-    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
+    ModSaleDetailsDB lModsaledetailsdb = ModSaleDetailsDB(); // Create a new instance
 
     if (model.Pr_Item != null) {
-      l_ModSaleDetailsDB.Pr_Item = model.Pr_Item;
+      lModsaledetailsdb.Pr_Item = model.Pr_Item;
     }
     if (model.Pr_Quantity != null) {
-      l_ModSaleDetailsDB.Pr_Quantity = model.Pr_Quantity;
+      lModsaledetailsdb.Pr_Quantity = model.Pr_Quantity;
     }
     if (model.Pr_Rate != null) {
-      l_ModSaleDetailsDB.Pr_Rate = model.Pr_Rate;
+      lModsaledetailsdb.Pr_Rate = model.Pr_Rate;
     }
 
-    FncItemtotal(l_ModSaleDetailsDB);
+    FncItemtotal(lModsaledetailsdb);
   }
 
-  FncUpdateDetailsModel(ModSaleDetailsDB l_ModSaleDetailsDB, CustomAlertDialog l_CustomAlertDialog) {
-    l_ModSaleDetailsDB.Pr_Item = l_CustomAlertDialog.l_Pr_ItemController.text;
-    l_ModSaleDetailsDB.Pr_Quantity = int.parse(l_CustomAlertDialog.l_Pr_QuantityController.text);
-    l_ModSaleDetailsDB.Pr_Rate = int.parse(l_CustomAlertDialog.l_Pr_RateController.text);
+  FncUpdateDetailsModel(ModSaleDetailsDB lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
+    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
+    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
+    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
   }
 
-  FncClearDialog(CustomAlertDialog l_CustomAlertDialog) {
-    l_CustomAlertDialog.l_Pr_QuantityController.clear();
-    l_CustomAlertDialog.l_Pr_ItemController.clear();
-    l_CustomAlertDialog.l_Pr_RateController.clear();
+  FncClearDialog(CustomAlertDialog lCustomalertdialog) {
+    lCustomalertdialog.l_Pr_QuantityController.clear();
+    lCustomalertdialog.l_Pr_ItemController.clear();
+    lCustomalertdialog.l_Pr_RateController.clear();
     Pr_txtTotal_Text = 0;
   }
 
-  FncItemtotal(ModSaleDetailsDB l_ModSaleDetailsDB) {
-    l_ModSaleDetailsDB = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
-    Pr_txtTotal_Text = l_ModSaleDetailsDB.Pr_ItemTotal!;
+  FncItemtotal(ModSaleDetailsDB lModsaledetailsdb) {
+    lModsaledetailsdb = BLSaleDetails().FncItemTotal(lModsaledetailsdb);
+    Pr_txtTotal_Text = lModsaledetailsdb.Pr_ItemTotal!;
   }
 }

@@ -1,32 +1,31 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
-import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:tuple/tuple.dart';
 
 class DVMSalePC {
-  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModPcSale l_ModPcSale) {
+  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModPcSale lModpcsale) {
     List<String>? lErrorMsgs = [];
     List<String>? lFieldNames = [];
 
-    if (l_ModPcSale.Pr_CustID?.isEmpty ?? true) {
+    if (lModpcsale.Pr_CustID?.isEmpty ?? true) {
       lErrorMsgs.add('Enter your customer ID.');
       lFieldNames.add('Pr_CustID');
     }
 
-    if (l_ModPcSale.Pr_GrandTotal == null || l_ModPcSale.Pr_GrandTotal == 0) {
+    if (lModpcsale.Pr_GrandTotal == null || lModpcsale.Pr_GrandTotal == 0) {
       lErrorMsgs.add('Enter your Rate.');
       lFieldNames.add('Pr_GrandTotal');
     }
 
 
 
-    if (l_ModPcSale.Pr_Voucher?.isEmpty ?? true) {
+    if (lModpcsale.Pr_Voucher?.isEmpty ?? true) {
       lErrorMsgs.add('Enter your voucher.');
       lFieldNames.add('Pr_Voucher');
     }
 
 
-    for (ModSaleDetailsDB l_ModSaleDetailsDB in l_ModPcSale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetailsDB l_ModSaleDetailsDB in lModpcsale.l_PCSaleDetailsDBList) {
       if (l_ModSaleDetailsDB.Pr_Item?.isEmpty ?? true) {
         lErrorMsgs.add('Enter your item.');
         lFieldNames.add('Pr_Item');

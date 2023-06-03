@@ -2,21 +2,21 @@ import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:tuple/tuple.dart';
 
 class DVMSaleDetails {
-  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModSaleDetailsDB l_ModSaleDetailsDB) {
+  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModSaleDetailsDB lModsaledetailsdb) {
     List<String>? lErrorMsgs = [];
     List<String>? lFieldNames = [];
 
-    if (l_ModSaleDetailsDB.Pr_Item?.isEmpty ?? true) {
+    if (lModsaledetailsdb.Pr_Item?.isEmpty ?? true) {
       lErrorMsgs.add('Enter your item.');
       lFieldNames.add('Pr_Item');
     }
 
-    if (l_ModSaleDetailsDB.Pr_Quantity == null || l_ModSaleDetailsDB.Pr_Quantity == 0) {
+    if (lModsaledetailsdb.Pr_Quantity == null || lModsaledetailsdb.Pr_Quantity == 0) {
       lErrorMsgs.add('Enter your Quantity.');
       lFieldNames.add('Pr_Quantity');
     }
 
-    if (l_ModSaleDetailsDB.Pr_Rate == null || l_ModSaleDetailsDB.Pr_Rate == 0) {
+    if (lModsaledetailsdb.Pr_Rate == null || lModsaledetailsdb.Pr_Rate == 0) {
       lErrorMsgs.add('Enter your Rate.');
       lFieldNames.add('Pr_Rate');
     }

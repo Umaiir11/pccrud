@@ -16,23 +16,23 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
-  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> l_ValidationKey, String l_title,
-      ElevatedButton l_AddButton, int l_SelectedIndex) {
+  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
+      ElevatedButton lAddbutton, int lSelectedindex) {
 
     //Fetching Data and extraxt on Widgets
-    if (l_SelectedIndex >= 0 && l_SelectedIndex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
-      l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Item.toString();
-      l_Pr_QuantityController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Quantity.toString();
-      l_Pr_RateController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Rate.toString();
+    if (lSelectedindex >= 0 && lSelectedindex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
+      l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex].Pr_Item.toString();
+      l_Pr_QuantityController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex].Pr_Quantity.toString();
+      l_Pr_RateController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex].Pr_Rate.toString();
       l_VmSaleDetails.Pr_txtTotal_Text =
-          int.parse(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_ItemTotal.toString());
+          int.parse(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex].Pr_ItemTotal.toString());
     }
 
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
       barrierLabel: "",
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
         return GestureDetector(
           onTap: () {
@@ -41,12 +41,12 @@ class CustomAlertDialog {
           },
           child: AlertDialog(
             title: Text(
-              l_title,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
+              lTitle,
+              style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
             ),
             insetPadding: EdgeInsets.zero,
             content: Form(
-              key: l_ValidationKey,
+              key: lValidationkey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -55,7 +55,7 @@ class CustomAlertDialog {
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
                       controller: l_Pr_ItemController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Item',
                       ),
                       validator: (value) {
@@ -77,7 +77,7 @@ class CustomAlertDialog {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller: l_Pr_QuantityController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Quantity',
                       ),
                       validator: (value) {
@@ -102,7 +102,7 @@ class CustomAlertDialog {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller: l_Pr_RateController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Rate',
                       ),
                       validator: (value) {
@@ -131,13 +131,13 @@ class CustomAlertDialog {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
+                        const Text(
                           'Total: ',
                           style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
                         ),
                         Obx(() {
                           if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 && l_VmSaleDetails.Pr_txtRate_Text == 0) {
-                            return Text(
+                            return const Text(
                               '0',
                               style: TextStyle(
                                 color: Colors.black38,
@@ -146,8 +146,8 @@ class CustomAlertDialog {
                             );
                           } else {
                             return Text(
-                              '${l_VmSaleDetails.Pr_txtTotal_Text.toString()}',
-                              style: TextStyle(color: Colors.black38, fontWeight: FontWeight.w300, fontSize: 18),
+                              l_VmSaleDetails.Pr_txtTotal_Text.toString(),
+                              style: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w300, fontSize: 18),
                             );
                           }
                         }),
@@ -159,7 +159,7 @@ class CustomAlertDialog {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        child: Text(
+                        child: const Text(
                           'Close',
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
                         ),
@@ -167,8 +167,8 @@ class CustomAlertDialog {
                           Navigator.of(context).pop();
                         },
                       ),
-                      SizedBox(width: 8),
-                      l_AddButton,
+                      const SizedBox(width: 8),
+                      lAddbutton,
                     ],
                   ),
                 ],
