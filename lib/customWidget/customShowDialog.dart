@@ -9,25 +9,22 @@ import '../Validation/DVMSaleDetails.dart';
 
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
-  final VmSale  l_VmSale = Get.put(VmSale());
+  final VmSale l_VmSale = Get.put(VmSale());
   ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
   final TextEditingController l_Pr_ItemController = TextEditingController();
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
-  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth,
-      GlobalKey<FormState> l_ValidationKey, String l_title, ElevatedButton l_AddButton, int l_SelectedIndex  )
-  {
-
+  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> l_ValidationKey, String l_title,
+      ElevatedButton l_AddButton, int l_SelectedIndex) {
     if (l_SelectedIndex >= 0 && l_SelectedIndex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
       l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Item.toString();
       l_Pr_QuantityController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Quantity.toString();
       l_Pr_RateController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_Rate.toString();
-      l_VmSaleDetails.Pr_txtTotal_Text = int.parse(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_ItemTotal.toString());
+      l_VmSaleDetails.Pr_txtTotal_Text =
+          int.parse(l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[l_SelectedIndex].Pr_ItemTotal.toString());
     }
-
-
 
     showGeneralDialog(
       context: context,
@@ -40,22 +37,20 @@ class CustomAlertDialog {
             // Dismiss the keyboard
             FocusManager.instance.primaryFocus?.unfocus();
           },
-          child: AlertDialog(title: Text(
-            l_title,
-            style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
-          ),
+          child: AlertDialog(
+            title: Text(
+              l_title,
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
+            ),
             insetPadding: EdgeInsets.zero,
-            content:Form(
+            content: Form(
               key: l_ValidationKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
-
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
-
                       controller: l_Pr_ItemController,
                       decoration: InputDecoration(
                         labelText: 'Item',
@@ -95,7 +90,7 @@ class CustomAlertDialog {
                       onChanged: (value) {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtQuantity_Text = parsedValue;
-                      // l_VmSaleDetails.FncFillDetailsModel();
+                        // l_VmSaleDetails.FncFillDetailsModel();
                       },
                     ),
                   ),
@@ -121,13 +116,8 @@ class CustomAlertDialog {
                         //l_VmSaleDetails.   FncItemtotal();;
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
-                        //l_VmSaleDetails.FncFillDetailsModel();
-
-                        ModSaleDetailsDB lModSaleDetails = ModSaleDetailsDB();
+                        ModSaleDetailsDB lModSaleDetails = l_VmSaleDetails.FncFillDetailsModel();
                         l_VmSaleDetails.FncsetModelData(lModSaleDetails);
-
-
-
                       },
                     ),
                   ),
@@ -152,18 +142,14 @@ class CustomAlertDialog {
                           } else {
                             return Text(
                               '${l_VmSaleDetails.Pr_txtTotal_Text.toString()}',
-                              style: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.w300,
-                                  fontSize: 18
-                              ),
+                              style: TextStyle(color: Colors.black38, fontWeight: FontWeight.w300, fontSize: 18),
                             );
                           }
                         }),
                       ],
                     ),
                   ),
-                  SizedBox(height: PrHeight*.02),
+                  SizedBox(height: PrHeight * .02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -178,7 +164,6 @@ class CustomAlertDialog {
                       ),
                       SizedBox(width: 8),
                       l_AddButton,
-
                     ],
                   ),
                 ],
@@ -187,13 +172,13 @@ class CustomAlertDialog {
           ),
         );
       },
-      transitionBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+      transitionBuilder:
+          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
         return ScaleTransition(
           scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
           child: child,
         );
       },
-
     );
   }
 }
