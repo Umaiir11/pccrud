@@ -55,6 +55,7 @@ class CustomAlertDialog {
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
+
                       controller: l_Pr_ItemController,
                       decoration: InputDecoration(
                         labelText: 'Item',
@@ -76,6 +77,7 @@ class CustomAlertDialog {
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       controller: l_Pr_QuantityController,
                       decoration: InputDecoration(
                         labelText: 'Quantity',
@@ -100,6 +102,7 @@ class CustomAlertDialog {
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       controller: l_Pr_RateController,
                       decoration: InputDecoration(
                         labelText: 'Rate',
@@ -118,7 +121,11 @@ class CustomAlertDialog {
                         //l_VmSaleDetails.   FncItemtotal();;
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
-                        l_VmSaleDetails.FncFillDetailsModel();
+                        //l_VmSaleDetails.FncFillDetailsModel();
+                        l_VmSaleDetails.FncsetModelData(l_VmSaleDetails.Pr_txtItem_Text,l_VmSaleDetails.Pr_txtQuantity_Text,l_VmSaleDetails.Pr_txtRate_Text,);
+
+
+
                       },
                     ),
                   ),
@@ -136,7 +143,7 @@ class CustomAlertDialog {
                             return Text(
                               '0',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.black38,
                                 fontWeight: FontWeight.w300,
                               ),
                             );
@@ -144,8 +151,9 @@ class CustomAlertDialog {
                             return Text(
                               '${l_VmSaleDetails.Pr_txtTotal_Text.toString()}',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.black38,
                                 fontWeight: FontWeight.w300,
+                                  fontSize: 18
                               ),
                             );
                           }

@@ -60,8 +60,7 @@ class VmSaleDetails extends GetxController {
   set Pr_txtRate_Text(int value) {
     l_PrRate.value = value;
 
-   // FncFillDetailsModel();
-
+    // FncFillDetailsModel();
   }
 
   RxInt l_PrTotal = RxInt(0);
@@ -94,6 +93,23 @@ class VmSaleDetails extends GetxController {
     FncItemtotal(l_ModSaleDetailsDB);
 
     return l_ModSaleDetailsDB; // Return the instance
+  }
+
+  void FncsetModelData(String? l_item, int? l_quantity, int? l_rate) {
+    ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
+
+    if (l_item != null) {
+      l_ModSaleDetailsDB.Pr_Item = l_item;
+    }
+
+    if (l_quantity != null) {
+      l_ModSaleDetailsDB.Pr_Quantity = l_quantity;
+    }
+
+    if (l_rate != null) {
+      l_ModSaleDetailsDB.Pr_Rate = l_rate;
+    }
+    FncItemtotal(l_ModSaleDetailsDB);
   }
 
   FncClearDetailModelFields() {
