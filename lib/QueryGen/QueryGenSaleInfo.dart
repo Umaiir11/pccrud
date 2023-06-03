@@ -1,6 +1,5 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 
-
 class QueryGenSaleInfo {
   Future<List<String>> FncGenCrudQueriesSaleInfo(ModPcSale lModpcsale) async {
     List<String> lQueries = [];

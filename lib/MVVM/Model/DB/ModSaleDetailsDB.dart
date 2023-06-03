@@ -1,13 +1,12 @@
 class ModSaleDetailsDB {
-
   ModSaleDetailsDB({
     this.Pr_PKGUID,
     this.Pr_Operation,
     this.Pr_VmDID,
     this.Pr_Item,
     this.Pr_Quantity,
-      this.Pr_Rate,this.Pr_ItemTotal,
-
+    this.Pr_Rate,
+    this.Pr_ItemTotal,
   });
 
   String? Pr_PKGUID;
@@ -17,7 +16,6 @@ class ModSaleDetailsDB {
   int? Pr_Operation;
   int? Pr_Rate;
   int? Pr_ItemTotal;
-
 
   Map<String, dynamic> UserToJson() {
     final jsonMap = <String, dynamic>{};

@@ -18,7 +18,6 @@ class CustomAlertDialog {
 
   void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
       ElevatedButton lAddbutton, int lSelectedindex) {
-
     //Fetching Data and extraxt on Widgets
     if (lSelectedindex >= 0 && lSelectedindex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {
       l_Pr_ItemController.text = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex].Pr_Item.toString();

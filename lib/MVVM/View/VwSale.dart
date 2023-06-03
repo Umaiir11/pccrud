@@ -17,7 +17,6 @@ class VwSale extends StatefulWidget {
 }
 
 class _VwSaleState extends State<VwSale> {
-
   final GlobalKey<FormState> G_MainValidationKey = GlobalKey<FormState>();
   final GlobalKey<FormState> G_DialogValidationKey = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
@@ -226,7 +225,8 @@ class _VwSaleState extends State<VwSale> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.lightGreen,
                             elevation: 7,
                             minimumSize: const Size(150, 48),
                             shape: RoundedRectangleBorder(
@@ -288,9 +288,9 @@ class _VwSaleState extends State<VwSale> {
                                                       l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
                                                       ModSaleDetailsDB lModSaleDetailsDB =
                                                           l_VmSaleDetails.FncFillDetailsModel();
-                                                      l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, lUpdatecustomalertdialog);
+                                                      l_VmSaleDetails.FncUpdateDetailsModel(
+                                                          lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
-
 
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
@@ -300,7 +300,8 @@ class _VwSaleState extends State<VwSale> {
                                                     }
                                                   },
                                                   style: ElevatedButton.styleFrom(
-                                                    foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                                                    foregroundColor: Colors.white,
+                                                    backgroundColor: Colors.lightGreen,
                                                     elevation: 7,
                                                     shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(5),

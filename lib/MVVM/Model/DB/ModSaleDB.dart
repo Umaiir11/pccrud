@@ -1,6 +1,5 @@
- class   ModSaleDB {
-
-   ModSaleDB({
+class ModSaleDB {
+  ModSaleDB({
     this.Pr_PKGUID,
     this.Pr_Operation,
     this.Pr_CustID,
@@ -13,7 +12,6 @@
   String? Pr_Voucher;
   int? Pr_GrandTotal;
   int? Pr_Operation;
-
 
   Map<String, dynamic> UserToJson() {
     final jsonMap = <String, dynamic>{};

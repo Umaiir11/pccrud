@@ -16,8 +16,6 @@ class DVMSale {
       lFieldNames.add('Pr_GrandTotal');
     }
 
-
-
     if (lModsaledb.Pr_Voucher?.isEmpty ?? true) {
       lErrorMsgs.add('Enter your voucher.');
       lFieldNames.add('Pr_Voucher');

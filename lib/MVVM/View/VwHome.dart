@@ -17,10 +17,8 @@ class _VwHomeState extends State<VwHome> {
   @override
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
-
-      return  Scaffold(
-        body:Container(
-
+      return Scaffold(
+        body: Container(
           height: PrHeight,
           width: PrWidth,
           decoration: const BoxDecoration(
@@ -38,13 +36,14 @@ class _VwHomeState extends State<VwHome> {
             ),
           ),
           child: Center(
-            child: ElevatedButton(onPressed: (){
-
-              l_VmSale.Pr_txtMainOperation_Text = 1;
-              Get.to(() => const VwSale());
-            }, child: const Text("TAP!")),
+            child: ElevatedButton(
+                onPressed: () {
+                  l_VmSale.Pr_txtMainOperation_Text = 1;
+                  Get.to(() => const VwSale());
+                },
+                child: const Text("TAP!")),
           ),
-        ) ,
+        ),
       );
     }
 
