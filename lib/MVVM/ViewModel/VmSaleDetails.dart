@@ -60,7 +60,7 @@ class VmSaleDetails extends GetxController {
   set Pr_txtRate_Text(int value) {
     l_PrRate.value = value;
 
-    FncFillDetailsModel();
+   // FncFillDetailsModel();
 
   }
 
