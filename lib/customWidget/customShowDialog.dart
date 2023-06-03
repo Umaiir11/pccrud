@@ -122,7 +122,9 @@ class CustomAlertDialog {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         //l_VmSaleDetails.FncFillDetailsModel();
-                        l_VmSaleDetails.FncsetModelData(l_VmSaleDetails.Pr_txtItem_Text,l_VmSaleDetails.Pr_txtQuantity_Text,l_VmSaleDetails.Pr_txtRate_Text,);
+
+                        ModSaleDetailsDB lModSaleDetails = ModSaleDetailsDB();
+                        l_VmSaleDetails.FncsetModelData(lModSaleDetails);
 
 
 

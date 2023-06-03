@@ -95,20 +95,19 @@ class VmSaleDetails extends GetxController {
     return l_ModSaleDetailsDB; // Return the instance
   }
 
-  void FncsetModelData(String? l_item, int? l_quantity, int? l_rate) {
+  void FncsetModelData(ModSaleDetailsDB model) {
     ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB(); // Create a new instance
 
-    if (l_item != null) {
-      l_ModSaleDetailsDB.Pr_Item = l_item;
+    if (model.Pr_Item != null) {
+      l_ModSaleDetailsDB.Pr_Item = model.Pr_Item;
+    }
+    if (model.Pr_Quantity != null) {
+      l_ModSaleDetailsDB.Pr_Quantity = model.Pr_Quantity;
+    }
+    if (model.Pr_Rate != null) {
+      l_ModSaleDetailsDB.Pr_Rate = model.Pr_Rate;
     }
 
-    if (l_quantity != null) {
-      l_ModSaleDetailsDB.Pr_Quantity = l_quantity;
-    }
-
-    if (l_rate != null) {
-      l_ModSaleDetailsDB.Pr_Rate = l_rate;
-    }
     FncItemtotal(l_ModSaleDetailsDB);
   }
 
