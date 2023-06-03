@@ -18,16 +18,14 @@ class VwSale extends StatefulWidget {
 
 class _VwSaleState extends State<VwSale> {
   @override
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
-  final GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
+  final GlobalKey<FormState> G_MainValidationKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> G_DialogValidationKey = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   CustomAlertDialog l_CustomAlertDialog = new CustomAlertDialog();
 
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   //ModPcSale l_ModPcSale = ModPcSale();
-  ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
 
   //Controllers For Sale TextFields
   final TextEditingController l_Pr_CustIDController = TextEditingController();
@@ -52,7 +50,7 @@ class _VwSaleState extends State<VwSale> {
           foregroundColor: Colors.black, // Set the color of the icon
         ),
         body: Form(
-          key: _formKey,
+          key: G_MainValidationKey,
           child: SingleChildScrollView(
             reverse: false,
             child: Container(
@@ -187,9 +185,9 @@ class _VwSaleState extends State<VwSale> {
                       height: PrHeight * .045,
                       child: ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
+                            if (G_MainValidationKey.currentState!.validate()) {
                               l_VmSale.Pr_txtMainOperation_Text = 1;
-                              l_VmSaleDetails.Pr_txtTotal_Text = 0;
+
                               l_VmSale.FncFillModel();
                               if (l_VmSale.l_ModSaleDB != null) {
                                 //DALSaleInfo().Fnc_CudSaleInfo(l_VmSale.l_ModSaleDB);
@@ -197,7 +195,7 @@ class _VwSaleState extends State<VwSale> {
                                     context,
                                     PrHeight,
                                     PrWidth,
-                                    formKey3,
+                                    G_DialogValidationKey,
                                     "Sale Details",
                                     ElevatedButton(
                                       child: Text(
@@ -205,16 +203,14 @@ class _VwSaleState extends State<VwSale> {
                                         style: TextStyle(fontSize: 15),
                                       ),
                                       onPressed: () async {
-                                        if (formKey3.currentState!.validate()) {
+                                        if (G_DialogValidationKey.currentState!.validate()) {
                                           l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
                                           ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
                                           if (lModSaleDetailsDB != null) {
                                             l_VmSale.FncFillPCModelList();
                                             //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
                                             //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
-                                            l_CustomAlertDialog.l_Pr_QuantityController.clear();
-                                            l_CustomAlertDialog.l_Pr_ItemController.clear();
-                                            l_CustomAlertDialog.l_Pr_RateController.clear();
+                                            l_VmSaleDetails.FncClearDetailsModel(l_CustomAlertDialog);
                                           }
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
@@ -292,7 +288,7 @@ class _VwSaleState extends State<VwSale> {
                                                 context,
                                                 PrHeight,
                                                 PrWidth,
-                                                formKey3,
+                                                G_DialogValidationKey,
                                                 "Update Data",
                                                 ElevatedButton(
                                                   child: Text(
@@ -300,14 +296,15 @@ class _VwSaleState extends State<VwSale> {
                                                     style: TextStyle(fontSize: 15),
                                                   ),
                                                   onPressed: () async {
-                                                    if (formKey3.currentState!.validate()) {
+                                                    if (G_DialogValidationKey.currentState!.validate()) {
                                                       // Update the model
                                                       l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
                                                       ModSaleDetailsDB lModSaleDetailsDB =
                                                           l_VmSaleDetails.FncFillDetailsModel();
                                                       if (lModSaleDetailsDB != null) {
-                                                        l_VmSaleDetails.FncUpdateDetailsModel(l_ModSaleDetailsDB, l_UpdateCustomAlertDialog);
+                                                        l_VmSaleDetails.FncUpdateDetailsModel(lModSaleDetailsDB, l_UpdateCustomAlertDialog);
                                                         l_VmSale.FncUpdateList(l_ListIndex, lModSaleDetailsDB);
+                                                        l_VmSaleDetails.FncClearDetailsModel(l_CustomAlertDialog);
 
                                                         // Close the dialog
                                                         Navigator.of(context).pop();
