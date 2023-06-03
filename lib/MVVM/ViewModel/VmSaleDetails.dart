@@ -112,19 +112,18 @@ class VmSaleDetails extends GetxController {
     FncItemtotal(l_ModSaleDetailsDB);
   }
 
-
-  FncUpdateDetailsModel( ModSaleDetailsDB l_ModSaleDetailsDB, CustomAlertDialog l_CustomAlertDialog  ){
-
+  FncUpdateDetailsModel(ModSaleDetailsDB l_ModSaleDetailsDB, CustomAlertDialog l_CustomAlertDialog) {
     l_ModSaleDetailsDB.Pr_Item = l_CustomAlertDialog.l_Pr_ItemController.text;
     l_ModSaleDetailsDB.Pr_Quantity = int.parse(l_CustomAlertDialog.l_Pr_QuantityController.text);
     l_ModSaleDetailsDB.Pr_Rate = int.parse(l_CustomAlertDialog.l_Pr_RateController.text);
   }
-  FncClearDialog(  CustomAlertDialog l_CustomAlertDialog  ){
-  l_CustomAlertDialog.l_Pr_QuantityController.clear();
-  l_CustomAlertDialog.l_Pr_ItemController.clear();
-  l_CustomAlertDialog.l_Pr_RateController.clear();
-  Pr_txtTotal_Text = 0;
-}
+
+  FncClearDialog(CustomAlertDialog l_CustomAlertDialog) {
+    l_CustomAlertDialog.l_Pr_QuantityController.clear();
+    l_CustomAlertDialog.l_Pr_ItemController.clear();
+    l_CustomAlertDialog.l_Pr_RateController.clear();
+    Pr_txtTotal_Text = 0;
+  }
 
   FncItemtotal(ModSaleDetailsDB l_ModSaleDetailsDB) {
     l_ModSaleDetailsDB = BLSaleDetails().FncItemTotal(l_ModSaleDetailsDB);
