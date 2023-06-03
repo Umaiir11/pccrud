@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../BLSaleDetails/BLDetails.dart';
+import '../../customWidget/customShowDialog.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSaleDetails extends GetxController {
@@ -110,6 +111,15 @@ class VmSaleDetails extends GetxController {
 
     FncItemtotal(l_ModSaleDetailsDB);
   }
+
+
+  FncUpdateDetailsModel( ModSaleDetailsDB l_ModSaleDetailsDB, CustomAlertDialog l_UpdateCustomAlertDialog  ){
+
+    l_ModSaleDetailsDB.Pr_Item = l_UpdateCustomAlertDialog.l_Pr_ItemController.text;
+    l_ModSaleDetailsDB.Pr_Quantity = int.parse(l_UpdateCustomAlertDialog.l_Pr_QuantityController.text);
+    l_ModSaleDetailsDB.Pr_Rate = int.parse(l_UpdateCustomAlertDialog.l_Pr_RateController.text);
+  }
+
 
   FncClearDetailModelFields() {
     // Clear the input fields for the next entry
