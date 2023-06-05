@@ -186,10 +186,10 @@ class _VwSaleState extends State<VwSale> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
-                              l_VmSale.FncFill_SaleModel();
                                 ModSale l_ModSale   = l_VmSale.FncFill_SaleModel();
                               if (l_ModSale != null) {
                                 l_CustomAlertDialog.CustAlertDialog(
+                                  // CustAlertDialog fill the ModSaleDetails Model
                                     context,
                                     PrHeight,
                                     PrWidth,
@@ -198,6 +198,7 @@ class _VwSaleState extends State<VwSale> {
                                     ElevatedButton(
                                       onPressed: () async {
                                         if (G_DialogValidationKey.currentState!.validate()) {
+                                          //ModSalesDetails Model assign to the List of PC
                                           l_VmSale.FncFillPCModelList();
                                           l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
                                         } else {
@@ -286,14 +287,10 @@ class _VwSaleState extends State<VwSale> {
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
-                                                      // Update the model
-                                                      // l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
-                                                      ModSaleDetails lModSaleDetailsDB =
-                                                          l_VmSaleDetails.FncFill_SaleDetailsModel();
+                                                      ModSaleDetails lModSaleDetailsDB = l_VmSaleDetails.FncFill_SaleDetailsModel();
                                                       l_VmSaleDetails.FncSaleUpdateDetailsModel(
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
-
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
                                                       l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);

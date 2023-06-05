@@ -46,15 +46,11 @@ class VmSale extends GetxController {
   FncFill_SaleModel() {
     l_Uuid = const Uuid().v4();
     ModSale l_ModSale = ModSale();
-
     l_ModSale.Pr_PKGUID = l_Uuid;
     l_ModSale.Pr_Operation = 1;
     l_ModSale.Pr_CustID = Pr_txtCustID_Text;
     l_ModSale.Pr_Voucher = Pr_txtVoucher_Text;
     l_ModSale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
-    print(l_ModSale);
-    print(l_ModSale);
-
     return l_ModSale;
   }
 
