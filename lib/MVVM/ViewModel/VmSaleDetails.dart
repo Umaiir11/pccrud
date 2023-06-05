@@ -41,6 +41,7 @@ class VmSaleDetails extends GetxController {
   set Pr_txtQuantity_Text(int value) {
     l_PrQuantity.value = value;
   }
+
   RxInt l_PrRate = RxInt(0);
 
   int get Pr_txtRate_Text {
@@ -81,10 +82,8 @@ class VmSaleDetails extends GetxController {
     return l_ModSaledetails; // Return the instance
   }
 
-
-
   //this method is  responsible for claculation in dialog box
-   FncSet_SalesDetailsModelData(ModSaleDetails l_FilledSaleDetailsModel) {
+  FncSet_SalesDetailsModelData(ModSaleDetails l_FilledSaleDetailsModel) {
     ModSaleDetails l_ModSaleDetails = ModSaleDetails(); // Create a new instance
 
     if (l_FilledSaleDetailsModel.Pr_Item != null) {

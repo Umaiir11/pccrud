@@ -15,7 +15,7 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
-  void CustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
+  void FncCustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
       ElevatedButton lAddbutton, int lSelectedindex) {
     //Fetching Data and extraxt on Widgets
     if (lSelectedindex >= 0 && lSelectedindex < l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length) {

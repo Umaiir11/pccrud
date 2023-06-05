@@ -8,6 +8,7 @@ import 'package:tuple/tuple.dart';
 import '../../DAL/DAL_PC.dart';
 import '../../Validation/DVMPC.dart';
 import '../../customWidget/customShowDialog.dart';
+import '../../customWidget/customSnackBar.dart';
 import '../ViewModel/VmSale.dart';
 
 class VwSale extends StatefulWidget {
@@ -22,7 +23,6 @@ class _VwSaleState extends State<VwSale> {
   final GlobalKey<FormState> G_DialogValidationKey = GlobalKey<FormState>();
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
-  CustomAlertDialog l_CustomAlertDialog = CustomAlertDialog();
 
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   //ModPcSale l_ModPcSale = ModPcSale();
@@ -186,10 +186,13 @@ class _VwSaleState extends State<VwSale> {
                       height: PrHeight * .045,
                       child: ElevatedButton(
                           onPressed: () async {
+                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
                             if (G_MainValidationKey.currentState!.validate()) {
                               ModSale l_ModSale = l_VmSale.FncFill_SaleModel();
                               if (l_ModSale != null) {
-                                l_CustomAlertDialog.CustAlertDialog(
+                                CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
+
+                                l_CustomAddAlertDialog.FncCustAlertDialog(
                                     // CustAlertDialog fill the ModSaleDetails Model
                                     context,
                                     PrHeight,
@@ -201,7 +204,8 @@ class _VwSaleState extends State<VwSale> {
                                         if (G_DialogValidationKey.currentState!.validate()) {
                                           //ModSalesDetails Model assign to the List of PC
                                           l_VmSale.FncFillPCModelList();
-                                          l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
+                                          l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
+                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",Colors.blue.shade800,Colors.blue.shade600);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                         }
@@ -221,7 +225,7 @@ class _VwSaleState extends State<VwSale> {
                                     ),
                                     -1);
                               } else {
-                                print("FIll Sale");
+                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",Colors.blue.shade800,Colors.blue.shade600);
                               }
                               //SaleDetails Dialog
                             } else {
@@ -278,8 +282,9 @@ class _VwSaleState extends State<VwSale> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
+                                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
                                             CustomAlertDialog lUpdatecustomalertdialog = CustomAlertDialog();
-                                            lUpdatecustomalertdialog.CustAlertDialog(
+                                            lUpdatecustomalertdialog.FncCustAlertDialog(
                                                 context,
                                                 PrHeight,
                                                 PrWidth,
@@ -293,9 +298,12 @@ class _VwSaleState extends State<VwSale> {
                                                       l_VmSaleDetails.FncSaleUpdateDetailsModel(
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
+
+                                                      l_CustomSnackBar.FncCustSnackBAR(
+                                                          "Alert", "Data Updated", "Data Updated Successfully",Colors.blue.shade800,Colors.blue.shade600);
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
-                                                      l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
+                                                      l_VmSaleDetails.FncClearDialog(lUpdatecustomalertdialog);
                                                     } else {
                                                       l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                                     }
@@ -329,6 +337,7 @@ class _VwSaleState extends State<VwSale> {
                                           icon: const Icon(Icons.delete, color: Colors.red),
                                           iconSize: 12.0,
                                           onPressed: () {
+                                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
                                             // Get the item at the current index
                                             ModSaleDetails item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
 
@@ -337,6 +346,8 @@ class _VwSaleState extends State<VwSale> {
 
                                             // Remove the current item from the list
                                             l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(lListindex);
+                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted", "Data Deleted Successfully",Colors.red.shade800,Colors.red.shade600);
+
                                           },
                                         )
                                       ],
