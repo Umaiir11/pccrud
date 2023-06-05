@@ -58,7 +58,7 @@ class VmSale extends GetxController {
     l_Uuid = const Uuid().v4();
 
     l_ModSaleDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDB.Pr_Operation = Pr_txtMainOperation_Text;
+    l_ModSaleDB.Pr_Operation = 1;
     l_ModSaleDB.Pr_CustID = Pr_txtCustID_Text;
     l_ModSaleDB.Pr_Voucher = Pr_txtVoucher_Text;
     l_ModSaleDB.Pr_GrandTotal = Pr_txtGrandTotal_Text;

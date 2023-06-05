@@ -196,7 +196,7 @@ class _VwSaleState extends State<VwSale> {
                                   ElevatedButton(
                                     onPressed: () async {
                                       if (G_DialogValidationKey.currentState!.validate()) {
-                                        l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
+                                        //l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
                                         //ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
                                         l_VmSale.FncFillPCModelList();
                                         //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
@@ -285,7 +285,7 @@ class _VwSaleState extends State<VwSale> {
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
                                                       // Update the model
-                                                      l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
+                                                     // l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
                                                       ModSaleDetailsDB lModSaleDetailsDB =
                                                           l_VmSaleDetails.FncFillDetailsModel();
                                                       l_VmSaleDetails.FncUpdateDetailsModel(

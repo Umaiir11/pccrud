@@ -38,7 +38,8 @@ class _VwHomeState extends State<VwHome> {
           child: Center(
             child: ElevatedButton(
                 onPressed: () {
-                  l_VmSale.Pr_txtMainOperation_Text = 1;
+                  //l_VmSale.Pr_txtMainOperation_Text = 1;
+                  //l_VmSale.l_ModSaleDB.Pr_Operation = 1;
                   Get.to(() => const VwSale());
                 },
                 child: const Text("TAP!")),

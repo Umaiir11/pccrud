@@ -42,15 +42,15 @@ class VmSaleDetails extends GetxController {
     l_PrQuantity.value = value;
   }
 
-  RxInt l_PrChildOperation = RxInt(0);
+ // RxInt l_PrChildOperation = RxInt(0);
 
-  int get Pr_txtChildOperation_Text {
-    return l_PrChildOperation.value;
-  }
+  //int get Pr_txtChildOperation_Text {
+  //  return l_PrChildOperation.value;
+ // }
 
-  set Pr_txtChildOperation_Text(int value) {
-    l_PrChildOperation.value = value;
-  }
+ // set Pr_txtChildOperation_Text(int value) {
+  //  l_PrChildOperation.value = value;
+ // }
 
   RxInt l_PrRate = RxInt(0);
 
@@ -84,7 +84,7 @@ class VmSaleDetails extends GetxController {
     String lUuid = const Uuid().v4();
 
     lModsaledetailsdb.Pr_PKGUID = lUuid;
-    lModsaledetailsdb.Pr_Operation = Pr_txtChildOperation_Text;
+    lModsaledetailsdb.Pr_Operation = 1;
     lModsaledetailsdb.Pr_VmDID = lModsaledb?.Pr_PKGUID;
     lModsaledetailsdb.Pr_Item = Pr_txtItem_Text;
     lModsaledetailsdb.Pr_Quantity = Pr_txtQuantity_Text;
@@ -96,7 +96,14 @@ class VmSaleDetails extends GetxController {
     return lModsaledetailsdb; // Return the instance
   }
 
-  void FncsetModelData(ModSaleDetailsDB model) {
+  FncUpdateDetailsModel(ModSaleDetailsDB lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
+    lModsaledetailsdb.Pr_Operation = 2;
+    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
+    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
+    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
+  }
+
+   FncsetModelData(ModSaleDetailsDB model) {
     ModSaleDetailsDB lModsaledetailsdb = ModSaleDetailsDB(); // Create a new instance
 
     if (model.Pr_Item != null) {
@@ -112,11 +119,6 @@ class VmSaleDetails extends GetxController {
     FncItemtotal(lModsaledetailsdb);
   }
 
-  FncUpdateDetailsModel(ModSaleDetailsDB lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
-    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
-    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
-    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
-  }
 
   FncClearDialog(CustomAlertDialog lCustomalertdialog) {
     lCustomalertdialog.l_Pr_QuantityController.clear();

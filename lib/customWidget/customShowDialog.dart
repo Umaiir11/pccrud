@@ -72,6 +72,7 @@ class CustomAlertDialog {
                     ),
                   ),
                   Padding(
+
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
@@ -92,7 +93,6 @@ class CustomAlertDialog {
                       onChanged: (value) {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtQuantity_Text = parsedValue;
-                        // l_VmSaleDetails.FncFillDetailsModel();
                       },
                     ),
                   ),
@@ -115,7 +115,6 @@ class CustomAlertDialog {
                         return null;
                       },
                       onChanged: (value) {
-                        //l_VmSaleDetails.   FncItemtotal();;
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         ModSaleDetailsDB lModSaleDetails = l_VmSaleDetails.FncFillDetailsModel();
@@ -181,7 +180,7 @@ class CustomAlertDialog {
         return ScaleTransition(
           scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
           child: child,
-        );
+        ); // Umair  mod data data
       },
     );
   }
