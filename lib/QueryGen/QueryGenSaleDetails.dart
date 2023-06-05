@@ -6,7 +6,7 @@ class QueryGenSaleDetails {
   Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale lModpcsale) async {
     List<String> lQueries = [];
 
-    for (ModSaleDetailsDB l_ModUserDB in lModpcsale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetails l_ModUserDB in lModpcsale.l_PCSaleDetailsDBList) {
       if (l_ModUserDB.Pr_Operation == 1) {
         final query = '''
         INSERT INTO TBUSalesDetails (

@@ -9,7 +9,7 @@ class BLPc {
     }
 
     int grandTotal = 0;
-    for (ModSaleDetailsDB item in lModpcsale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetails item in lModpcsale.l_PCSaleDetailsDBList) {
       grandTotal += item.Pr_ItemTotal!;
     }
 

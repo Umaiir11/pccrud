@@ -1,5 +1,5 @@
-class ModSaleDetailsDB {
-  ModSaleDetailsDB({
+class ModSaleDetails {
+  ModSaleDetails({
     this.Pr_PKGUID,
     this.Pr_Operation,
     this.Pr_VmDID,

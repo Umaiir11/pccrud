@@ -4,7 +4,7 @@ import 'ModSaleDB.dart';
 import 'ModSaleDetailsDB.dart';
 
 class ModPcSale extends ModSale {
-  RxList<ModSaleDetailsDB> l_PCSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
+  RxList<ModSaleDetails> l_PCSaleDetailsDBList = <ModSaleDetails>[].obs;
 
   Map<String, dynamic> toJson() {
     final jsonMap = super.UserToJson(); // Call the superclass's toJson method

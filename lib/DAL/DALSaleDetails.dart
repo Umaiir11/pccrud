@@ -4,7 +4,7 @@ import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 //import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DALSaleDetails extends GetxController {
-  Fnc_CudSaleDetails(List<ModSaleDetailsDB> lSaledetailslist) async {
+  Fnc_CudSaleDetails(List<ModSaleDetails> lSaledetailslist) async {
     //Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     //List<String> l_InsertionQuery = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(l_SaleDetailsList);
 

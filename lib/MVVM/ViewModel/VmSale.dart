@@ -42,10 +42,10 @@ class VmSale extends GetxController {
     l_PrGrandTotal.value = value;
   }
 
-  ModSale l_ModSale = ModSale();
 
   FncFill_SaleModel() {
     l_Uuid = const Uuid().v4();
+    ModSale l_ModSale = ModSale();
 
     l_ModSale.Pr_PKGUID = l_Uuid;
     l_ModSale.Pr_Operation = 1;
@@ -54,6 +54,8 @@ class VmSale extends GetxController {
     l_ModSale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
     print(l_ModSale);
     print(l_ModSale);
+
+    return l_ModSale;
   }
 
 //==================PC=====================================================================
@@ -61,20 +63,22 @@ class VmSale extends GetxController {
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    ModSale l_ModSale =  FncFill_SaleModel();
     l_ModPcSale.Pr_PKGUID = l_ModSale.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_ModSale.Pr_Operation;
     l_ModPcSale.Pr_CustID = l_ModSale.Pr_CustID;
     l_ModPcSale.Pr_Voucher = l_ModSale.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = l_ModSale.Pr_GrandTotal;
-    ModSaleDetailsDB? lModsaledetailsdb = lVmsaledetails.FncFillDetailsModel();
+    //Get the filled SaleDetailsModel and add to the list
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
     l_ModPcSale.l_PCSaleDetailsDBList.add(lModsaledetailsdb!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);
 
     FncCalculateItemTotal();
   }
 
-  FncUpdateList(int lSelectedindex, ModSaleDetailsDB lModsaledetailsdb) {
+  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
     if (lSelectedindex >= 0 && lSelectedindex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
       l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex] = lModsaledetailsdb;
     }
@@ -82,6 +86,7 @@ class VmSale extends GetxController {
     l_ModPcSale.l_PCSaleDetailsDBList.refresh();
   }
 
+  //Calculation each item total by BLPC .
   FncCalculateItemTotal() {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();

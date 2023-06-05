@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:tuple/tuple.dart';
-
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 import '../MVVM/ViewModel/VmSaleDetails.dart';
 import '../Validation/DVMSaleDetails.dart';
@@ -10,7 +9,7 @@ import '../Validation/DVMSaleDetails.dart';
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   final VmSale l_VmSale = Get.put(VmSale());
-  ModSaleDetailsDB l_ModSaleDetailsDB = ModSaleDetailsDB();
+  ModSaleDetails l_ModSaleDetailsDB = ModSaleDetails();
 
   final TextEditingController l_Pr_ItemController = TextEditingController();
   final TextEditingController l_Pr_QuantityController = TextEditingController();
@@ -72,7 +71,6 @@ class CustomAlertDialog {
                     ),
                   ),
                   Padding(
-
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
@@ -117,8 +115,9 @@ class CustomAlertDialog {
                       onChanged: (value) {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
-                        ModSaleDetailsDB lModSaleDetails = l_VmSaleDetails.FncFillDetailsModel();
-                        l_VmSaleDetails.FncsetModelData(lModSaleDetails);
+                        //Call FncFill_SaleDetailsModel here.
+                        ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
+                        l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
                       },
                     ),
                   ),

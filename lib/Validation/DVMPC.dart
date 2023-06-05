@@ -22,7 +22,7 @@ class DVMSalePC {
       lFieldNames.add('Pr_Voucher');
     }
 
-    for (ModSaleDetailsDB l_ModSaleDetailsDB in lModpcsale.l_PCSaleDetailsDBList) {
+    for (ModSaleDetails l_ModSaleDetailsDB in lModpcsale.l_PCSaleDetailsDBList) {
       if (l_ModSaleDetailsDB.Pr_Item?.isEmpty ?? true) {
         lErrorMsgs.add('Enter your item.');
         lFieldNames.add('Pr_Item');

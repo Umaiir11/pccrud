@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:tuple/tuple.dart';
@@ -22,7 +23,6 @@ class _VwSaleState extends State<VwSale> {
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   CustomAlertDialog l_CustomAlertDialog = CustomAlertDialog();
-
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   //ModPcSale l_ModPcSale = ModPcSale();
 
@@ -187,7 +187,8 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
                               l_VmSale.FncFill_SaleModel();
-                              if (l_VmSale.l_ModSale != null) {
+                                ModSale l_ModSale   = l_VmSale.FncFill_SaleModel();
+                              if (l_ModSale != null) {
                                 l_CustomAlertDialog.CustAlertDialog(
                                     context,
                                     PrHeight,
@@ -197,11 +198,7 @@ class _VwSaleState extends State<VwSale> {
                                     ElevatedButton(
                                       onPressed: () async {
                                         if (G_DialogValidationKey.currentState!.validate()) {
-                                          //l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
-                                          //ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
                                           l_VmSale.FncFillPCModelList();
-                                          //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                                          //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
                                           l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
@@ -291,9 +288,9 @@ class _VwSaleState extends State<VwSale> {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
                                                       // Update the model
                                                       // l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
-                                                      ModSaleDetailsDB lModSaleDetailsDB =
-                                                          l_VmSaleDetails.FncFillDetailsModel();
-                                                      l_VmSaleDetails.FncUpdateDetailsModel(
+                                                      ModSaleDetails lModSaleDetailsDB =
+                                                          l_VmSaleDetails.FncFill_SaleDetailsModel();
+                                                      l_VmSaleDetails.FncSaleUpdateDetailsModel(
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
 
@@ -334,7 +331,7 @@ class _VwSaleState extends State<VwSale> {
                                           iconSize: 12.0,
                                           onPressed: () {
                                             // Get the item at the current index
-                                            ModSaleDetailsDB item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
+                                            ModSaleDetails item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
@@ -351,28 +348,7 @@ class _VwSaleState extends State<VwSale> {
                                         SizedBox(
                                           width: PrWidth * 0.05,
                                         ),
-                                        Text.rich(
-                                          TextSpan(
-                                            children: [
-                                              const TextSpan(
-                                                text: 'Customer: ',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 16.0,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: l_VmSale.l_ModSale.Pr_CustID.toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w300,
-                                                  fontSize: 16.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+
                                         SizedBox(
                                           width: PrWidth * 0.03,
                                         ),

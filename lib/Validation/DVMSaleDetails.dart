@@ -2,7 +2,7 @@ import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:tuple/tuple.dart';
 
 class DVMSaleDetails {
-  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModSaleDetailsDB lModsaledetailsdb) {
+  static Tuple2<List<String>?, List<String>?> Fnc_Validate(ModSaleDetails lModsaledetailsdb) {
     List<String>? lErrorMsgs = [];
     List<String>? lFieldNames = [];
 
