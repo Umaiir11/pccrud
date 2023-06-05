@@ -116,8 +116,12 @@ class CustomAlertDialog {
                         int parsedValue = int.tryParse(value) ?? 0;
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         //Call FncFill_SaleDetailsModel here.
-                        ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
-                        l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
+                        if (l_VmSaleDetails.Pr_txtItem_Text.isNotEmpty &&
+                            l_VmSaleDetails.Pr_txtQuantity_Text != 0 && parsedValue != 0) {
+                          ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
+                          l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
+                        }
+
                       },
                     ),
                   ),
