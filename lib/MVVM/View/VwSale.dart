@@ -23,6 +23,7 @@ class _VwSaleState extends State<VwSale> {
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   CustomAlertDialog l_CustomAlertDialog = CustomAlertDialog();
+
   //final DBHelper l_DBHelper = Get.put(DBHelper());
   //ModPcSale l_ModPcSale = ModPcSale();
 
@@ -186,10 +187,10 @@ class _VwSaleState extends State<VwSale> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
-                                ModSale l_ModSale   = l_VmSale.FncFill_SaleModel();
+                              ModSale l_ModSale = l_VmSale.FncFill_SaleModel();
                               if (l_ModSale != null) {
                                 l_CustomAlertDialog.CustAlertDialog(
-                                  // CustAlertDialog fill the ModSaleDetails Model
+                                    // CustAlertDialog fill the ModSaleDetails Model
                                     context,
                                     PrHeight,
                                     PrWidth,
@@ -287,7 +288,8 @@ class _VwSaleState extends State<VwSale> {
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
-                                                      ModSaleDetails lModSaleDetailsDB = l_VmSaleDetails.FncFill_SaleDetailsModel();
+                                                      ModSaleDetails lModSaleDetailsDB =
+                                                          l_VmSaleDetails.FncFill_SaleDetailsModel();
                                                       l_VmSaleDetails.FncSaleUpdateDetailsModel(
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
@@ -345,7 +347,6 @@ class _VwSaleState extends State<VwSale> {
                                         SizedBox(
                                           width: PrWidth * 0.05,
                                         ),
-
                                         SizedBox(
                                           width: PrWidth * 0.03,
                                         ),
