@@ -3,7 +3,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'ModSaleDB.dart';
 import 'ModSaleDetailsDB.dart';
 
-class ModPcSale extends ModSaleDB {
+class ModPcSale extends ModSale {
   RxList<ModSaleDetailsDB> l_PCSaleDetailsDBList = <ModSaleDetailsDB>[].obs;
 
   Map<String, dynamic> toJson() {

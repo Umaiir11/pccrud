@@ -42,41 +42,31 @@ class VmSale extends GetxController {
     l_PrGrandTotal.value = value;
   }
 
-  RxInt l_PrMainOperation = RxInt(0);
+  ModSale l_ModSale = ModSale();
 
-  int get Pr_txtMainOperation_Text {
-    return l_PrMainOperation.value;
-  }
-
-  set Pr_txtMainOperation_Text(int value) {
-    l_PrMainOperation.value = value;
-  }
-
-  ModSaleDB l_ModSaleDB = ModSaleDB();
-
-  FncFillModel() {
+  FncFill_SaleModel() {
     l_Uuid = const Uuid().v4();
 
-    l_ModSaleDB.Pr_PKGUID = l_Uuid;
-    l_ModSaleDB.Pr_Operation = 1;
-    l_ModSaleDB.Pr_CustID = Pr_txtCustID_Text;
-    l_ModSaleDB.Pr_Voucher = Pr_txtVoucher_Text;
-    l_ModSaleDB.Pr_GrandTotal = Pr_txtGrandTotal_Text;
-    print(l_ModSaleDB);
-    print(l_ModSaleDB);
+    l_ModSale.Pr_PKGUID = l_Uuid;
+    l_ModSale.Pr_Operation = 1;
+    l_ModSale.Pr_CustID = Pr_txtCustID_Text;
+    l_ModSale.Pr_Voucher = Pr_txtVoucher_Text;
+    l_ModSale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
+    print(l_ModSale);
+    print(l_ModSale);
   }
 
-//=======================================================================================
+//==================PC=====================================================================
 
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
-    l_ModPcSale.Pr_PKGUID = l_ModSaleDB.Pr_PKGUID;
-    l_ModPcSale.Pr_Operation = l_ModSaleDB.Pr_Operation;
-    l_ModPcSale.Pr_CustID = l_ModSaleDB.Pr_CustID;
-    l_ModPcSale.Pr_Voucher = l_ModSaleDB.Pr_Voucher;
-    l_ModPcSale.Pr_GrandTotal = l_ModSaleDB.Pr_GrandTotal;
+    l_ModPcSale.Pr_PKGUID = l_ModSale.Pr_PKGUID;
+    l_ModPcSale.Pr_Operation = l_ModSale.Pr_Operation;
+    l_ModPcSale.Pr_CustID = l_ModSale.Pr_CustID;
+    l_ModPcSale.Pr_Voucher = l_ModSale.Pr_Voucher;
+    l_ModPcSale.Pr_GrandTotal = l_ModSale.Pr_GrandTotal;
     ModSaleDetailsDB? lModsaledetailsdb = lVmsaledetails.FncFillDetailsModel();
     l_ModPcSale.l_PCSaleDetailsDBList.add(lModsaledetailsdb!);
     print(l_ModPcSale.l_PCSaleDetailsDBList);

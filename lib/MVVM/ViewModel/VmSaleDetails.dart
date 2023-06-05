@@ -80,7 +80,7 @@ class VmSaleDetails extends GetxController {
     ModSaleDetailsDB lModsaledetailsdb = ModSaleDetailsDB(); // Create a new instance
 
     // Rest of your code
-    ModSaleDB? lModsaledb = l_VmSale?.l_ModSaleDB;
+    ModSale? lModsaledb = l_VmSale?.l_ModSale;
     String lUuid = const Uuid().v4();
 
     lModsaledetailsdb.Pr_PKGUID = lUuid;

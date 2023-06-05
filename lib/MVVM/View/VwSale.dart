@@ -186,40 +186,45 @@ class _VwSaleState extends State<VwSale> {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (G_MainValidationKey.currentState!.validate()) {
-                              l_VmSale.FncFillModel();
-                              l_CustomAlertDialog.CustAlertDialog(
-                                  context,
-                                  PrHeight,
-                                  PrWidth,
-                                  G_DialogValidationKey,
-                                  "Sale Details",
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      if (G_DialogValidationKey.currentState!.validate()) {
-                                        //l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
-                                        //ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
-                                        l_VmSale.FncFillPCModelList();
-                                        //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
-                                        //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
-                                        l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
-                                      } else {
-                                        l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
-                                      elevation: 7,
-                                      // minimumSize: Size(150, 48),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
+                              l_VmSale.FncFill_SaleModel();
+                              if (l_VmSale.l_ModSale != null) {
+                                l_CustomAlertDialog.CustAlertDialog(
+                                    context,
+                                    PrHeight,
+                                    PrWidth,
+                                    G_DialogValidationKey,
+                                    "Sale Details",
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        if (G_DialogValidationKey.currentState!.validate()) {
+                                          //l_VmSaleDetails.Pr_txtChildOperation_Text = 1;
+                                          //ModSaleDetailsDB lModSaleDetailsDB = l_VmSaleDetails.FncFillDetailsModel();
+                                          l_VmSale.FncFillPCModelList();
+                                          //DALSaleDetails().Fnc_CudSaleDetails(l_VmSale.l_ModSaleDetailsDBList);
+                                          //print(l_VmSaleDetails.l_ModPcSale.l_PCSaleDetailsDBList);
+                                          l_VmSaleDetails.FncClearDialog(l_CustomAlertDialog);
+                                        } else {
+                                          l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                                        elevation: 7,
+                                        // minimumSize: Size(150, 48),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Add",
+                                        style: TextStyle(fontSize: 15),
                                       ),
                                     ),
-                                    child: const Text(
-                                      "Add",
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                  ),
-                                  -1);
+                                    -1);
+                              } else {
+                                print("FIll Sale");
+                              }
+                              //SaleDetails Dialog
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
                             }
@@ -285,7 +290,7 @@ class _VwSaleState extends State<VwSale> {
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
                                                       // Update the model
-                                                     // l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
+                                                      // l_VmSaleDetails.Pr_txtChildOperation_Text = 2;
                                                       ModSaleDetailsDB lModSaleDetailsDB =
                                                           l_VmSaleDetails.FncFillDetailsModel();
                                                       l_VmSaleDetails.FncUpdateDetailsModel(
@@ -358,7 +363,7 @@ class _VwSaleState extends State<VwSale> {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: l_VmSale.l_ModSaleDB.Pr_CustID.toString(),
+                                                text: l_VmSale.l_ModSale.Pr_CustID.toString(),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w300,

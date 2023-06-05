@@ -4,7 +4,7 @@ import '../MVVM/Model/DB/ModSaleDB.dart';
 //import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DALSaleInfo extends GetxController {
-  Fnc_CudSaleInfo(ModSaleDB lSaleinfo) async {
+  Fnc_CudSaleInfo(ModSale lSaleinfo) async {
    // Database? lDatabase = await DBHelper().FncGetDatabaseIns();
    // List<String> l_InsertionQuery = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(l_SaleInfo);
 
