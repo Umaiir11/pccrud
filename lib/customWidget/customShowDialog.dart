@@ -179,7 +179,7 @@ class CustomAlertDialog {
         return ScaleTransition(
           scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
           child: child,
-        ); // Umair  mod data data
+        );
       },
     );
   }

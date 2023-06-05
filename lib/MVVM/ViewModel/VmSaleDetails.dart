@@ -81,12 +81,7 @@ class VmSaleDetails extends GetxController {
     return l_ModSaledetails; // Return the instance
   }
 
-  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
-    lModsaledetailsdb.Pr_Operation = 2;
-    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
-    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
-    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
-  }
+
 
   //this method is  responsible for claculation in dialog box
    FncSet_SalesDetailsModelData(ModSaleDetails l_FilledSaleDetailsModel) {
@@ -105,6 +100,12 @@ class VmSaleDetails extends GetxController {
     FncItemtotal(l_ModSaleDetails);
   }
 
+  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
+    lModsaledetailsdb.Pr_Operation = 2;
+    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
+    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
+    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
+  }
 
   FncClearDialog(CustomAlertDialog lCustomalertdialog) {
     lCustomalertdialog.l_Pr_QuantityController.clear();
