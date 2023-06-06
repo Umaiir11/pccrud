@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
-import 'package:tuple/tuple.dart';
 
 import '../../DAL/DAL_PC.dart';
-import '../../Validation/DVMPC.dart';
 import '../../customWidget/customShowDialog.dart';
 import '../../customWidget/customSnackBar.dart';
 import '../ViewModel/VmSale.dart';
@@ -24,7 +22,6 @@ class _VwSaleState extends State<VwSale> {
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
 
-
   //Controllers For Sale TextFields
   final TextEditingController l_Pr_CustIDController = TextEditingController();
   final TextEditingController l_Pr_VoucherController = TextEditingController();
@@ -40,8 +37,14 @@ class _VwSaleState extends State<VwSale> {
         resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            if (l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.isNotEmpty) {
+
+            if (l_VmSale.G_ListItemQuery.isNotEmpty) {
+              l_VmSale.FncFillPCModelList();
+
               DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
+            } else {
+              CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+              l_CustomSnackBar.FncCustSnackBAR("Alert", "Empty Data", "Please fill data", Colors.deepOrange, Colors.deepOrange);
             }
           },
           backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
@@ -113,7 +116,6 @@ class _VwSaleState extends State<VwSale> {
                             }
                             return null;
                           },
-
                           onChanged: (value) {
                             l_VmSale.Pr_txtCustID_Text = value;
                           },
@@ -144,6 +146,9 @@ class _VwSaleState extends State<VwSale> {
                             },
                             onChanged: (value) {
                               l_VmSale.Pr_txtVoucher_Text = value;
+                              if (l_VmSale.Pr_txtCustID_Text.isNotEmpty && l_VmSale.Pr_txtVoucher_Text.isNotEmpty) {
+                                l_VmSale.FncFill_SaleModel();
+                              }
                             })),
                   ),
                   Padding(
@@ -181,47 +186,41 @@ class _VwSaleState extends State<VwSale> {
                           onPressed: () async {
                             CustomSnackBar l_CustomSnackBar = CustomSnackBar();
                             if (G_MainValidationKey.currentState!.validate()) {
-                              ModSale l_ModSale = l_VmSale.FncFill_SaleModel();
-                              if (l_ModSale != null) {
-                                CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
+                              CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
 
-                                l_CustomAddAlertDialog.FncCustAlertDialog(
-                                    // CustAlertDialog fill the ModSaleDetails Model
-                                    context,
-                                    PrHeight,
-                                    PrWidth,
-                                    G_DialogValidationKey,
-                                    "Sale Details",
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        if (G_DialogValidationKey.currentState!.validate()) {
-                                          //ModSalesDetails Model assign to the List of PC
-                                          l_VmSale.FncFillPCModelList();
-                                          l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
-                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                              Colors.blue.shade800, Colors.blue.shade600);
-                                        } else {
-                                          l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
-                                        elevation: 7,
-                                        // minimumSize: Size(150, 48),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                      child: const Text(
-                                        "Add",
-                                        style: TextStyle(fontSize: 15),
+                              l_CustomAddAlertDialog.FncCustAlertDialog(
+                                  // CustAlertDialog fill the ModSaleDetails Model from texxt field
+                                  context,
+                                  PrHeight,
+                                  PrWidth,
+                                  G_DialogValidationKey,
+                                  "Sale Details",
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      if (G_DialogValidationKey.currentState!.validate()) {
+                                        //ModSalesDetails Model assign to the List of ItemQuery
+                                        l_VmSale.FncFillItemQuery();
+                                        l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
+                                        l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                            Colors.blue.shade800, Colors.blue.shade600);
+                                      } else {
+                                        l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                                      elevation: 7,
+                                      // minimumSize: Size(150, 48),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                     ),
-                                    -1);
-                              } else {
-                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                    Colors.blue.shade800, Colors.blue.shade600);
-                              }
+                                    child: const Text(
+                                      "Add",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  -1);
                               //SaleDetails Dialog
                             } else {
                               l_VmSale.l_TextFieldsValidation.value = true;
@@ -252,9 +251,9 @@ class _VwSaleState extends State<VwSale> {
                   Expanded(
                     child: Obx(() => ListView.builder(
                           shrinkWrap: true,
-                          itemCount: l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.length,
+                          itemCount: l_VmSale.G_ListItemQuery.length,
                           itemBuilder: (context, lListindex) {
-                            final item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
+                            final item = l_VmSale.G_ListItemQuery[lListindex];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
@@ -338,13 +337,13 @@ class _VwSaleState extends State<VwSale> {
                                           onPressed: () {
                                             CustomSnackBar l_CustomSnackBar = CustomSnackBar();
                                             // Get the item at the current index
-                                            ModSaleDetails item = l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList[lListindex];
+                                            ModSaleDetails item = l_VmSale.G_ListItemQuery[lListindex];
 
                                             // Subtract the item total from the grand total
                                             l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
-                                            l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(lListindex);
+                                            l_VmSale.G_ListItemQuery.removeAt(lListindex);
                                             l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted", "Data Deleted Successfully",
                                                 Colors.red.shade800, Colors.red.shade600);
                                           },

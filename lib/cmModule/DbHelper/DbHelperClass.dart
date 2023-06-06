@@ -18,7 +18,7 @@ class DBHelper {
 
   Future<void> FncCreateDataBase() async {
     final appDirectory = await getApplicationDocumentsDirectory();
-    final dbDirectory = Directory('${appDirectory.path}/PC8');
+    final dbDirectory = Directory('${appDirectory.path}/PC74');
     await dbDirectory.create(recursive: true);
     final dbPath = path.join(dbDirectory.path, 'Pc.db');
     final databaseExists = await databaseFactory.databaseExists(dbPath);

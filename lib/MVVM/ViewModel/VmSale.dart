@@ -2,13 +2,16 @@ import 'package:get/get.dart';
 import 'package:pccrud/BLSaleDetails/BLPc.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
-import 'package:uuid/uuid.dart';
-
 import '../Model/DB/ModSaleDB.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
+import 'Vm_Home.dart';
 
 class VmSale extends GetxController {
+  RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
+
+
   RxBool l_TextFieldsValidation = false.obs;
+  RxBool l_HideItem = false.obs;
   String? l_Uuid;
 
 //TextfieldsProp
@@ -44,15 +47,45 @@ class VmSale extends GetxController {
 
 
   FncFill_SaleModel() {
-    l_Uuid = const Uuid().v4();
     ModSale l_ModSale = ModSale();
-    l_ModSale.Pr_PKGUID = l_Uuid;
-    l_ModSale.Pr_Operation = 1;
+    VmHome? lVmHome = Get.find<VmHome>();
+
+
+    l_ModSale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
+    l_ModSale.Pr_Operation = lVmHome.Pr_txtOperatio;
     l_ModSale.Pr_CustID = Pr_txtCustID_Text;
     l_ModSale.Pr_Voucher = Pr_txtVoucher_Text;
     l_ModSale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
     return l_ModSale;
   }
+
+  FncFillItemQuery(){
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
+    G_ListItemQuery.add(lModsaledetailsdb!);
+    FncCalculateItemTotal2();
+  }
+  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
+    if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
+      G_ListItemQuery[lSelectedindex] = lModsaledetailsdb;
+    }
+    FncCalculateItemTotal2();
+    G_ListItemQuery.refresh();
+  }
+
+  FncCalculateItemTotal2() {
+    int grandTotal = 0;
+    G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    for (var item in G_ListItemQuery) {
+      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+      grandTotal += item.Pr_ItemTotal!;
+    }
+    Pr_txtGrandTotal_Text = grandTotal;
+    print("Done");
+  }
+
+
 
 //========================================================PC=====================================================================
 
@@ -66,21 +99,13 @@ class VmSale extends GetxController {
     l_ModPcSale.Pr_Voucher = l_ModSale.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = l_ModSale.Pr_GrandTotal;
     //Get the filled SaleDetailsModel and add to the list
-    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
-    ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
-    l_ModPcSale.l_PCSaleDetailsDBList.add(lModsaledetailsdb!);
-    print(l_ModPcSale.l_PCSaleDetailsDBList);
-
+    ///VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    //ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
+    l_ModPcSale.l_PCSaleDetailsDBList.addAll(G_ListItemQuery);
+   // print(l_ModPcSale.l_PCSaleDetailsDBList);
     FncCalculateItemTotal();
   }
 
-  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
-    if (lSelectedindex >= 0 && lSelectedindex < l_ModPcSale.l_PCSaleDetailsDBList.length) {
-      l_ModPcSale.l_PCSaleDetailsDBList[lSelectedindex] = lModsaledetailsdb;
-    }
-    FncCalculateItemTotal();
-    l_ModPcSale.l_PCSaleDetailsDBList.refresh();
-  }
 
   //Calculation each item total by BLPC .
   FncCalculateItemTotal() {
@@ -92,4 +117,5 @@ class VmSale extends GetxController {
     Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
   }
+
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/View/VwSale.dart';
+import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
+import 'package:uuid/uuid.dart';
 
 import '../ViewModel/VmSale.dart';
 
@@ -12,7 +14,7 @@ class VwHome extends StatefulWidget {
 }
 
 class _VwHomeState extends State<VwHome> {
-  final VmSale l_VmSale = Get.put(VmSale());
+  final VmHome l_VmHome = Get.put(VmHome());
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,12 @@ class _VwHomeState extends State<VwHome> {
             child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => const VwSale());
+                  l_VmHome.Pr_txtOperatio = 1;
+                  l_VmHome.Pr_txtPKGUID  = const Uuid().v4();
+
+
                 },
-                child: const Text("TAP!")),
+                child: const Text("CREATE!")),
           ),
         ),
       );

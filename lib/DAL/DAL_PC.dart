@@ -7,7 +7,6 @@ import '../QueryGen/QueryGenSaleInfo.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_PC extends GetxController {
-
   Fnc_Cud(ModPcSale lModpcsale) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
 
