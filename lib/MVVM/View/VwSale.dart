@@ -24,8 +24,6 @@ class _VwSaleState extends State<VwSale> {
   final VmSale l_VmSale = Get.put(VmSale());
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
 
-  //final DBHelper l_DBHelper = Get.put(DBHelper());
-  //ModPcSale l_ModPcSale = ModPcSale();
 
   //Controllers For Sale TextFields
   final TextEditingController l_Pr_CustIDController = TextEditingController();
@@ -110,13 +108,12 @@ class _VwSaleState extends State<VwSale> {
                             contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
                           ),
                           validator: (value) {
-                            l_VmSale.l_ModPcSale.Pr_CustID = value ?? '';
-                            Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
-                            if (errors.item2 != null && errors.item2!.contains('Pr_CustID')) {
-                              return errors.item1![errors.item2!.indexOf('Pr_CustID')];
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a Customer ID';
                             }
                             return null;
                           },
+
                           onChanged: (value) {
                             l_VmSale.Pr_txtCustID_Text = value;
                           },
@@ -140,13 +137,9 @@ class _VwSaleState extends State<VwSale> {
                               contentPadding: EdgeInsets.all(PrHeight * 0.007),
                             ),
                             validator: (value) {
-                              l_VmSale.l_ModPcSale.Pr_Voucher = value ?? '';
-                              Tuple2<List<String>?, List<String>?> errors = DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
-                              if (errors.item2 != null && errors.item2!.contains('Pr_Voucher')) {
-                                return errors
-                                    .item1![errors.item2!.indexOf('Pr_Voucher')]; // Return the error message for Pr_FullName
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Voucher';
                               }
-
                               return null;
                             },
                             onChanged: (value) {
@@ -205,7 +198,8 @@ class _VwSaleState extends State<VwSale> {
                                           //ModSalesDetails Model assign to the List of PC
                                           l_VmSale.FncFillPCModelList();
                                           l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
-                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",Colors.blue.shade800,Colors.blue.shade600);
+                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                              Colors.blue.shade800, Colors.blue.shade600);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                         }
@@ -225,7 +219,8 @@ class _VwSaleState extends State<VwSale> {
                                     ),
                                     -1);
                               } else {
-                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",Colors.blue.shade800,Colors.blue.shade600);
+                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                    Colors.blue.shade800, Colors.blue.shade600);
                               }
                               //SaleDetails Dialog
                             } else {
@@ -300,7 +295,11 @@ class _VwSaleState extends State<VwSale> {
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
 
                                                       l_CustomSnackBar.FncCustSnackBAR(
-                                                          "Alert", "Data Updated", "Data Updated Successfully",Colors.blue.shade800,Colors.blue.shade600);
+                                                          "Alert",
+                                                          "Data Updated",
+                                                          "Data Updated Successfully",
+                                                          Colors.blue.shade800,
+                                                          Colors.blue.shade600);
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
                                                       l_VmSaleDetails.FncClearDialog(lUpdatecustomalertdialog);
@@ -346,8 +345,8 @@ class _VwSaleState extends State<VwSale> {
 
                                             // Remove the current item from the list
                                             l_VmSale.l_ModPcSale.l_PCSaleDetailsDBList.removeAt(lListindex);
-                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted", "Data Deleted Successfully",Colors.red.shade800,Colors.red.shade600);
-
+                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted", "Data Deleted Successfully",
+                                                Colors.red.shade800, Colors.red.shade600);
                                           },
                                         )
                                       ],

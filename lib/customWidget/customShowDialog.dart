@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
-import 'package:tuple/tuple.dart';
+
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 import '../MVVM/ViewModel/VmSaleDetails.dart';
-import '../Validation/DVMSaleDetails.dart';
 
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
@@ -57,12 +56,9 @@ class CustomAlertDialog {
                         labelText: 'Item',
                       ),
                       validator: (value) {
-                        l_ModSaleDetailsDB.Pr_Item = value ?? '';
-                        Tuple2<List<String>?, List<String>?> errors = DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                        if (errors.item2 != null && errors.item2!.contains('Pr_Item')) {
-                          return errors.item1![errors.item2!.indexOf('Pr_Item')];
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Item';
                         }
-
                         return null;
                       },
                       onChanged: (value) {
@@ -79,13 +75,16 @@ class CustomAlertDialog {
                         labelText: 'Quantity',
                       ),
                       validator: (value) {
-                        int? parsedValue = int.tryParse(value ?? '');
-                        l_ModSaleDetailsDB.Pr_Quantity = parsedValue;
-                        Tuple2<List<String>?, List<String>?> errors = DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                        if (errors.item2 != null && errors.item2!.contains('Pr_Quantity')) {
-                          return errors.item1![errors.item2!.indexOf('Pr_Quantity')];
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Quantity';
                         }
-
+                        final l_Rate = double.tryParse(value);
+                        if (l_Rate == null || l_Rate == 0) {
+                          return 'Quantity value cannot be zero';
+                        }
+                        if (l_Rate < 0) {
+                          return 'Quantity value cannot be negative';
+                        }
                         return null;
                       },
                       onChanged: (value) {
@@ -103,12 +102,15 @@ class CustomAlertDialog {
                         labelText: 'Rate',
                       ),
                       validator: (value) {
-                        int? parsedValue = int.tryParse(value ?? '');
-                        l_ModSaleDetailsDB.Pr_Rate = parsedValue;
-
-                        Tuple2<List<String>?, List<String>?> errors = DVMSaleDetails.Fnc_Validate(l_ModSaleDetailsDB);
-                        if (errors.item2 != null && errors.item2!.contains('Pr_Rate')) {
-                          return errors.item1![errors.item2!.indexOf('Pr_Rate')]; // Return the error message for Pr_EmailID
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Rate';
+                        }
+                        final l_Rate = double.tryParse(value);
+                        if (l_Rate == null || l_Rate == 0) {
+                          return 'Rate value cannot be zero';
+                        }
+                        if (l_Rate < 0) {
+                          return 'Rate value cannot be negative';
                         }
                         return null;
                       },
@@ -117,11 +119,11 @@ class CustomAlertDialog {
                         l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
                         //Call FncFill_SaleDetailsModel here.
                         if (l_VmSaleDetails.Pr_txtItem_Text.isNotEmpty &&
-                            l_VmSaleDetails.Pr_txtQuantity_Text != 0 && parsedValue != 0) {
+                            l_VmSaleDetails.Pr_txtQuantity_Text != 0 &&
+                            parsedValue != 0) {
                           ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
                           l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
                         }
-
                       },
                     ),
                   ),

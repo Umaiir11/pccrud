@@ -1,5 +1,6 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 
+
 class QueryGenSaleInfo {
   Future<List<String>> FncGenCrudQueriesSaleInfo(ModPcSale lModpcsale) async {
     List<String> lQueries = [];
@@ -28,6 +29,11 @@ class QueryGenSaleInfo {
       final query = '''
     DELETE FROM TBUSalesInfo
     WHERE Pr_CustID = '${lModpcsale.Pr_CustID}'
+    ''';
+      lQueries.add(query);
+    } else if (lModpcsale.Pr_Operation == 4) {
+      final query = '''
+    SELECT * FROM TBUSalesInfo
     ''';
       lQueries.add(query);
     }
