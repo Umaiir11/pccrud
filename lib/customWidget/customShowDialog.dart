@@ -8,7 +8,6 @@ import '../MVVM/ViewModel/VmSaleDetails.dart';
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
   final VmSale l_VmSale = Get.put(VmSale());
-  ModSaleDetails l_ModSaleDetailsDB = ModSaleDetails();
 
   final TextEditingController l_Pr_ItemController = TextEditingController();
   final TextEditingController l_Pr_QuantityController = TextEditingController();
@@ -93,40 +92,40 @@ class CustomAlertDialog {
                       },
                     ),
                   ),
+
                   Padding(
-                    padding: EdgeInsets.only(top: PrHeight * 0.01),
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: l_Pr_RateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Rate',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter Rate';
-                        }
-                        final l_Rate = double.tryParse(value);
-                        if (l_Rate == null || l_Rate == 0) {
-                          return 'Rate value cannot be zero';
-                        }
-                        if (l_Rate < 0) {
-                          return 'Rate value cannot be negative';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        int parsedValue = int.tryParse(value) ?? 0;
-                        l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
-                        //Call FncFill_SaleDetailsModel here.
-                        if (l_VmSaleDetails.Pr_txtItem_Text.isNotEmpty &&
-                            l_VmSaleDetails.Pr_txtQuantity_Text != 0 &&
-                            parsedValue != 0) {
-                          ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
-                          l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
-                        }
-                      },
-                    ),
-                  ),
+                      padding: EdgeInsets.only(top: PrHeight * 0.01),
+                      child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          controller: l_Pr_RateController,
+                          decoration: const InputDecoration(
+                            labelText: 'Rate',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Rate';
+                            }
+                            final l_Rate = double.tryParse(value);
+                            if (l_Rate == null || l_Rate == 0) {
+                              return 'Rate value cannot be zero';
+                            }
+                            if (l_Rate < 0) {
+                              return 'Rate value cannot be negative';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            int parsedValue = int.tryParse(value) ?? 0;
+                            l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
+                            if (parsedValue >= 0) {
+                              if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 || l_VmSaleDetails.Pr_txtRate_Text <= 0) {
+                                l_VmSaleDetails.Pr_txtTotal_Text = 0;
+                              } else {
+                                ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
+                                l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
+                              }
+                            }
+                          })),
 
                   //Conatiner to add Show Data
                   Padding(
