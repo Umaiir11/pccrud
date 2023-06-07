@@ -3,8 +3,6 @@ import 'package:pccrud/MVVM/Model/DB/ModCustomerDetails.dart';
 import 'package:uuid/uuid.dart';
 
 class VmCustomerDetails extends GetxController {
-
-
   RxBool l_TextFieldsValidation = false.obs;
 
   RxString l_PrPKGUID = ''.obs;
@@ -16,7 +14,6 @@ class VmCustomerDetails extends GetxController {
   set Pr_txtPKGUID_Text(String value) {
     l_PrPKGUID.value = value;
   }
-
 
   RxString l_PrCustID = ''.obs;
 
@@ -38,7 +35,7 @@ class VmCustomerDetails extends GetxController {
     l_PrPr_CB.value = value;
   }
 
-  RxString l_Pr_ISD =  ''.obs;
+  RxString l_Pr_ISD = ''.obs;
 
   String get Pr_txtPr_ISD_Text {
     return l_Pr_ISD.value;
@@ -66,6 +63,4 @@ class VmCustomerDetails extends GetxController {
 
     return l_ModCustomerDetails; // Return the instance
   }
-
-
 }
