@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
+import 'package:pccrud/Validation/DVMPC.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../DAL/DAL_PC.dart';
 import '../../customWidget/customShowDialog.dart';
@@ -25,8 +26,7 @@ class _VwSaleState extends State<VwSale> {
   //Controllers For Sale TextFields
   final TextEditingController l_Pr_CustIDController = TextEditingController();
   final TextEditingController l_Pr_VoucherController = TextEditingController();
-  final TextEditingController l_Pr_GrandTotalController = TextEditingController();
-  final TextEditingController l_Pr_l_Pr_OperationController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _VwSaleState extends State<VwSale> {
 
             if (l_VmSale.G_ListItemQuery.isNotEmpty) {
               l_VmSale.FncFillPCModelList();
-
+              Tuple2<List<String>?, List<String>?> errors =  DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
               DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             } else {
               CustomSnackBar l_CustomSnackBar = CustomSnackBar();
@@ -151,6 +151,8 @@ class _VwSaleState extends State<VwSale> {
                               }
                             })),
                   ),
+
+
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
@@ -175,75 +177,84 @@ class _VwSaleState extends State<VwSale> {
                             }))),
                   ),
                   //AlertDialogInsertion
+
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: SizedBox(
-                      width: PrWidth * 0.225,
-                      height: PrHeight * .045,
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
-                            if (G_MainValidationKey.currentState!.validate()) {
-                              CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+                              if (G_MainValidationKey.currentState!.validate()) {
+                                CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
 
-                              l_CustomAddAlertDialog.FncCustAlertDialog(
+                                l_CustomAddAlertDialog.FncCustAlertDialog(
                                   // CustAlertDialog fill the ModSaleDetails Model from texxt field
-                                  context,
-                                  PrHeight,
-                                  PrWidth,
-                                  G_DialogValidationKey,
-                                  "Sale Details",
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      if (G_DialogValidationKey.currentState!.validate()) {
-                                        //ModSalesDetails Model assign to the List of ItemQuery
-                                        l_VmSale.FncFillItemQuery();
-                                        l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
-                                        l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                            Colors.blue.shade800, Colors.blue.shade600);
-                                      } else {
-                                        l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
-                                      elevation: 7,
-                                      // minimumSize: Size(150, 48),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
+                                    context,
+                                    PrHeight,
+                                    PrWidth,
+                                    G_DialogValidationKey,
+                                    "Sale Details",
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        if (G_DialogValidationKey.currentState!.validate()) {
+                                          //ModSalesDetails Model assign to the List of ItemQuery
+                                          l_VmSale.FncFillItemQuery();
+                                          l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
+                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                              Colors.blue.shade800, Colors.blue.shade600);
+                                        } else {
+                                          l_VmSaleDetails.l_TextFieldsValidation.value = true;
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
+                                        elevation: 7,
+                                        // minimumSize: Size(150, 48),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        "Add",
+                                        style: TextStyle(fontSize: 15),
                                       ),
                                     ),
-                                    child: const Text(
-                                      "Add",
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                  ),
-                                  -1);
-                              //SaleDetails Dialog
-                            } else {
-                              l_VmSale.l_TextFieldsValidation.value = true;
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.lightGreen,
-                            elevation: 7,
-                            minimumSize: const Size(150, 48),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          child: const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Insert',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          )),
+                                    -1);
+                                //SaleDetails Dialog
+                              } else {
+                                l_VmSale.l_TextFieldsValidation.value = true;
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Insert',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+
+                        ElevatedButton(
+                            onPressed: () {
+                              l_VmSale.FncNewForm(l_Pr_CustIDController,l_Pr_VoucherController);
+                              Get.to(() => const VwSale());
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Reset',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                      ],
                     ),
                   ),
+
+
+
                   SizedBox(
                     height: PrHeight * 0.01,
                   ),

@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/BLSaleDetails/BLPc.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
+import 'package:uuid/uuid.dart';
+
 import '../Model/DB/ModSaleDB.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 import 'Vm_Home.dart';
 
 class VmSale extends GetxController {
   RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
-
 
   RxBool l_TextFieldsValidation = false.obs;
   RxBool l_HideItem = false.obs;
@@ -46,10 +48,10 @@ class VmSale extends GetxController {
   }
 
 
+
   FncFill_SaleModel() {
     ModSale l_ModSale = ModSale();
     VmHome? lVmHome = Get.find<VmHome>();
-
 
     l_ModSale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModSale.Pr_Operation = lVmHome.Pr_txtOperatio;
@@ -59,12 +61,13 @@ class VmSale extends GetxController {
     return l_ModSale;
   }
 
-  FncFillItemQuery(){
+  FncFillItemQuery() {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
     G_ListItemQuery.add(lModsaledetailsdb!);
     FncCalculateItemTotal2();
   }
+
   FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
     if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
       G_ListItemQuery[lSelectedindex] = lModsaledetailsdb;
@@ -86,13 +89,12 @@ class VmSale extends GetxController {
   }
 
 
-
 //========================================================PC=====================================================================
 
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-    ModSale l_ModSale =  FncFill_SaleModel();
+    ModSale l_ModSale = FncFill_SaleModel();
     l_ModPcSale.Pr_PKGUID = l_ModSale.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = l_ModSale.Pr_Operation;
     l_ModPcSale.Pr_CustID = l_ModSale.Pr_CustID;
@@ -102,10 +104,9 @@ class VmSale extends GetxController {
     ///VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     //ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
     l_ModPcSale.l_PCSaleDetailsDBList.addAll(G_ListItemQuery);
-   // print(l_ModPcSale.l_PCSaleDetailsDBList);
+    // print(l_ModPcSale.l_PCSaleDetailsDBList);
     FncCalculateItemTotal();
   }
-
 
   //Calculation each item total by BLPC .
   FncCalculateItemTotal() {
@@ -117,5 +118,51 @@ class VmSale extends GetxController {
     Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
   }
+
+
+
+  FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
+    VmHome? lVmHome = Get.find<VmHome>();
+    lVmHome.Pr_txtOperatio = 1;
+    lVmHome.Pr_txtPKGUID = const Uuid().v4();
+
+
+    ModSale l_ModSale = FncFill_SaleModel();
+    l_ModSale.Pr_Operation =  lVmHome.Pr_txtOperatio;
+    l_ModSale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
+    l_ModSale.Pr_CustID = '';
+    l_ModSale.Pr_Voucher = '';
+    l_ModSale.Pr_GrandTotal = 0;
+    //l_Pr_CustIDController.text = '';
+    //l_Pr_VoucherController.text ='';
+    T1?.text = '';
+    T2?.text = '';
+
+
+    G_ListItemQuery.clear();
+
+   // VmSaleDetails? lVmSaleDetails = Get.find<VmSaleDetails>();
+    ModSaleDetails? lModsaledetailsdb = VmSaleDetails().FncFill_SaleDetailsModel();
+    lModsaledetailsdb!.Pr_PKGUID = '';
+    lModsaledetailsdb!.Pr_Operation = 0;
+    lModsaledetailsdb!.Pr_Quantity = 0;
+    lModsaledetailsdb!.Pr_Rate = 0;
+    lModsaledetailsdb!.Pr_Item = '';
+    lModsaledetailsdb!.Pr_ItemTotal = 0;
+    lModsaledetailsdb!.Pr_VmDID = '';
+    l_ModPcSale.Pr_Operation = 0;
+    l_ModPcSale.Pr_PKGUID = '';
+    l_ModPcSale.Pr_CustID = '';
+    l_ModPcSale.Pr_Voucher = '';
+    l_ModPcSale.Pr_GrandTotal = 0;
+    l_ModPcSale.l_PCSaleDetailsDBList.clear();
+
+    Pr_txtGrandTotal_Text = 0;
+    Pr_txtCustID_Text ='';
+    Pr_txtVoucher_Text = '';
+
+    print("Data Clear");
+  }
+
 
 }
