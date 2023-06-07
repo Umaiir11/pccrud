@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
@@ -143,6 +144,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 //ModSalesDetails Model assign to the List of ItemQuery
                                 ModCustomerDetails l_ModCustomerDetails = l_VmCustomerDetails.FncFill_CustomerDetailsModel();
                                 if (l_ModCustomerDetails != null) {
+                                  DAL_DefineCust().Fnc_Cud(l_ModCustomerDetails);
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
                                 }

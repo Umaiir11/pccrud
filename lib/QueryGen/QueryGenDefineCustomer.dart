@@ -1,5 +1,4 @@
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
-import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 
 
 class QueryGenDefineCust {
@@ -7,8 +6,8 @@ class QueryGenDefineCust {
     List<String> lQueries = [];
 
     final query = '''
-    INSERT INTO TBUSalesInfo (
-      CustID, Voucher, GrandTotal, Operation, PKGUID
+    INSERT INTO TBUCustomer (
+      CustID, CB, ISD, PKGUID
     ) VALUES (
       '${lModCustomerDetails.Pr_PKGUID}', '${lModCustomerDetails.Pr_CB}', '${lModCustomerDetails.Pr_CustID}', 
       '${lModCustomerDetails.Pr_ISD}'
