@@ -13,7 +13,7 @@ class VwDefineCustomer extends StatefulWidget {
 }
 
 class _VwDefineCustomerState extends State<VwDefineCustomer> {
-  final GlobalKey<FormState> G_MainValidationKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> G_ValidationKey = GlobalKey<FormState>();
   final VmCustomerDetails l_VmCustomerDetails = Get.put(VmCustomerDetails());
 
   //Controllers For Sale TextFields
@@ -29,7 +29,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Form(
-          key: G_MainValidationKey,
+          key: G_ValidationKey,
           child: SingleChildScrollView(
             reverse: false,
             child: Container(
@@ -139,7 +139,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              if (G_MainValidationKey.currentState!.validate()) {
+                              if (G_ValidationKey.currentState!.validate()) {
                                 //ModSalesDetails Model assign to the List of ItemQuery
                                 ModCustomerDetails l_ModCustomerDetails = l_VmCustomerDetails.FncFill_CustomerDetailsModel();
                                 if (l_ModCustomerDetails != null) {
@@ -164,7 +164,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                     Colors.blue.shade800, Colors.blue.shade600);
                               } else {
                                 l_CustomSnackBar.FncCustSnackBAR(
-                                    "Alert", "Not Added", "Data is'nt Added", Colors.blue.shade800, Colors.blue.shade600);
+                                    "Alert", "Not Added", "Data is'nt Added", Colors.redAccent, Colors.redAccent);
                               }
                             },
                             child: const FittedBox(
