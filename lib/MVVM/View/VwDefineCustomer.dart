@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
-import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
-import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
-import 'package:pccrud/Validation/DVMPC.dart';
-import 'package:tuple/tuple.dart';
 
-import '../../DAL/DAL_PC.dart';
-import '../../customWidget/customShowDialog.dart';
 import '../../customWidget/customSnackBar.dart';
-import '../ViewModel/VmSale.dart';
 
 class VwDefineCustomer extends StatefulWidget {
   const VwDefineCustomer({Key? key}) : super(key: key);
@@ -22,10 +15,11 @@ class VwDefineCustomer extends StatefulWidget {
 class _VwDefineCustomerState extends State<VwDefineCustomer> {
   final GlobalKey<FormState> G_MainValidationKey = GlobalKey<FormState>();
   final VmCustomerDetails l_VmCustomerDetails = Get.put(VmCustomerDetails());
+
   //Controllers For Sale TextFields
   final TextEditingController l_CustIDController = TextEditingController();
   final TextEditingController l_CBController = TextEditingController();
-  CustomSnackBar l_CustomSnackBar =CustomSnackBar();
+  CustomSnackBar l_CustomSnackBar = CustomSnackBar();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +28,6 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-
         body: Form(
           key: G_MainValidationKey,
           child: SingleChildScrollView(
@@ -131,7 +124,6 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                           },
                           onChanged: (value) {
                             l_VmCustomerDetails.Pr_txtPr_CB_Text = value;
-
                           },
                         )),
                   ),
@@ -142,30 +134,49 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: ElevatedButton(
-                        onPressed: () async {
-
-                          if (G_MainValidationKey.currentState!.validate()) {
-                            //ModSalesDetails Model assign to the List of ItemQuery
-                           ModCustomerDetails  l_ModCustomerDetails = l_VmCustomerDetails.FncFill_CustomerDetailsModel();
-                            if( l_ModCustomerDetails != null  ){
-                              l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                  Colors.blue.shade800, Colors.blue.shade600);
-                            }
-                          } else {
-                            l_VmCustomerDetails.l_TextFieldsValidation.value = true;
-                          }
-
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Insert',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (G_MainValidationKey.currentState!.validate()) {
+                                //ModSalesDetails Model assign to the List of ItemQuery
+                                ModCustomerDetails l_ModCustomerDetails = l_VmCustomerDetails.FncFill_CustomerDetailsModel();
+                                if (l_ModCustomerDetails != null) {
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                      Colors.blue.shade800, Colors.blue.shade600);
+                                }
+                              } else {
+                                l_VmCustomerDetails.l_TextFieldsValidation.value = true;
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Insert',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (l_VmCustomerDetails.l_CustomerDetailsList.isNotEmpty) {
+                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                    Colors.blue.shade800, Colors.blue.shade600);
+                              } else {
+                                l_CustomSnackBar.FncCustSnackBAR(
+                                    "Alert", "Not Added", "Data is'nt Added", Colors.blue.shade800, Colors.blue.shade600);
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Save',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                      ],
+                    ),
                   ),
-
                 ],
               ),
             ),
