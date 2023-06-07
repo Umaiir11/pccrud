@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/View/VwSale.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 
 import '../ViewModel/VmSale.dart';
+import 'VwCustomerDetails.dart';
 
 class VwHome extends StatefulWidget {
   const VwHome({Key? key}) : super(key: key);
@@ -37,13 +38,28 @@ class _VwHomeState extends State<VwHome> {
               stops: [0.1, 0.5, 0.7, 0.9],
             ),
           ),
-          child: Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
-                  Get.to(() => const VwSale());
-                },
-                child: const Text("CREATE!")),
+          child: Column(
+            children: [
+
+              SizedBox(height: PrHeight*0.40 ,),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
+                      Get.to(() => const VwSale());
+                    },
+                    child: const Text("CREATE!")),
+              ),
+              SizedBox(height: PrHeight*0.02 ,),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
+                      Get.to(() => const VwDefineCustomer());
+                    },
+                    child: const Text("Define Customer!")),
+              ),
+            ],
           ),
         ),
       );
