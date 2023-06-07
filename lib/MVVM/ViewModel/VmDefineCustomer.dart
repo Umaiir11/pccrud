@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModCustomerDetails.dart';
+import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
 class VmCustomerDetails extends GetxController {

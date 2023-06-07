@@ -4,7 +4,7 @@ import 'package:pccrud/MVVM/View/VwSale.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 
 import '../ViewModel/VmSale.dart';
-import 'VwCustomerDetails.dart';
+import 'VwDefineCustomer.dart';
 
 class VwHome extends StatefulWidget {
   const VwHome({Key? key}) : super(key: key);

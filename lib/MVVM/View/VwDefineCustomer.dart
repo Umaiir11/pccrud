@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModCustomerDetails.dart';
+import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDetailsDB.dart';
-import 'package:pccrud/MVVM/ViewModel/VmCustomerDetails.dart';
+import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:pccrud/Validation/DVMPC.dart';
 import 'package:tuple/tuple.dart';
