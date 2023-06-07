@@ -26,6 +26,17 @@ class SchemaQuery {
       )
     ''');
 
+    await lDatabase.execute('''
+      CREATE TABLE IF NOT EXISTS TBUCustomer (
+        ID INTEGER ,
+        PKGUID TEXT PRIMARY KEY,
+        CustID TEXT,
+        CB TEXT,
+        ISD TEXT
+       )
+    ''');
+
+
     //Altertable1
     await FncCheckAndAddColumns(lDatabase, 'TBUSalesInfo', {
       'DATA': 'INTEGER',
