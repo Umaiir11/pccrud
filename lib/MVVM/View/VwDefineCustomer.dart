@@ -15,7 +15,7 @@ class VwDefineCustomer extends StatefulWidget {
 
 class _VwDefineCustomerState extends State<VwDefineCustomer> {
   final GlobalKey<FormState> G_ValidationKey = GlobalKey<FormState>();
-  final VmCustomerDetails l_VmCustomerDetails = Get.put(VmCustomerDetails());
+  final VmDefineCustomer l_VmDefineCustomer = Get.put(VmDefineCustomer());
 
   //Controllers For Sale TextFields
   final TextEditingController l_CustIDController = TextEditingController();
@@ -95,7 +95,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             return null;
                           },
                           onChanged: (value) {
-                            l_VmCustomerDetails.Pr_txtCustID_Text = value;
+                            l_VmDefineCustomer.Pr_txtCustID_Text = value;
                           },
                         )),
                   ),
@@ -124,7 +124,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             return null;
                           },
                           onChanged: (value) {
-                            l_VmCustomerDetails.Pr_txtPr_CB_Text = value;
+                            l_VmDefineCustomer.Pr_txtPr_CB_Text = value;
                           },
                         )),
                   ),
@@ -142,14 +142,18 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
                                 //ModSalesDetails Model assign to the List of ItemQuery
-                                ModCustomerDetails l_ModCustomerDetails = l_VmCustomerDetails.FncFill_CustomerDetailsModel();
-                                if (l_ModCustomerDetails != null) {
-                                  DAL_DefineCust().Fnc_Cud(l_ModCustomerDetails);
+
+                             l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                             l_VmDefineCustomer.savedModCustomerDetails?.Pr_Operation = 1;
+                                if ( l_VmDefineCustomer.savedModCustomerDetails !=null) {
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
+                                } else {
+                                  l_CustomSnackBar.FncCustSnackBAR(
+                                      "Alert", "Data Added", "Data Added Successfully", Colors.redAccent, Colors.redAccent);
                                 }
                               } else {
-                                l_VmCustomerDetails.l_TextFieldsValidation.value = true;
+                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
                               }
                             },
                             child: const FittedBox(
@@ -161,12 +165,15 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             )),
                         ElevatedButton(
                             onPressed: () async {
-                              if (l_VmCustomerDetails.l_CustomerDetailsList.isNotEmpty) {
+                              if (l_VmDefineCustomer.savedModCustomerDetails != null) {
+                                DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.savedModCustomerDetails!);
                                 l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                     Colors.blue.shade800, Colors.blue.shade600);
-                              } else {
-                                l_CustomSnackBar.FncCustSnackBAR(
-                                    "Alert", "Not Added", "Data is'nt Added", Colors.redAccent, Colors.redAccent);
+                                l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                              }
+                              else {
+                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
+                                    Colors.redAccent, Colors.redAccent);
                               }
                             },
                             child: const FittedBox(

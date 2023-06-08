@@ -28,7 +28,8 @@ class SchemaQuery {
 
     await lDatabase.execute('''
       CREATE TABLE IF NOT EXISTS TBUCustomer (
-        ID INTEGER ,
+        ID INTEGER , 
+        Operation INTEGER ,
         PKGUID TEXT PRIMARY KEY,
         CustID TEXT,
         CB TEXT,

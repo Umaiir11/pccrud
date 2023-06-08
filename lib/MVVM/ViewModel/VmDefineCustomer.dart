@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
-class VmCustomerDetails extends GetxController {
+class VmDefineCustomer extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
 
   RxString l_PrPKGUID = ''.obs;
@@ -49,10 +50,10 @@ class VmCustomerDetails extends GetxController {
 
   RxList<ModCustomerDetails> l_CustomerDetailsList = <ModCustomerDetails>[].obs;
 
-  FncFill_CustomerDetailsModel() {
-    ModCustomerDetails l_ModCustomerDetails = ModCustomerDetails();
-    //Get the filled Sale model instace
+  ModCustomerDetails? savedModCustomerDetails; // Variable to store the instance
 
+  ModCustomerDetails FncFill_CustomerDetailsModel() {
+    ModCustomerDetails l_ModCustomerDetails = ModCustomerDetails();
     String lUuid = const Uuid().v4();
     l_ModCustomerDetails.Pr_PKGUID = lUuid;
     l_ModCustomerDetails.Pr_CustID = Pr_txtCustID_Text;
@@ -61,6 +62,22 @@ class VmCustomerDetails extends GetxController {
 
     l_CustomerDetailsList.add(l_ModCustomerDetails);
 
-    return l_ModCustomerDetails; // Return the instance
+    savedModCustomerDetails = l_ModCustomerDetails; // Save the instance
+
+    return l_ModCustomerDetails;
   }
+
+   FncClearData(  TextEditingController T1,TextEditingController T2 ){
+
+     savedModCustomerDetails?.Pr_PKGUID = null;
+     savedModCustomerDetails?.Pr_CustID = null;
+     savedModCustomerDetails?.Pr_CB =null;
+     savedModCustomerDetails?.Pr_ISD =null;
+     savedModCustomerDetails?.Pr_Operation =null;
+
+    T1.clear();
+    T2.clear();
+
+
+   }
 }

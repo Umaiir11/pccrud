@@ -15,7 +15,9 @@ class QueryGenSaleInfo {
     )
     ''';
       lQueries.add(query);
-    } else if (lModpcsale.Pr_Operation == 2) {
+    }
+
+    else if (lModpcsale.Pr_Operation == 2) {
       final query = '''
     UPDATE TBUSalesInfo SET
       CustID = '${lModpcsale.Pr_CustID}',
