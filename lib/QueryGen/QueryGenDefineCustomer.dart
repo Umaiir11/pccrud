@@ -7,7 +7,7 @@ class QueryGenDefineCust {
 
     final query = '''
     INSERT INTO TBUCustomer (
-      CustID, CB, ISD, PKGUID
+      PKGUID, CustID, CB, ISD
     ) VALUES (
       '${lModCustomerDetails.Pr_PKGUID}', '${lModCustomerDetails.Pr_CB}', '${lModCustomerDetails.Pr_CustID}', 
       '${lModCustomerDetails.Pr_ISD}'
