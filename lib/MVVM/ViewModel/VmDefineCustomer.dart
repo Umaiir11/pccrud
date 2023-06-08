@@ -48,23 +48,23 @@ class VmDefineCustomer extends GetxController {
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
-  RxList<ModCustomerDetails> l_CustomerDetailsList = <ModCustomerDetails>[].obs;
+  RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
 
-  ModCustomerDetails? G_savedModCustomerDetails; // Variable to store the instance
+  ModDefineCustomer? G_savedModDefineCustomer; // Variable to store the instance
 
-  ModCustomerDetails FncFill_CustomerDetailsModel() {
-    ModCustomerDetails l_ModCustomerDetails = ModCustomerDetails();
+  ModDefineCustomer FncFill_CustomerDetailsModel() {
+    ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
     String lUuid = const Uuid().v4();
-    l_ModCustomerDetails.Pr_PKGUID = lUuid;
-    l_ModCustomerDetails.Pr_CustID = Pr_txtCustID_Text;
-    l_ModCustomerDetails.Pr_ISD = Pr_txtPr_ISD_Text;
-    l_ModCustomerDetails.Pr_CB = Pr_txtPr_CB_Text;
+    l_ModDefineCustomer.Pr_PKGUID = lUuid;
+    l_ModDefineCustomer.Pr_CustID = Pr_txtCustID_Text;
+    l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text;
+    l_ModDefineCustomer.Pr_CB = Pr_txtPr_CB_Text;
 
-    l_CustomerDetailsList.add(l_ModCustomerDetails);
+    l_DefineCustomerList.add(l_ModDefineCustomer);
 
-    G_savedModCustomerDetails = l_ModCustomerDetails; // Save the instance
+    G_savedModDefineCustomer = l_ModDefineCustomer; // Save the instance
 
-    return l_ModCustomerDetails;
+    return l_ModDefineCustomer;
   }
 
 }

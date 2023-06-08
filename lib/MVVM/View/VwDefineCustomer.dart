@@ -143,8 +143,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 //ModSalesDetails Model assign to the List of ItemQuery
 
                                 l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                                l_VmDefineCustomer.G_savedModCustomerDetails?.Pr_Operation = 1;
-                                if (l_VmDefineCustomer.G_savedModCustomerDetails != null) {
+                                l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = 1;
+                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
                                 } else {
@@ -165,8 +165,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-                                if (l_VmDefineCustomer.G_savedModCustomerDetails != null) {
-                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModCustomerDetails!);
+                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
                                   l_CustIDController.clear();

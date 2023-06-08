@@ -1,5 +1,5 @@
-class ModCustomerDetails {
-  ModCustomerDetails({
+class ModDefineCustomer {
+  ModDefineCustomer({
     this.Pr_PKGUID,
     this.Pr_CustID,
     this.Pr_CB,
