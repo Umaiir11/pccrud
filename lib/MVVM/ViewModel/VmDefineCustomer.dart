@@ -50,7 +50,7 @@ class VmDefineCustomer extends GetxController {
 
   RxList<ModCustomerDetails> l_CustomerDetailsList = <ModCustomerDetails>[].obs;
 
-  ModCustomerDetails? savedModCustomerDetails; // Variable to store the instance
+  ModCustomerDetails? G_savedModCustomerDetails; // Variable to store the instance
 
   ModCustomerDetails FncFill_CustomerDetailsModel() {
     ModCustomerDetails l_ModCustomerDetails = ModCustomerDetails();
@@ -62,22 +62,9 @@ class VmDefineCustomer extends GetxController {
 
     l_CustomerDetailsList.add(l_ModCustomerDetails);
 
-    savedModCustomerDetails = l_ModCustomerDetails; // Save the instance
+    G_savedModCustomerDetails = l_ModCustomerDetails; // Save the instance
 
     return l_ModCustomerDetails;
   }
 
-   FncClearData(  TextEditingController T1,TextEditingController T2 ){
-
-     savedModCustomerDetails?.Pr_PKGUID = null;
-     savedModCustomerDetails?.Pr_CustID = null;
-     savedModCustomerDetails?.Pr_CB =null;
-     savedModCustomerDetails?.Pr_ISD =null;
-     savedModCustomerDetails?.Pr_Operation =null;
-
-    T1.clear();
-    T2.clear();
-
-
-   }
 }

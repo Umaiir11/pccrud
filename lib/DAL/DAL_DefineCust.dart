@@ -7,7 +7,6 @@ import '../cmModule/DbHelper/DbHelperClass.dart';
 class DAL_DefineCust extends GetxController {
   Fnc_Cud(ModCustomerDetails lModCustomerDetails) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-
     List<String> lDefineCust = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
     final batch = lDatabase!.batch();

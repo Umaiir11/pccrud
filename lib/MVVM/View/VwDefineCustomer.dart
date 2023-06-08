@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/DAL/DAL_DefineCust.dart';
-import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 import '../../customWidget/customSnackBar.dart';
@@ -143,9 +142,9 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                               if (G_ValidationKey.currentState!.validate()) {
                                 //ModSalesDetails Model assign to the List of ItemQuery
 
-                             l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                             l_VmDefineCustomer.savedModCustomerDetails?.Pr_Operation = 1;
-                                if ( l_VmDefineCustomer.savedModCustomerDetails !=null) {
+                                l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                                l_VmDefineCustomer.G_savedModCustomerDetails?.Pr_Operation = 1;
+                                if (l_VmDefineCustomer.G_savedModCustomerDetails != null) {
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
                                 } else {
@@ -165,15 +164,20 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             )),
                         ElevatedButton(
                             onPressed: () async {
-                              if (l_VmDefineCustomer.savedModCustomerDetails != null) {
-                                DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.savedModCustomerDetails!);
-                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                    Colors.blue.shade800, Colors.blue.shade600);
-                                l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                              }
-                              else {
-                                l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
-                                    Colors.redAccent, Colors.redAccent);
+                              if (G_ValidationKey.currentState!.validate()) {
+                                if (l_VmDefineCustomer.G_savedModCustomerDetails != null) {
+                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModCustomerDetails!);
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                      Colors.blue.shade800, Colors.blue.shade600);
+                                  l_CustIDController.clear();
+                                  l_CBController.clear();
+                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                                } else {
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
+                                      Colors.redAccent, Colors.redAccent);
+                                }
+                              } else {
+                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
                               }
                             },
                             child: const FittedBox(
