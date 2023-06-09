@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
+import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
+
+import '../Model/DB/ModDefineCustomer.dart';
 
 
 class Vw_CustomerDBList extends StatefulWidget {
@@ -12,7 +15,7 @@ class Vw_CustomerDBList extends StatefulWidget {
 
 class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
   final VmCustomerDBList l_VmCustomerDBList = Get.put(VmCustomerDBList());
-  @override
+  final VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
   @override
   void initState() {
     super.initState();
@@ -72,99 +75,102 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                     itemCount: l_VmCustomerDBList.l_DefineCustomerListDB.length,
                     itemBuilder: (context, lListindex) {
                       final item = l_VmCustomerDBList.l_DefineCustomerListDB[lListindex];
-                      return SizedBox(
-                        height: PrHeight * .132,
-                        child: Card(
-                          color: Colors.cyan,
-                          elevation: 15,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  //AlertDialogUpdate
-                                  const Text(
-                                    'Sale Details',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16.0,
+                      return GestureDetector(
+                        onTap: () {
+                         l_VmCustomerDBList.FncGetSelectedPKGUID(lListindex);
+                        },
+                        child: SizedBox(
+                          height: PrHeight * .132,
+                          child: Card(
+                            color: Colors.cyan,
+                            elevation: 15,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Sale Details',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                      ),
                                     ),
-                                  ),
-                                  //DeleteButton
-
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: PrWidth * 0.05,
-                                  ),
-                                  SizedBox(
-                                    width: PrWidth * 0.03,
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: 'Item: ',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: item.Pr_CustID.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                      ],
+                                    // DeleteButton
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: PrWidth * 0.05,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: PrWidth * 0.03,
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: 'Quantity: ',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: item.Pr_CB.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      width: PrWidth * 0.03,
                                     ),
-                                  ),
-                                ],
-                              ),
-
-                            ],
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text: 'Item: ',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: item.Pr_CustID.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: PrWidth * 0.03,
+                                    ),
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text: 'Quantity: ',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: item.Pr_CB.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
                     },
                   )),
                 )
+
               ],
             ),
           ),

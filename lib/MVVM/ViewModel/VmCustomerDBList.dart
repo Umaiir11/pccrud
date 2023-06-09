@@ -13,7 +13,15 @@ class VmCustomerDBList extends GetxController {
 
    FncReciveList(){
      l_DefineCustomerListDB = lVmDefineCustomer!.FncGetDefineCustomerList();
+   }
+
+   FncGetSelectedPKGUID(int index){
+
+     String? l_SelectedPKGHUID =  l_DefineCustomerListDB[index].Pr_PKGUID;
+     lVmDefineCustomer?.FncSearchData(l_SelectedPKGHUID!);
 
    }
+
+
 
 }

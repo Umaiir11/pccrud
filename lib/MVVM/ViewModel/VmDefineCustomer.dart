@@ -78,6 +78,11 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
+ FncSearchData( String PKGUID  ){
+
+
+ }
+
 
 
   FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
