@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
+import 'Vm_Home.dart';
+
 class VmDefineCustomer extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
 
@@ -55,16 +57,39 @@ class VmDefineCustomer extends GetxController {
   ModDefineCustomer FncFill_CustomerDetailsModel() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
     String lUuid = const Uuid().v4();
+    VmHome? lVmHome = Get.find<VmHome>();
+    lVmHome.Pr_txtOperatio = 1;
+    l_ModDefineCustomer.Pr_Operation =lVmHome.Pr_txtOperatio;
     l_ModDefineCustomer.Pr_PKGUID = lUuid;
     l_ModDefineCustomer.Pr_CustID = Pr_txtCustID_Text;
     l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text;
     l_ModDefineCustomer.Pr_CB = Pr_txtPr_CB_Text;
-
     l_DefineCustomerList.add(l_ModDefineCustomer);
 
     G_savedModDefineCustomer = l_ModDefineCustomer; // Save the instance
 
     return l_ModDefineCustomer;
   }
+
+
+  FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
+    VmHome? lVmHome = Get.find<VmHome>();
+    lVmHome.Pr_txtOperatio = 1;
+    lVmHome.Pr_txtPKGUID = const Uuid().v4();
+
+
+    ModDefineCustomer l_ModDefineCustomer = FncFill_CustomerDetailsModel();
+    l_ModDefineCustomer.Pr_Operation =  lVmHome.Pr_txtOperatio;
+    l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
+    l_ModDefineCustomer.Pr_CustID = '';
+    l_ModDefineCustomer.Pr_ISD = '';
+    l_ModDefineCustomer.Pr_CB = '';
+    //l_Pr_CustIDController.text = '';
+    //l_Pr_VoucherController.text ='';
+    T1?.text = '';
+    T2?.text = '';
+
+  }
+
 
 }

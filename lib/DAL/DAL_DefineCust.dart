@@ -15,7 +15,7 @@ class DAL_DefineCust extends GetxController {
     final batch = lDatabase!.batch();
 
     for (String query in l_Query) {
-      if (query.startsWith('SELECT')) {
+      if (query.trim().toUpperCase().startsWith('SELECT')) {
         await FncFetchData(query); // Execute separate method for fetching and storing data
       } else {
         batch.execute(query);
@@ -28,18 +28,20 @@ class DAL_DefineCust extends GetxController {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<Map<String, dynamic>> results = await lDatabase!.rawQuery(query);
 
-    List<ModDefineCustomer> l_DefineCustomerListDB = results.map((row) {
-      return ModDefineCustomer(
+    for (Map<String, dynamic> row in results) {
+      ModDefineCustomer defineCustomer = ModDefineCustomer(
         Pr_PKGUID: row['PKGUID'],
         Pr_CustID: row['CustID'],
         Pr_CB: row['CB'],
         Pr_ISD: row['ISD'],
         Pr_Operation: row['Operation'],
       );
-    }).toList();
-    l_DefineCustomerListDB1.addAll(l_DefineCustomerListDB);
+      l_DefineCustomerListDB1.add(defineCustomer);
 
-    // Do something with the fetched data
-    // ...
-  }
-}
+      // Do something with the fetched data for each row
+      // ...
+    }
+
+      print(l_DefineCustomerListDB1);
+      print(l_DefineCustomerListDB1);
+  }}

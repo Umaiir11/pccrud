@@ -4,6 +4,7 @@ import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 import '../../customWidget/customSnackBar.dart';
+import '../ViewModel/Vm_Home.dart';
 
 class VwDefineCustomer extends StatefulWidget {
   const VwDefineCustomer({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class VwDefineCustomer extends StatefulWidget {
 class _VwDefineCustomerState extends State<VwDefineCustomer> {
   final GlobalKey<FormState> G_ValidationKey = GlobalKey<FormState>();
   final VmDefineCustomer l_VmDefineCustomer = Get.put(VmDefineCustomer());
-
+ final VmHome? lVmHome = Get.find<VmHome>();
   //Controllers For Sale TextFields
   final TextEditingController l_CustIDController = TextEditingController();
   final TextEditingController l_CBController = TextEditingController();
@@ -143,7 +144,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 //ModSalesDetails Model assign to the List of ItemQuery
 
                                 l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                                l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = 1;
+                                //l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = 1;
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
@@ -190,6 +191,33 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                       ],
                     ),
                   ),
+
+                  Padding(   padding: EdgeInsets.only(
+                    top: PrHeight * 0.02,
+                  ),
+                  child:  ElevatedButton(
+                      onPressed: () async {
+
+                           l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation =lVmHome?.Pr_txtOperatio=2;
+
+                          if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                            DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
+                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
+                                Colors.blue.shade800, Colors.blue.shade600);
+                            // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                          } else {
+                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
+                                Colors.redAccent, Colors.redAccent);
+                          }
+                        } ,
+                      child: const FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'Search',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      )),
+                  )
                 ],
               ),
             ),

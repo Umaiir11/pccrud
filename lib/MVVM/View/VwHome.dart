@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/View/VwSale.dart';
+import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 
 import '../ViewModel/VmSale.dart';
@@ -16,6 +17,7 @@ class VwHome extends StatefulWidget {
 class _VwHomeState extends State<VwHome> {
   final VmHome l_VmHome = Get.put(VmHome());
   final VmSale l_VmSale = Get.put(VmSale());
+  final VmDefineCustomer l_VmDefineCustomer = Get.put(VmDefineCustomer());
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class _VwHomeState extends State<VwHome> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-                      l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
+                      l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
                       Get.to(() => const VwDefineCustomer());
                     },
                     child: const Text("Define Customer!")),
