@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/DAL/DAL_DefineCust.dart';
+import 'package:pccrud/MVVM/View/VwCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 import '../../customWidget/customSnackBar.dart';
@@ -204,6 +205,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
                             l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
                                 Colors.blue.shade800, Colors.blue.shade600);
+                            Get.to(() => const Vw_CustomerDBList());
                             // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                           } else {
                             l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",

@@ -8,6 +8,7 @@ import 'Vm_Home.dart';
 class VmDefineCustomer extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
 
+  RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
   RxString l_PrPKGUID = ''.obs;
 
   String get Pr_txtPKGUID_Text {

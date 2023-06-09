@@ -3,10 +3,13 @@ import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/QueryGen/QueryGenDefineCustomer.dart';
 import 'package:sqflite/sqflite.dart';
+import '../MVVM/ViewModel/VmCustomerDBList.dart';
+import '../MVVM/ViewModel/Vm_Home.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {
-  RxList<ModDefineCustomer> l_DefineCustomerListDB1 = <ModDefineCustomer>[].obs;
+
+
 
   Future<void> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
@@ -36,12 +39,12 @@ class DAL_DefineCust extends GetxController {
         Pr_ISD: row['ISD'],
         Pr_Operation: row['Operation'],
       );
-      l_DefineCustomerListDB1.add(defineCustomer);
 
-      // Do something with the fetched data for each row
-      // ...
+      VmCustomerDBList? lVmCustomerDBList = Get.find<VmCustomerDBList>();
+      lVmCustomerDBList.l_DefineCustomerListDB.add(defineCustomer);
     }
 
-      print(l_DefineCustomerListDB1);
-      print(l_DefineCustomerListDB1);
+
+   // print(lVmCustomerDBList.l_DefineCustomerListDB);
+      //print(lVmCustomerDBList.l_DefineCustomerListDB);
   }}
