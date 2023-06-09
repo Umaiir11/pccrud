@@ -11,7 +11,7 @@ class DAL_DefineCust extends GetxController {
 
 
 
-  Future<void> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
+  Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
@@ -20,19 +20,22 @@ class DAL_DefineCust extends GetxController {
     for (String query in l_Query) {
       if (query.trim().toUpperCase().startsWith('SELECT')) {
         await FncFetchData(query); // Execute separate method for fetching and storing data
+        return true;
       } else {
         batch.execute(query);
+        return true;
       }
     }
     await batch.commit();
+    return false;
   }
 
   Future<void> FncFetchData(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-    List<Map<String, dynamic>> results = await lDatabase!.rawQuery(query);
+    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
 
-    for (Map<String, dynamic> row in results) {
-      ModDefineCustomer defineCustomer = ModDefineCustomer(
+    for (Map<String, dynamic> row in l_FetchedDATA) {
+      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
         Pr_PKGUID: row['PKGUID'],
         Pr_CustID: row['CustID'],
         Pr_CB: row['CB'],
@@ -40,8 +43,8 @@ class DAL_DefineCust extends GetxController {
         Pr_Operation: row['Operation'],
       );
 
-      VmCustomerDBList? lVmCustomerDBList = Get.find<VmCustomerDBList>();
-      lVmCustomerDBList.l_DefineCustomerListDB.add(defineCustomer);
+      VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
+      lVmDefineCustomer.l_DefineCustomerListDB.add(l_ModDefineCustomer);
     }
 
 

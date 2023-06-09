@@ -13,6 +13,11 @@ class Vw_CustomerDBList extends StatefulWidget {
 class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
   final VmCustomerDBList l_VmCustomerDBList = Get.put(VmCustomerDBList());
   @override
+  @override
+  void initState() {
+    super.initState();
+    l_VmCustomerDBList.FncReciveList(); // Fetch data from the view model here
+  }
   Widget build(BuildContext context) {
 
 

@@ -72,6 +72,13 @@ class VmDefineCustomer extends GetxController {
     return l_ModDefineCustomer;
   }
 
+  RxList<ModDefineCustomer> FncGetDefineCustomerList() {
+    if (l_DefineCustomerListDB.isEmpty) {
+      print('List is empty');
+    }
+    return l_DefineCustomerListDB;
+  }
+
 
   FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
     VmHome? lVmHome = Get.find<VmHome>();

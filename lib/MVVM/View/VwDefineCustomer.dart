@@ -17,7 +17,8 @@ class VwDefineCustomer extends StatefulWidget {
 class _VwDefineCustomerState extends State<VwDefineCustomer> {
   final GlobalKey<FormState> G_ValidationKey = GlobalKey<FormState>();
   final VmDefineCustomer l_VmDefineCustomer = Get.put(VmDefineCustomer());
- final VmHome? lVmHome = Get.find<VmHome>();
+  final VmHome? lVmHome = Get.find<VmHome>();
+
   //Controllers For Sale TextFields
   final TextEditingController l_CustIDController = TextEditingController();
   final TextEditingController l_CBController = TextEditingController();
@@ -193,32 +194,33 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                     ),
                   ),
 
-                  Padding(   padding: EdgeInsets.only(
-                    top: PrHeight * 0.02,
-                  ),
-                  child:  ElevatedButton(
-                      onPressed: () async {
-
-                           l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation =lVmHome?.Pr_txtOperatio=2;
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: PrHeight * 0.02,
+                    ),
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
 
                           if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                            DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
-                                Colors.blue.shade800, Colors.blue.shade600);
-                            Get.to(() => const Vw_CustomerDBList());
+                            if (await DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!)) {
+                              l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
+                                  Colors.blue.shade800, Colors.blue.shade600);
+                              Get.to(() => const Vw_CustomerDBList());
+                            }
                             // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                           } else {
-                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
-                                Colors.redAccent, Colors.redAccent);
+                            l_CustomSnackBar.FncCustSnackBAR(
+                                "Alert", "Not Added", "Please Add Data From Insert Button", Colors.redAccent, Colors.redAccent);
                           }
-                        } ,
-                      child: const FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          'Search',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      )),
+                        },
+                        child: const FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Search',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        )),
                   )
                 ],
               ),
