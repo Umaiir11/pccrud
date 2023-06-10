@@ -8,10 +8,7 @@ import '../MVVM/ViewModel/Vm_Home.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {
-
-
-
-  Future<bool>  Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
+  Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
@@ -19,7 +16,11 @@ class DAL_DefineCust extends GetxController {
 
     for (String query in l_Query) {
       if (query.trim().toUpperCase().startsWith('SELECT')) {
-        await FncFetchData(query); // Execute separate method for fetching and storing data
+        if (query.toUpperCase().contains('PKGUID')) {
+          await FncFillModel(query);
+        } else {
+          await FncFetchData(query); // Execute separate method for fetching and storing data
+        }
         return true;
       } else {
         batch.execute(query);
@@ -30,9 +31,15 @@ class DAL_DefineCust extends GetxController {
     return true; // Return true after executing all queries in the loop
   }
 
+
   Future<void> FncFetchData(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
+
+    VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
+
+    // Clear the existing data before adding new data
+    lVmDefineCustomer?.l_DefineCustomerListDB.clear();
 
     for (Map<String, dynamic> row in l_FetchedDATA) {
       ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
@@ -42,14 +49,27 @@ class DAL_DefineCust extends GetxController {
         Pr_ISD: row['ISD'],
         Pr_Operation: row['Operation'],
       );
+      lVmDefineCustomer?.l_DefineCustomerListDB.add(l_ModDefineCustomer);
+    }
 
+    // Rest of the code...
+  }
+ FncFillModel(String query) async {
+    Database? lDatabase = await DBHelper().FncGetDatabaseIns();
+    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
+
+    if (l_FetchedDATA.isNotEmpty) {
+      Map<String, dynamic> row = l_FetchedDATA.first;
+      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
+        Pr_CustID: row['CustID'],
+        Pr_CB: row['CB'],
+      );
       VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
-      lVmDefineCustomer.l_DefineCustomerListDB.add(l_ModDefineCustomer);
+      lVmDefineCustomer.lExtractedModel = l_ModDefineCustomer;
+
     }
 
 
-   // print(lVmCustomerDBList.l_DefineCustomerListDB);
-      //print(lVmCustomerDBList.l_DefineCustomerListDB);
   }
 
 }

@@ -24,6 +24,8 @@ class VmDefineCustomer extends GetxController {
   RxBool l_TextFieldsValidation = false.obs;
 
   RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
+  ModDefineCustomer? lExtractedModel;
+
   RxString l_PrPKGUID = ''.obs;
 
   String get Pr_txtPKGUID_Text {
@@ -102,11 +104,10 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
-  Future<bool> FncSearchData(String l_PKGUID, int l_index) async {
+  Future<bool> FncSearchData(String l_PKGUID) async {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
     Pr_txtSelectedPKGUID_Text = l_PKGUID;
-    Pr_txtSeletecIndex = l_index;
     return await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
   }
 

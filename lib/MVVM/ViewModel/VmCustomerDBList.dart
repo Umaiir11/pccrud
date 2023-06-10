@@ -17,10 +17,8 @@ class VmCustomerDBList extends GetxController {
 
   Future<bool> FncGetSelectedPKGUID(int index) async {
     String? l_SelectedPKGHUID = l_DefineCustomerListDB[index].Pr_PKGUID;
-    int? l_SeletedIndex = index;
-
     if (l_SelectedPKGHUID != null) {
-      return await lVmDefineCustomer!.FncSearchData(l_SelectedPKGHUID!, l_SeletedIndex!);
+      return await lVmDefineCustomer!.FncSearchData(l_SelectedPKGHUID!);
     }
 
     return false;
