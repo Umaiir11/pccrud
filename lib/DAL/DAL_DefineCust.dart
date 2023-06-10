@@ -29,13 +29,15 @@ class DAL_DefineCust extends GetxController {
   }
 
 
-  Future<bool> Fnc_Read(ModDefineCustomer lModCustomerDetails) async {
+  Future<bool> Fnc_Read(ModDefineCustomer lModCustomerDetails, String l_WhereClause) async {
     try {
       List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
       for (String query in l_Query) {
         if (query.trim().toUpperCase().startsWith('SELECT')) {
-          if (query.toUpperCase().contains('PKGUID')) {
-            await FncFillModel(query);
+          String finalQuery= query+l_WhereClause;
+          if (finalQuery.toUpperCase().contains('PKGUID')) {
+
+            await FncFillModel(finalQuery);
           } else {
             await FncFetchData(query);
           }

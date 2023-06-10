@@ -28,7 +28,7 @@ class QueryGenDefineCust {
       final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
 
       final query = '''
-      SELECT * FROM TBUCustomer WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'
+      SELECT * FROM TBUCustomer
   ''';
       lQueries.add(query);
     }

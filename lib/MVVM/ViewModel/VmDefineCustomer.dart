@@ -108,7 +108,8 @@ class VmDefineCustomer extends GetxController {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
     Pr_txtSelectedPKGUID_Text = l_PKGUID;
-    return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!);
+    String l_WhereClause = "WHERE PKGUID = '${Pr_txtSelectedPKGUID_Text}'";
+    return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
   }
 
 
