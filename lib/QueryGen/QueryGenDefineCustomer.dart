@@ -1,4 +1,7 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
+import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 class QueryGenDefineCust {
   Future<List<String>> FncGenCrudQueriesDefineCust(ModDefineCustomer lModDefineCustomer) async {
@@ -21,8 +24,15 @@ class QueryGenDefineCust {
       ''';
       lQueries.add(query);
     } else if (lModDefineCustomer.Pr_Operation == 3) {
-      // Add your logic for operation 3 here
+      // Fetch all data based on PKGUID
+      final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
+
+      final query = '''
+      SELECT * FROM TBUCustomer WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'
+  ''';
+      lQueries.add(query);
     }
+
 
     return lQueries;
   }

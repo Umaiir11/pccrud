@@ -23,11 +23,11 @@ class DAL_DefineCust extends GetxController {
         return true;
       } else {
         batch.execute(query);
-        return true;
       }
     }
+
     await batch.commit();
-    return false;
+    return true; // Return true after executing all queries in the loop
   }
 
   Future<void> FncFetchData(String query) async {

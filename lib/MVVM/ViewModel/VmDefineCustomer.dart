@@ -1,11 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
+import 'package:pccrud/MVVM/View/VwDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
 import 'Vm_Home.dart';
 
 class VmDefineCustomer extends GetxController {
+
+
+  RxInt PrSeletecIndex = RxInt(-1);
+
+  int get Pr_txtSeletecIndex {
+    return PrSeletecIndex.value;
+  }
+
+  set Pr_txtSeletecIndex(int value) {
+    PrSeletecIndex.value = value;
+  }
+
+
   RxBool l_TextFieldsValidation = false.obs;
 
   RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
@@ -17,6 +32,15 @@ class VmDefineCustomer extends GetxController {
 
   set Pr_txtPKGUID_Text(String value) {
     l_PrPKGUID.value = value;
+  }
+  RxString l_PrSelectedPKGUID = ''.obs;
+
+  String get Pr_txtSelectedPKGUID_Text {
+    return l_PrSelectedPKGUID.value;
+  }
+
+  set Pr_txtSelectedPKGUID_Text(String value) {
+    l_PrSelectedPKGUID.value = value;
   }
 
   RxString l_PrCustID = ''.obs;
@@ -78,7 +102,15 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
- FncSearchData( String PKGUID  ){
+ FncSearchData( String l_PKGUID ,int l_index ) async {
+
+   final VmHome? lVmHome = Get.find<VmHome>();
+   G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
+    Pr_txtSelectedPKGUID_Text = l_PKGUID;
+    Pr_txtSeletecIndex =  l_index;
+   if (await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!)) {
+     Get.to(() => const VwDefineCustomer());
+   }
 
 
  }

@@ -18,7 +18,8 @@ class VmCustomerDBList extends GetxController {
    FncGetSelectedPKGUID(int index){
 
      String? l_SelectedPKGHUID =  l_DefineCustomerListDB[index].Pr_PKGUID;
-     lVmDefineCustomer?.FncSearchData(l_SelectedPKGHUID!);
+     int? l_SeletedIndex = index;
+     lVmDefineCustomer?.FncSearchData(l_SelectedPKGHUID!,l_SeletedIndex);
 
    }
 

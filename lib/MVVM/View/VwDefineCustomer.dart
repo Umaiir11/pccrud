@@ -27,6 +27,13 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
   @override
   Widget build(BuildContext context) {
     //For Sale TextFields
+    if (l_VmDefineCustomer.Pr_txtSeletecIndex >= 0 && l_VmDefineCustomer.Pr_txtSeletecIndex < l_VmDefineCustomer.l_DefineCustomerListDB  .length) {
+      l_CustIDController.text =  l_VmDefineCustomer.l_DefineCustomerListDB[l_VmDefineCustomer.Pr_txtSeletecIndex
+      ].Pr_CustID.toString();
+      l_CBController.text =  l_VmDefineCustomer.l_DefineCustomerListDB[l_VmDefineCustomer.Pr_txtSeletecIndex
+      ].Pr_CB.toString();
+    }
+
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(

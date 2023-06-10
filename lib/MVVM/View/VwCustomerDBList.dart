@@ -78,6 +78,7 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                       return GestureDetector(
                         onTap: () {
                          l_VmCustomerDBList.FncGetSelectedPKGUID(lListindex);
+                         print(lListindex);
                         },
                         child: SizedBox(
                           height: PrHeight * .132,
