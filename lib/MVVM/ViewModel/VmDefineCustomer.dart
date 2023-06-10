@@ -112,6 +112,23 @@ class VmDefineCustomer extends GetxController {
     return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
   }
 
+  Future<bool> FncDelDATA() async {
+    final VmHome? lVmHome = Get.find<VmHome>();
+    G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 4;
+
+    if (Pr_txtSelectedPKGUID_Text.isNotEmpty) {
+      try {
+        await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+        return true;
+      } catch (e) {
+        print("Error deleting data: $e");
+        return false;
+      }
+    }
+
+    return false;
+  }
+
 
 
   FncNewForm(TextEditingController? T1, TextEditingController? T2,){

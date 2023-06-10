@@ -3,8 +3,6 @@ import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/QueryGen/QueryGenDefineCustomer.dart';
 import 'package:sqflite/sqflite.dart';
-import '../MVVM/ViewModel/VmCustomerDBList.dart';
-import '../MVVM/ViewModel/Vm_Home.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
@@ -25,14 +24,21 @@ class QueryGenDefineCust {
       lQueries.add(query);
     } else if (lModDefineCustomer.Pr_Operation == 3) {
       // Fetch all data based on PKGUID
-      final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
+
 
       final query = '''
-      SELECT * FROM TBUCustomer
-  ''';
+        SELECT * FROM TBUCustomer
+      ''';
+      lQueries.add(query);
+    } else if (lModDefineCustomer.Pr_Operation == 4) {
+      // Delete operation based on PKGUID
+      final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
+      final String l_WhereClause = "WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'";
+      final query = '''
+        DELETE FROM TBUCustomer $l_WhereClause
+      ''';
       lQueries.add(query);
     }
-
 
     return lQueries;
   }

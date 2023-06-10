@@ -228,6 +228,43 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             style: TextStyle(fontSize: 15),
                           ),
                         )),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: PrHeight * 0.02,
+                    ),
+                    child: ElevatedButton(
+                        onPressed: () async {
+                                if (G_ValidationKey.currentState!.validate()) {
+                                   if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+          if (await l_VmDefineCustomer.FncDelDATA() == true) {
+            l_CustomSnackBar.FncCustSnackBAR(
+                "Alert", "Data Deleted", "Data Deleted Successfully",
+                Colors.blue.shade800, Colors.blue.shade600);
+            l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+            l_CustIDController.clear();
+            l_CBController.clear();
+
+          }
+          // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+        } else {
+                                l_CustomSnackBar.FncCustSnackBAR(
+                  "Alert", "Data Not Deleted", "Failed", Colors.redAccent,
+                                   Colors.redAccent);
+                   }
+                        }
+                   else {
+                             l_VmDefineCustomer.l_TextFieldsValidation.value = true;
+                                        }
+                        },
+                        child: const FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        )),
                   )
                 ],
               ),
