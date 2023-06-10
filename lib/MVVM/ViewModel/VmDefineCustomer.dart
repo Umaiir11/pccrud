@@ -104,6 +104,7 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
+
   Future<bool> FncSearchData(String l_PKGUID) async {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
