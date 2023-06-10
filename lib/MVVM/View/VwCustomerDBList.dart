@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 import '../Model/DB/ModDefineCustomer.dart';
+import 'VwDefineCustomer.dart';
 
 
 class Vw_CustomerDBList extends StatefulWidget {
@@ -76,10 +77,14 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                     itemBuilder: (context, lListindex) {
                       final item = l_VmCustomerDBList.l_DefineCustomerListDB[lListindex];
                       return GestureDetector(
-                        onTap: () {
-                         l_VmCustomerDBList.FncGetSelectedPKGUID(lListindex);
-                         print(lListindex);
-                        },
+                      onTap: () async {
+                        bool operationSuccessful = await l_VmCustomerDBList
+                            .FncGetSelectedPKGUID(lListindex);
+                        print(lListindex);
+                        if (operationSuccessful) {
+                          Get.to(() => const VwDefineCustomer());
+                        }
+                      },
                         child: SizedBox(
                           height: PrHeight * .132,
                           child: Card(

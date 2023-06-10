@@ -11,7 +11,7 @@ class DAL_DefineCust extends GetxController {
 
 
 
-  Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
+  Future<bool>  Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
@@ -50,4 +50,6 @@ class DAL_DefineCust extends GetxController {
 
    // print(lVmCustomerDBList.l_DefineCustomerListDB);
       //print(lVmCustomerDBList.l_DefineCustomerListDB);
-  }}
+  }
+
+}

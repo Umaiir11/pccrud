@@ -102,18 +102,13 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
- FncSearchData( String l_PKGUID ,int l_index ) async {
-
-   final VmHome? lVmHome = Get.find<VmHome>();
-   G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
+  Future<bool> FncSearchData(String l_PKGUID, int l_index) async {
+    final VmHome? lVmHome = Get.find<VmHome>();
+    G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
     Pr_txtSelectedPKGUID_Text = l_PKGUID;
-    Pr_txtSeletecIndex =  l_index;
-   if (await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!)) {
-     Get.to(() => const VwDefineCustomer());
-   }
-
-
- }
+    Pr_txtSeletecIndex = l_index;
+    return await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+  }
 
 
 

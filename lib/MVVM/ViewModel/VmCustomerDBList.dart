@@ -15,13 +15,17 @@ class VmCustomerDBList extends GetxController {
      l_DefineCustomerListDB = lVmDefineCustomer!.FncGetDefineCustomerList();
    }
 
-   FncGetSelectedPKGUID(int index){
+  Future<bool> FncGetSelectedPKGUID(int index) async {
+    String? l_SelectedPKGHUID = l_DefineCustomerListDB[index].Pr_PKGUID;
+    int? l_SeletedIndex = index;
 
-     String? l_SelectedPKGHUID =  l_DefineCustomerListDB[index].Pr_PKGUID;
-     int? l_SeletedIndex = index;
-     lVmDefineCustomer?.FncSearchData(l_SelectedPKGHUID!,l_SeletedIndex);
+    if (l_SelectedPKGHUID != null) {
+      return await lVmDefineCustomer!.FncSearchData(l_SelectedPKGHUID!, l_SeletedIndex!);
+    }
 
-   }
+    return false;
+  }
+
 
 
 
