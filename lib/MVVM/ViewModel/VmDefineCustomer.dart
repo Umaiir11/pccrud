@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
-import 'package:pccrud/MVVM/View/VwDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
 import 'Vm_Home.dart';
@@ -109,12 +108,12 @@ class VmDefineCustomer extends GetxController {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
     Pr_txtSelectedPKGUID_Text = l_PKGUID;
-    return await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+    return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!);
   }
 
 
 
-  FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
+  FncNewForm(TextEditingController? T1, TextEditingController? T2,){
     VmHome? lVmHome = Get.find<VmHome>();
     lVmHome.Pr_txtOperatio = 1;
     lVmHome.Pr_txtPKGUID = const Uuid().v4();

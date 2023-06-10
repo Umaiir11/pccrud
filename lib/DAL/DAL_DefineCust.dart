@@ -8,29 +8,46 @@ import '../MVVM/ViewModel/Vm_Home.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {
+
   Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
-    Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-    List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
+    try {
+      Database? lDatabase = await DBHelper().FncGetDatabaseIns();
+      List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
-    final batch = lDatabase!.batch();
+      final batch = lDatabase!.batch();
 
-    for (String query in l_Query) {
-      if (query.trim().toUpperCase().startsWith('SELECT')) {
-        if (query.toUpperCase().contains('PKGUID')) {
-          await FncFillModel(query);
-        } else {
-          await FncFetchData(query); // Execute separate method for fetching and storing data
-        }
-        return true;
-      } else {
+      for (String query in l_Query) {
         batch.execute(query);
       }
-    }
 
-    await batch.commit();
-    return true; // Return true after executing all queries in the loop
+      await batch.commit();
+      return true;
+    } catch (e) {
+      print("Error executing queries: $e");
+      return false;
+    }
   }
 
+
+  Future<bool> Fnc_Read(ModDefineCustomer lModCustomerDetails) async {
+    try {
+      List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
+      for (String query in l_Query) {
+        if (query.trim().toUpperCase().startsWith('SELECT')) {
+          if (query.toUpperCase().contains('PKGUID')) {
+            await FncFillModel(query);
+          } else {
+            await FncFetchData(query);
+          }
+        }
+      }
+
+      return true;
+    } catch (e) {
+      print("Error reading data: $e");
+      return false;
+    }
+  }
 
   Future<void> FncFetchData(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
@@ -38,7 +55,6 @@ class DAL_DefineCust extends GetxController {
 
     VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
 
-    // Clear the existing data before adding new data
     lVmDefineCustomer?.l_DefineCustomerListDB.clear();
 
     for (Map<String, dynamic> row in l_FetchedDATA) {
@@ -51,25 +67,22 @@ class DAL_DefineCust extends GetxController {
       );
       lVmDefineCustomer?.l_DefineCustomerListDB.add(l_ModDefineCustomer);
     }
-
-    // Rest of the code...
   }
- FncFillModel(String query) async {
+
+  Future<void> FncFillModel(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
     List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
 
     if (l_FetchedDATA.isNotEmpty) {
-      Map<String, dynamic> row = l_FetchedDATA.first;
+      Map<String, dynamic>? row = l_FetchedDATA.first;
       ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
-        Pr_CustID: row['CustID'],
-        Pr_CB: row['CB'],
+        Pr_CustID: row?['CustID'],
+        Pr_CB: row?['CB'],
       );
+
       VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
       lVmDefineCustomer.lExtractedModel = l_ModDefineCustomer;
-
     }
-
-
   }
 
 }
