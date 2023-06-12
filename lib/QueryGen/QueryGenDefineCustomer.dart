@@ -19,15 +19,13 @@ class QueryGenDefineCust {
     } else if (lModDefineCustomer.Pr_Operation == 2) {
       // Fetch all operation
       final query = '''
-        SELECT * FROM TBUCustomer
-      ''';
+        SELECT * FROM TBUCustomerView WHERE ISD = 'true';
+        ''';
       lQueries.add(query);
     } else if (lModDefineCustomer.Pr_Operation == 3) {
       // Fetch all data based on PKGUID
-
-
       final query = '''
-        SELECT * FROM TBUCustomer
+        SELECT * FROM TBUCustomerView
       ''';
       lQueries.add(query);
     } else if (lModDefineCustomer.Pr_Operation == 4) {
@@ -35,8 +33,9 @@ class QueryGenDefineCust {
       final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
       final String l_WhereClause = "WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'";
       final query = '''
-        DELETE FROM TBUCustomer $l_WhereClause
-      ''';
+        UPDATE TBUCustomer
+        SET ISD = 'false' $l_WhereClause
+        ''';
       lQueries.add(query);
     }
 

@@ -48,6 +48,8 @@ class SchemaQuery {
       'DATA': 'INTEGER',
     });
     await FncCreateView(lDatabase, 'TBUSalesDetails');
+
+    await FncCreateView(lDatabase, 'TBUCustomer');
   }
 
   Future<void> FncCheckAndAddColumns(Database lDatabase, String lTablename, Map<String, String> lColumnstoadd) async {

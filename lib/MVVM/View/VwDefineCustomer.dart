@@ -175,6 +175,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
@@ -238,13 +239,13 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         onPressed: () async {
                                 if (G_ValidationKey.currentState!.validate()) {
                                    if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-          if (await l_VmDefineCustomer.FncDelDATA() == true) {
-            l_CustomSnackBar.FncCustSnackBAR(
-                "Alert", "Data Deleted", "Data Deleted Successfully",
-                Colors.blue.shade800, Colors.blue.shade600);
-            l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
-            l_CustIDController.clear();
-            l_CBController.clear();
+                                    if (await l_VmDefineCustomer.FncDelDATA() == true) {
+                                        l_CustomSnackBar.FncCustSnackBAR(
+                                            "Alert", "Data Deleted", "Data Deleted Successfully",
+                                              Colors.blue.shade800, Colors.blue.shade600);
+                                              l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+                                               l_CustIDController.clear();
+                                                l_CBController.clear();
 
           }
           // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);

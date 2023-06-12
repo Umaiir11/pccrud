@@ -114,6 +114,7 @@ class VmDefineCustomer extends GetxController {
 
   Future<bool> FncDelDATA() async {
     final VmHome? lVmHome = Get.find<VmHome>();
+    G_savedModDefineCustomer?.Pr_ISD = 'false';
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 4;
 
     if (Pr_txtSelectedPKGUID_Text.isNotEmpty) {
@@ -141,7 +142,8 @@ class VmDefineCustomer extends GetxController {
     l_ModDefineCustomer.Pr_Operation =  lVmHome.Pr_txtOperatio;
     l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModDefineCustomer.Pr_CustID = '';
-    l_ModDefineCustomer.Pr_ISD = '';
+    l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text ='true';
+
     l_ModDefineCustomer.Pr_CB = '';
     //l_Pr_CustIDController.text = '';
     //l_Pr_VoucherController.text ='';
