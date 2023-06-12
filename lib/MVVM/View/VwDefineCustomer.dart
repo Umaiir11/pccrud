@@ -231,6 +231,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 l_VmDefineCustomer.l_TextFieldsValidation.value = true;
                               }
                             },
+
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(
@@ -262,11 +263,15 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 l_VmDefineCustomer.l_TextFieldsValidation.value = true;
                               }
                             },
+
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.redAccent, // Set the background color to red
+                            ),
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(
                                 'Delete',
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(fontSize: 15,color: Colors.white),
                               ),
                             )),
 
