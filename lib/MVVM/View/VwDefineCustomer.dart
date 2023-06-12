@@ -149,31 +149,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-                                //ModSalesDetails Model assign to the List of ItemQuery
-
                                 l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                                //l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = 1;
-                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                      Colors.blue.shade800, Colors.blue.shade600);
-                                } else {
-                                  l_CustomSnackBar.FncCustSnackBAR(
-                                      "Alert", "Data Added", "Data Added Successfully", Colors.redAccent, Colors.redAccent);
-                                }
-                              } else {
-                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
-                              }
-                            },
-                            child: const FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Insert',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            )),
-                        ElevatedButton(
-                            onPressed: () async {
-                              if (G_ValidationKey.currentState!.validate()) {
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
@@ -197,76 +173,104 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 style: TextStyle(fontSize: 15),
                               ),
                             )),
+                        ElevatedButton(
+                            onPressed: () async {
+                              l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
+
+                              if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                if (await DAL_DefineCust().Fnc_Read(l_VmDefineCustomer.G_savedModDefineCustomer!,"")) {
+
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
+                                      Colors.blue.shade800, Colors.blue.shade600);
+                                  Get.to(() => const Vw_CustomerDBList());
+                                }
+                                // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                              } else {
+                                l_CustomSnackBar.FncCustSnackBAR(
+                                    "Alert", "Not Added", "Please Add Data From Insert Button", Colors.redAccent, Colors.redAccent);
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Search',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: PrHeight * 0.01,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (G_ValidationKey.currentState!.validate()) {
+                                l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
+                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                      Colors.blue.shade800, Colors.blue.shade600);
+                                  l_CustIDController.clear();
+                                  l_CBController.clear();
+                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                                } else {
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
+                                      Colors.redAccent, Colors.redAccent);
+                                }
+                              } else {
+                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Update',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                        ElevatedButton(
+                            onPressed: () async {
+                              if (G_ValidationKey.currentState!.validate()) {
+                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                  if (await l_VmDefineCustomer.FncDelDATA() == true) {
+                                    l_CustomSnackBar.FncCustSnackBAR(
+                                        "Alert", "Data Deleted", "Data Deleted Successfully",
+                                        Colors.blue.shade800, Colors.blue.shade600);
+                                    l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+                                    l_CustIDController.clear();
+                                    l_CBController.clear();
+
+                                  }
+                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
+                                } else {
+                                  l_CustomSnackBar.FncCustSnackBAR(
+                                      "Alert", "Data Not Deleted", "Failed", Colors.redAccent,
+                                      Colors.redAccent);
+                                }
+                              }
+                              else {
+                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Delete',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+
                       ],
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: PrHeight * 0.02,
-                    ),
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
 
-                          if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                            if (await DAL_DefineCust().Fnc_Read(l_VmDefineCustomer.G_savedModDefineCustomer!,"")) {
-
-                              l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
-                                  Colors.blue.shade800, Colors.blue.shade600);
-                              Get.to(() => const Vw_CustomerDBList());
-                            }
-                            // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                          } else {
-                            l_CustomSnackBar.FncCustSnackBAR(
-                                "Alert", "Not Added", "Please Add Data From Insert Button", Colors.redAccent, Colors.redAccent);
-                          }
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Search',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )),
-                  ),
-
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: PrHeight * 0.02,
-                    ),
-                    child: ElevatedButton(
-                        onPressed: () async {
-                                if (G_ValidationKey.currentState!.validate()) {
-                                   if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                                    if (await l_VmDefineCustomer.FncDelDATA() == true) {
-                                        l_CustomSnackBar.FncCustSnackBAR(
-                                            "Alert", "Data Deleted", "Data Deleted Successfully",
-                                              Colors.blue.shade800, Colors.blue.shade600);
-                                              l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
-                                               l_CustIDController.clear();
-                                                l_CBController.clear();
-
-          }
-          // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-        } else {
-                                l_CustomSnackBar.FncCustSnackBAR(
-                  "Alert", "Data Not Deleted", "Failed", Colors.redAccent,
-                                   Colors.redAccent);
-                   }
-                        }
-                   else {
-                             l_VmDefineCustomer.l_TextFieldsValidation.value = true;
-                                        }
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )),
-                  )
                 ],
               ),
             ),

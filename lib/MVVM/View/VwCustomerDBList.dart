@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
-
-import '../Model/DB/ModDefineCustomer.dart';
 import 'VwDefineCustomer.dart';
 
 
