@@ -212,15 +212,19 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                               if (G_ValidationKey.currentState!.validate()) {
                                 l_VmDefineCustomer.FncFill_CustomerDetailsModel();
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
+
+
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", "Data Updated Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
+                                  l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
                                   l_CustIDController.clear();
                                   l_CBController.clear();
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                                 } else {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Updated", "Please Add Data From Insert Button",
                                       Colors.redAccent, Colors.redAccent);
                                 }
                               } else {

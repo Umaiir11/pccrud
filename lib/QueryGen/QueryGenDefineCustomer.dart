@@ -7,6 +7,7 @@ class QueryGenDefineCust {
     List<String> lQueries = [];
 
     if (lModDefineCustomer.Pr_Operation == 1) {
+      // Insert operation
       final query = '''
         INSERT INTO TBUCustomer (
           PKGUID, CustID, CB, ISD, Operation
@@ -20,7 +21,7 @@ class QueryGenDefineCust {
       // Fetch all operation
       final query = '''
         SELECT * FROM TBUCustomerView WHERE ISD = 'true';
-        ''';
+      ''';
       lQueries.add(query);
     } else if (lModDefineCustomer.Pr_Operation == 3) {
       // Fetch all data based on PKGUID
@@ -35,7 +36,19 @@ class QueryGenDefineCust {
       final query = '''
         UPDATE TBUCustomer
         SET ISD = 'false' $l_WhereClause
-        ''';
+      ''';
+      lQueries.add(query);
+    } else if (lModDefineCustomer.Pr_Operation == 5) {
+      // Update operation based on PKGUID
+      final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
+      final query = '''
+  UPDATE TBUCustomer
+  SET
+    CustID = '${lModDefineCustomer.Pr_CustID}',
+    CB = '${lModDefineCustomer.Pr_CB}'
+  WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'
+''';
+
       lQueries.add(query);
     }
 
