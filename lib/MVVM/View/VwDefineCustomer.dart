@@ -149,16 +149,29 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-                                l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                if (l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 1) {
+                                  l_VmDefineCustomer.FncFill_CustomerDetailsModel();
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                      Colors.blue.shade800, Colors.blue.shade600);
-                                  l_CustIDController.clear();
-                                  l_CBController.clear();
+                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
+                                        Colors.blue.shade800, Colors.blue.shade600);
+                                    l_CustIDController.clear();
+                                    l_CBController.clear();
+                                  }
+                                  else  if(l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 5){
+                                  l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=5;
+                                    DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
+
+                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", "Data Updated Successfully",
+                                        Colors.blue.shade800, Colors.blue.shade600);
+                                    l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+                                    l_CustIDController.clear();
+                                    l_CBController.clear();
+                                  }
+
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                                } else {
+                                else {
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
                                       Colors.redAccent, Colors.redAccent);
                                 }
@@ -205,40 +218,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                       top: PrHeight * 0.01,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                            onPressed: () async {
-                              if (G_ValidationKey.currentState!.validate()) {
-                                l_VmDefineCustomer.FncFill_CustomerDetailsModel();
-                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-
-
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
-                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", "Data Updated Successfully",
-                                      Colors.blue.shade800, Colors.blue.shade600);
-                                  l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
-                                  l_CustIDController.clear();
-                                  l_CBController.clear();
-                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                                } else {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Updated", "Please Add Data From Insert Button",
-                                      Colors.redAccent, Colors.redAccent);
-                                }
-                              } else {
-                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
-                              }
-                            },
-
-                            child: const FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Update',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            )),
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {

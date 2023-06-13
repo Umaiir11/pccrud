@@ -14,7 +14,7 @@ class VmHome extends GetxController {
   }
 
 
-  RxInt G_Operation = RxInt(0);
+  RxInt G_Operation = RxInt(1);
 
   int get Pr_txtOperatio {
     return G_Operation.value;

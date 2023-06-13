@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
+import '../ViewModel/Vm_Home.dart';
 import 'VwDefineCustomer.dart';
 
 
@@ -15,6 +16,7 @@ class Vw_CustomerDBList extends StatefulWidget {
 class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
   final VmCustomerDBList l_VmCustomerDBList = Get.put(VmCustomerDBList());
   final VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
+  final VmHome? lVmHome = Get.find<VmHome>();
   @override
   void initState() {
     super.initState();
@@ -80,6 +82,7 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                             .FncGetSelectedPKGUID(lListindex);
                         print(lListindex);
                         if (operationSuccessful) {
+                          lVmDefineCustomer?.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
                           Get.to(() => const VwDefineCustomer());
                         }
                       },
