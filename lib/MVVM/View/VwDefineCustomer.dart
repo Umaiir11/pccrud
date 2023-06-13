@@ -161,13 +161,20 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   else  if(l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 5){
                                   l_VmDefineCustomer.FncFill_CustomerDetailsModel();
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=5;
-                                    DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
+                                  if(await DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!)){
 
                                     l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", "Data Updated Successfully",
                                         Colors.blue.shade800, Colors.blue.shade600);
                                     l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+
                                     l_CustIDController.clear();
                                     l_CBController.clear();
+                                    l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
+
+                                  }
+
+
+
                                   }
 
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
@@ -191,10 +198,12 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                               l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
 
                               if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+
                                 if (await DAL_DefineCust().Fnc_Read(l_VmDefineCustomer.G_savedModDefineCustomer!,"")) {
 
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
                                       Colors.blue.shade800, Colors.blue.shade600);
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
                                   Get.to(() => const Vw_CustomerDBList());
                                 }
                                 // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);

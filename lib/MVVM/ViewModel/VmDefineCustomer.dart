@@ -117,7 +117,10 @@ class VmDefineCustomer extends GetxController {
     if (Pr_txtSelectedPKGUID_Text.isNotEmpty) {
       try {
         await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+        final VmHome? lVmHome = Get.find<VmHome>();
+        G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 1;
         return true;
+
       } catch (e) {
         print("Error deleting data: $e");
         return false;
