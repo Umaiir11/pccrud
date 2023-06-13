@@ -243,6 +243,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
+                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =4;
                                   if (await l_VmDefineCustomer.FncDelDATA() == true) {
                                     l_CustomSnackBar.FncCustSnackBAR(
                                         "Alert", "Data Deleted", "Data Deleted Successfully",
