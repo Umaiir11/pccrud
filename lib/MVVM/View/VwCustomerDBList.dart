@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
+import '../../App Routes/AppRoutes.dart';
 import '../ViewModel/Vm_Home.dart';
 import 'VwDefineCustomer.dart';
 
@@ -83,7 +84,9 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                         print(lListindex);
                         if (operationSuccessful) {
                           lVmDefineCustomer?.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
-                          Get.to(() => const VwDefineCustomer());
+                          //Get.to(() => const VwDefineCustomer());
+                          //Get.offNamedUntil('/vw_definecust', (route) => false);
+                          Get.toNamed(AppRoutes.VwDefineCust, preventDuplicates: true);
                         }
                       },
                         child: SizedBox(

@@ -4,6 +4,7 @@ import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/View/VwCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
+import '../../App Routes/AppRoutes.dart';
 import '../../customWidget/customSnackBar.dart';
 import '../ViewModel/Vm_Home.dart';
 
@@ -203,7 +204,9 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
 
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched",  Colors.black);
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
-                                  Get.to(() => const Vw_CustomerDBList());
+                                  //Get.to(() => const Vw_CustomerDBList());
+                                  Get.toNamed(AppRoutes.VwcustomDBlist, preventDuplicates: true);
+                                  //Get.off(AppRoutes.VwcustomDBlist);
                                 }
                                 // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                               } else {

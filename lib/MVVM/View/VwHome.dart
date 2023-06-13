@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/View/VwSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 
+import '../../App Routes/AppRoutes.dart';
 import '../ViewModel/VmSale.dart';
 import 'VwDefineCustomer.dart';
 
@@ -57,7 +58,8 @@ class _VwHomeState extends State<VwHome> {
                 child: ElevatedButton(
                     onPressed: () {
                       l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
-                      Get.to(() => const VwDefineCustomer());
+                      Get.toNamed(AppRoutes.VwDefineCust, preventDuplicates: true);
+
                     },
                     child: const Text("Define Customer!")),
               ),
