@@ -153,8 +153,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   l_VmDefineCustomer.FncFill_CustomerDetailsModel();
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                        Colors.blue.shade800, Colors.blue.shade600);
+                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added",
+                                        Colors.black38);
                                     l_CustIDController.clear();
                                     l_CBController.clear();
                                   }
@@ -163,8 +163,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=5;
                                   if(await DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!)){
 
-                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", "Data Updated Successfully",
-                                        Colors.blue.shade800, Colors.blue.shade600);
+                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated",
+                                        Colors.black);
                                     l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
 
                                     l_CustIDController.clear();
@@ -179,8 +179,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
 
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                                 else {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added", "Please Add Data From Insert Button",
-                                      Colors.redAccent, Colors.redAccent);
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added",
+                                      Colors.black );
                                 }
                               } else {
                                 l_VmDefineCustomer.l_TextFieldsValidation.value = true;
@@ -201,15 +201,14 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
 
                                 if (await DAL_DefineCust().Fnc_Read(l_VmDefineCustomer.G_savedModDefineCustomer!,"")) {
 
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched", "Data Fetched Successfully",
-                                      Colors.blue.shade800, Colors.blue.shade600);
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched",  Colors.black);
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
                                   Get.to(() => const Vw_CustomerDBList());
                                 }
                                 // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                               } else {
                                 l_CustomSnackBar.FncCustSnackBAR(
-                                    "Alert", "Not Added", "Please Add Data From Insert Button", Colors.redAccent, Colors.redAccent);
+                                    "Alert", "Not Added", Colors.black);
                               }
                             },
                             child: const FittedBox(
@@ -236,8 +235,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =4;
                                   if (await l_VmDefineCustomer.FncDelDATA() == true) {
                                     l_CustomSnackBar.FncCustSnackBAR(
-                                        "Alert", "Data Deleted", "Data Deleted Successfully",
-                                        Colors.blue.shade800, Colors.blue.shade600);
+                                        "Alert", "Data Deleted",  Colors.black);
                                     l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
                                     l_CustIDController.clear();
                                     l_CBController.clear();
@@ -246,7 +244,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                                 } else {
                                   l_CustomSnackBar.FncCustSnackBAR(
-                                      "Alert", "Data Not Deleted", "Failed", Colors.redAccent,
+                                      "Alert", "Data Not Deleted",
                                       Colors.redAccent);
                                 }
                               }

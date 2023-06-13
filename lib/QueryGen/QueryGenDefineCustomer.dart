@@ -12,7 +12,7 @@ class QueryGenDefineCust {
         INSERT INTO TBUCustomer (
           PKGUID, CustID, CB, ISD, Operation
         ) VALUES (
-          '${lModDefineCustomer.Pr_PKGUID}', '${lModDefineCustomer.Pr_CB}', '${lModDefineCustomer.Pr_CustID}', 
+          '${lModDefineCustomer.Pr_PKGUID}', '${lModDefineCustomer.Pr_CustID}', '${lModDefineCustomer.Pr_CB}', 
           '${lModDefineCustomer.Pr_ISD}','${lModDefineCustomer.Pr_Operation}'
         )
       ''';

@@ -44,7 +44,7 @@ class _VwSaleState extends State<VwSale> {
               DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             } else {
               CustomSnackBar l_CustomSnackBar = CustomSnackBar();
-              l_CustomSnackBar.FncCustSnackBAR("Alert", "Empty Data", "Please fill data", Colors.deepOrange, Colors.deepOrange);
+              l_CustomSnackBar.FncCustSnackBAR("Alert", "Empty Data", Colors.deepOrange);
             }
           },
           backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
@@ -204,8 +204,7 @@ class _VwSaleState extends State<VwSale> {
                                           //ModSalesDetails Model assign to the List of ItemQuery
                                           l_VmSale.FncFillItemQuery();
                                           l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
-                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", "Data Added Successfully",
-                                              Colors.blue.shade800, Colors.blue.shade600);
+                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                         }
@@ -307,9 +306,8 @@ class _VwSaleState extends State<VwSale> {
                                                       l_CustomSnackBar.FncCustSnackBAR(
                                                           "Alert",
                                                           "Data Updated",
-                                                          "Data Updated Successfully",
-                                                          Colors.blue.shade800,
-                                                          Colors.blue.shade600);
+
+                                                          Colors.black);
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
                                                       l_VmSaleDetails.FncClearDialog(lUpdatecustomalertdialog);
@@ -355,8 +353,7 @@ class _VwSaleState extends State<VwSale> {
 
                                             // Remove the current item from the list
                                             l_VmSale.G_ListItemQuery.removeAt(lListindex);
-                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted", "Data Deleted Successfully",
-                                                Colors.red.shade800, Colors.red.shade600);
+                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted",  Colors.black);
                                           },
                                         )
                                       ],
