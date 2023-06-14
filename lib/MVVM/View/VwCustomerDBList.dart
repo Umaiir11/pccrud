@@ -86,7 +86,15 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                           lVmDefineCustomer?.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
                           //Get.to(() => const VwDefineCustomer());
                           //Get.offNamedUntil('/vw_definecust', (route) => false);
-                          Get.offNamed(AppRoutes.VwDefineCust);
+                          Get.offUntil(
+                            GetPageRoute(
+                              settings: RouteSettings(name: AppRoutes.VwDefineCust),
+                              page: () => VwDefineCustomer(),
+                            ),
+                            ModalRoute.withName(AppRoutes.initialRoute),
+                          );
+
+
                         }
                       },
                         child: SizedBox(

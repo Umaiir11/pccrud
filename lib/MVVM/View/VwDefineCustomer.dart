@@ -206,6 +206,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
 
                                   Get.toNamed(AppRoutes.VwcustomDBlist);
+
+
                                   //Get.off(AppRoutes.VwcustomDBlist);
                                 }
                               } else {

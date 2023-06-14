@@ -59,7 +59,8 @@ class _VwHomeState extends State<VwHome> {
                     onPressed: () {
                       l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
                       //Get.offNamed(AppRoutes.VwDefineCust);
-                      Get.toNamed(AppRoutes.VwDefineCust);
+                      Get.offNamedUntil(AppRoutes.VwDefineCust, ModalRoute.withName(AppRoutes.initialRoute));
+
                     },
                     child: const Text("Define Customer!")),
               ),
