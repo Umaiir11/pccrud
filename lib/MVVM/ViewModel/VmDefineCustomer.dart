@@ -143,6 +143,9 @@ class VmDefineCustomer extends GetxController {
     l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModDefineCustomer.Pr_CustID = '';
     l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text ='true';
+    lExtractedModel?.Pr_CustID='';
+    lExtractedModel?.Pr_CB='';
+
 
     l_ModDefineCustomer.Pr_CB = '';
     //l_Pr_CustIDController.text = '';
