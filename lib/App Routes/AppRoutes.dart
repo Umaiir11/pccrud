@@ -2,5 +2,5 @@ class AppRoutes {
   static String initialRoute = '/';
   static String VwcustomDBlist = '/VwcustomDBlist';
   static String VwDefineCust = '/VwDefineCust';
-  static String VwDefineCust1 = '/VwDefinecust1';
+  static String VwSale = '/VwSale';
 }

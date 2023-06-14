@@ -50,6 +50,8 @@ class _VwHomeState extends State<VwHome> {
                     onPressed: () {
                       l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
                       Get.to(() => const VwSale());
+
+                      Get.toNamed(AppRoutes.VwSale);
                     },
                     child: const Text("CREATE!")),
               ),
