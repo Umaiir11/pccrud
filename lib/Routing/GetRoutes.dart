@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:pccrud/App Routes/AppRoutes.dart';
 import 'package:pccrud/MVVM/View/VwCustomerDBList.dart';
 import 'package:pccrud/MVVM/View/VwDefineCustomer.dart';
 import 'package:pccrud/MVVM/View/VwHome.dart';
+
+import 'AppRoutes.dart';
 
 class GetAppRoutes {
   static List<GetPage> Fnc_GetPages() {

@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:pccrud/MVVM/View/VwSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
-
-import '../../App Routes/AppRoutes.dart';
+import '../../Routing/AppRoutes.dart';
 import '../ViewModel/VmSale.dart';
-import 'VwDefineCustomer.dart';
 
 class VwHome extends StatefulWidget {
   const VwHome({Key? key}) : super(key: key);
