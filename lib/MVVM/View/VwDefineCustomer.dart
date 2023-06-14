@@ -204,11 +204,10 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
 
                                   l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched",  Colors.black);
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
-                                  //Get.to(() => const Vw_CustomerDBList());
-                                  Get.toNamed(AppRoutes.VwcustomDBlist, preventDuplicates: true);
+
+                                  Get.toNamed(AppRoutes.VwcustomDBlist);
                                   //Get.off(AppRoutes.VwcustomDBlist);
                                 }
-                                // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                               } else {
                                 l_CustomSnackBar.FncCustSnackBAR(
                                     "Alert", "Not Added", Colors.black);

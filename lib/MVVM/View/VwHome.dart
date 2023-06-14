@@ -58,8 +58,8 @@ class _VwHomeState extends State<VwHome> {
                 child: ElevatedButton(
                     onPressed: () {
                       l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
-                      Get.toNamed(AppRoutes.VwDefineCust, preventDuplicates: true);
-
+                      //Get.offNamed(AppRoutes.VwDefineCust);
+                      Get.toNamed(AppRoutes.VwDefineCust);
                     },
                     child: const Text("Define Customer!")),
               ),
