@@ -3,6 +3,7 @@ import 'package:pccrud/MVVM/View/VwCustomerDBList.dart';
 import 'package:pccrud/MVVM/View/VwDefineCustomer.dart';
 import 'package:pccrud/MVVM/View/VwHome.dart';
 
+import '../MVVM/View/VwSale.dart';
 import 'AppRoutes.dart';
 
 class GetAppRoutes {
@@ -11,6 +12,7 @@ class GetAppRoutes {
       GetPage(name: AppRoutes.initialRoute, page: () => VwHome()),
       GetPage(name: AppRoutes.VwDefineCust, page: () => VwDefineCustomer()),
       GetPage(name: AppRoutes.VwcustomDBlist, page: () => Vw_CustomerDBList()),
+      GetPage(name: AppRoutes.VwSale, page: () => VwSale()),
     ];
   }
 }
