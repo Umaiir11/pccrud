@@ -9,6 +9,10 @@ import 'Vm_Home.dart';
 class VmDefineCustomer extends GetxController {
 
 
+  int? G_Operation;
+
+  //PV
+
   RxInt PrSeletecIndex = RxInt(-1);
 
   int get Pr_txtSeletecIndex {
@@ -80,9 +84,9 @@ class VmDefineCustomer extends GetxController {
 
   ModDefineCustomer? G_savedModDefineCustomer; // Variable to store the instance
 
-  ModDefineCustomer FncFill_CustomerDetailsModel() {
+  ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
-    String lUuid = const Uuid().v4();
+    String lUuid =  const Uuid().v4();
     VmHome? lVmHome = Get.find<VmHome>();
     lVmHome.Pr_txtOperatio = 1;
     l_ModDefineCustomer.Pr_Operation =lVmHome.Pr_txtOperatio;
@@ -136,9 +140,10 @@ class VmDefineCustomer extends GetxController {
     VmHome? lVmHome = Get.find<VmHome>();
     lVmHome.Pr_txtOperatio = 1;
     lVmHome.Pr_txtPKGUID = const Uuid().v4();
+    l_DefineCustomerListDB.clear();
+    l_DefineCustomerList.clear();
 
-
-    ModDefineCustomer l_ModDefineCustomer = FncFill_CustomerDetailsModel();
+    ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
     l_ModDefineCustomer.Pr_Operation =  lVmHome.Pr_txtOperatio;
     l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModDefineCustomer.Pr_CustID = '';
@@ -148,8 +153,6 @@ class VmDefineCustomer extends GetxController {
 
 
     l_ModDefineCustomer.Pr_CB = '';
-    //l_Pr_CustIDController.text = '';
-    //l_Pr_VoucherController.text ='';
     T1?.text = '';
     T2?.text = '';
 

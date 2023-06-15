@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import '../../Routing/AppRoutes.dart';
@@ -24,9 +26,6 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
     l_VmCustomerDBList.FncReciveList(); // Fetch data from the view model here
   }
   Widget build(BuildContext context) {
-
-
-
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -52,10 +51,10 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
             ),
             //color: Colors.black,
             padding: const EdgeInsets.all(16.0),
-            // we use child container property and used most important property column that accepts multiple widgets
-
             child: Column(
               children: <Widget>[
+
+                //Text use label
                 Padding(
                   padding: EdgeInsets.only(
                     top: PrHeight * 0.08,
@@ -69,122 +68,127 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                     ),
                   ),
                 ),
-                //TextWidgets
-                // Display the list builder here
+                //Show data on List Tiles  Using OBX list builder
                 Expanded(
-                  child: Obx(() => ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: l_VmCustomerDBList.l_DefineCustomerListDB.length,
-                    itemBuilder: (context, lListindex) {
-                      final item = l_VmCustomerDBList.l_DefineCustomerListDB[lListindex];
-                      return GestureDetector(
-                      onTap: () async {
-                        bool operationSuccessful = await l_VmCustomerDBList
-                            .FncGetSelectedPKGUID(lListindex);
-                        print(lListindex);
-                        if (operationSuccessful) {
-                          lVmDefineCustomer?.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =5;
-                          //Get.to(() => const VwDefineCustomer());
-                          //Get.offNamedUntil('/vw_definecust', (route) => false);
-                          Get.offUntil(
-                            GetPageRoute(
-                              settings: RouteSettings(name: AppRoutes.VwDefineCust),
-                              page: () => VwDefineCustomer(),
-                            ),
-                            ModalRoute.withName(AppRoutes.initialRoute),
-                          );
+                  child: Obx(() {
 
-
-                        }
-                      },
+                    if ( l_VmCustomerDBList.l_DefineCustomerListDB.isEmpty) {
+                      return  Center(
                         child: SizedBox(
-                          height: PrHeight * .105,
-                          child: Card(
-                            color: Colors.cyan,
-                            elevation: 15,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                            padding: EdgeInsets.only(
-                            top: PrHeight * 0.02,
-                            ),
-                                  child: Center(
-                                    child: const Text(
-                                      'Customer Infromation',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
+                          width: 280,
+                          height: 200,
+                          child: Lottie.asset('assets/eBox.json', fit: BoxFit.cover, repeat: true),
+                        ),
+                      );
+                    }
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount:  l_VmCustomerDBList.l_DefineCustomerListDB.length,
+                      itemBuilder: (context, lListindex) {
+                        final item =  l_VmCustomerDBList.l_DefineCustomerListDB[lListindex];
+
+                        return GestureDetector(
+                          onTap: () async {
+                            bool operationSuccessful = await l_VmCustomerDBList
+                                .FncGetSelectedPKGUID(lListindex);
+                            print(lListindex);
+                            if (operationSuccessful) {
+                              lVmDefineCustomer?.G_savedModDefineCustomer?.Pr_Operation =
+                                  lVmHome?.Pr_txtOperatio = 5;
+                              Get.offUntil(
+                                GetPageRoute(
+                                  settings: RouteSettings(name: AppRoutes.VwDefineCust),
+                                  page: () => VwDefineCustomer(),
+                                ),
+                                ModalRoute.withName(AppRoutes.initialRoute),
+                              );
+                            }
+                          },
+                          child: SizedBox(
+                            height: PrHeight * .105,
+                            child: Card(
+                              color: Colors.cyan,
+                              elevation: 15,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: PrHeight * 0.02),
+                                    child: Center(
+                                      child: const Text(
+                                        'Customer Information',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20.0,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: PrHeight * 0.01,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            const TextSpan(
-                                              text: 'Customer Name: ',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.0,
+                                  Padding(
+                                    padding: EdgeInsets.only(top: PrHeight * 0.01),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Customer Name: ',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                ),
                                               ),
-                                            ),
-                                            TextSpan(
-                                              text: item.Pr_CustID.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16.0,
+                                              TextSpan(
+                                                text: item.Pr_CustID.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16.0,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-
-                                      Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            const TextSpan(
-                                              text: 'Created BY: ',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.0,
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Created By: ',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                ),
                                               ),
-                                            ),
-                                            TextSpan(
-                                              text: item.Pr_CB.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16.0,
+                                              TextSpan(
+                                                text: item.Pr_CB.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16.0,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  )),
+                        );
+                      },
+                    );
+                  }),
+
                 )
 
               ],

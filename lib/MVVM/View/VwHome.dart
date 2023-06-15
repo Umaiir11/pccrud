@@ -47,8 +47,6 @@ class _VwHomeState extends State<VwHome> {
                 child: ElevatedButton(
                     onPressed: () {
                       l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
-                      Get.to(() => const VwSale());
-
                       Get.toNamed(AppRoutes.VwSale);
                     },
                     child: const Text("CREATE!")),
@@ -58,7 +56,6 @@ class _VwHomeState extends State<VwHome> {
                 child: ElevatedButton(
                     onPressed: () {
                       l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
-                      //Get.offNamed(AppRoutes.VwDefineCust);
                       Get.offNamedUntil(AppRoutes.VwDefineCust, ModalRoute.withName(AppRoutes.initialRoute));
 
                     },

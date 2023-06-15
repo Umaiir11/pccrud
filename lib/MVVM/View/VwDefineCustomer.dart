@@ -69,13 +69,18 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.10,
                     ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Enter your customer information",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Enter your customer information",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   //TextWidgets
@@ -83,62 +88,77 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                          controller: l_CustIDController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.lightBlueAccent,
-                            hintText: 'Customer ID',
-                            hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            // Adjust the floating label behavior
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            l_VmDefineCustomer.Pr_txtCustID_Text = value;
-                          },
-                        )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: PrWidth * .745,
+                            child: TextFormField(
+                              controller: l_CustIDController,
+                              decoration:InputDecoration(
+                                hintText: 'Customer ID',
+                                hintStyle: const TextStyle(color: Colors.black26),
+                                labelText: 'Customer id',
+                                floatingLabelBehavior:
+                                FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                    const BorderSide(color: Colors.white38)),
+                                contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a Customer ID';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                l_VmDefineCustomer.Pr_txtCustID_Text = value;
+                              },
+                            )),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                          controller: l_CBController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.lightBlueAccent,
-                            hintText: 'Created BY',
-                            hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            // Adjust the floating label behavior
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            l_VmDefineCustomer.Pr_txtPr_CB_Text = value;
-                          },
-                        )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: PrWidth * .745,
+                            child: TextFormField(
+                              controller: l_CBController,
+
+                              decoration:InputDecoration(
+                                hintText: 'Created By',
+                                hintStyle: const TextStyle(color: Colors.black26),
+                                labelText: ' Created by',
+                                floatingLabelBehavior:
+                                FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                    const BorderSide(color: Colors.white38)),
+                                contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a Created By';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                l_VmDefineCustomer.Pr_txtPr_CB_Text = value;
+                              },
+                            )),
+                      ],
+                    ),
                   ),
 
-                  //AlertDialogInsertion
+
 
                   Padding(
                     padding: EdgeInsets.only(
@@ -151,7 +171,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
                                 if (l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 1) {
-                                  l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                                  l_VmDefineCustomer.Fnc_Set_Model_Data();
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
                                   DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
                                     l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added",
@@ -160,7 +180,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                     l_CBController.clear();
                                   }
                                   else  if(l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 5){
-                                  l_VmDefineCustomer.FncFill_CustomerDetailsModel();
+                                  l_VmDefineCustomer.Fnc_Set_Model_Data();
                                   l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=5;
                                   if(await DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!)){
 
@@ -196,6 +216,21 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             )),
                         ElevatedButton(
                             onPressed: () async {
+                              if (G_ValidationKey.currentState!.validate()) {
+                                l_VmDefineCustomer.FncNewForm(l_CBController,l_CustIDController);
+                              } else {
+                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
+                              }
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Clear',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )),
+                        ElevatedButton(
+                            onPressed: () async {
                               l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
 
                               if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
@@ -222,16 +257,6 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 style: TextStyle(fontSize: 15),
                               ),
                             )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: PrHeight * 0.01,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
@@ -267,10 +292,10 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 style: TextStyle(fontSize: 15,color: Colors.white),
                               ),
                             )),
-
                       ],
                     ),
                   ),
+
 
 
                 ],
