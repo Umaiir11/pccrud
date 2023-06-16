@@ -48,6 +48,13 @@ class VmDefineCustomer extends GetxController {
   set Pv_txtISD_Text(String value) {
     l_PvISD.value = value;
   }
+  RxList<ModDefineCustomer> FncGetDefineCustomerList() {
+    if (l_DefineCustomerListDB.isEmpty) {
+      print('List is empty');
+    }
+    return l_DefineCustomerListDB;
+  }
+
 
   ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
@@ -73,7 +80,7 @@ class VmDefineCustomer extends GetxController {
     }
     return false;
   }
-    Future<bool> Fnc_Update() async {
+  Future<bool> Fnc_Update() async {
      if (G_Operation == 5) {
         Fnc_Set_Model_Data();
        // G_savedModDefineCustomer?.Pr_Operation=5;
@@ -83,33 +90,18 @@ class VmDefineCustomer extends GetxController {
       return false;
    }
 
-
-
-
-  RxList<ModDefineCustomer> FncGetDefineCustomerList() {
-    if (l_DefineCustomerListDB.isEmpty) {
-      print('List is empty');
-    }
-    return l_DefineCustomerListDB;
-  }
-  Future<bool> FncSearchData(String l_PKGUID) async {
-    final VmHome? lVmHome = Get.find<VmHome>();
-    G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
+   Future<bool> FncSearchData(String l_PKGUID) async {
+    G_savedModDefineCustomer?.Pr_Operation = 3;
     l_SelectedPKGUID = l_PKGUID;
     String l_WhereClause = "WHERE PKGUID = '${l_SelectedPKGUID}'";
     return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
   }
-
-
-
-
   Future<bool> FncDelDATA() async {
     G_savedModDefineCustomer?.Pr_ISD = 'false';
     if (l_SelectedPKGUID!.isNotEmpty) {
       try {
         await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
-        final VmHome? lVmHome = Get.find<VmHome>();
-        G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 1;
+        G_Operation=1;
         return true;
 
       } catch (e) {
