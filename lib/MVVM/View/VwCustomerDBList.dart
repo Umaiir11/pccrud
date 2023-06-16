@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import '../../Routing/AppRoutes.dart';
@@ -21,9 +20,12 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
   final VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
   final VmHome? lVmHome = Get.find<VmHome>();
   @override
+
   void initState() {
     super.initState();
-    l_VmCustomerDBList.FncReciveList(); // Fetch data from the view model here
+    l_VmCustomerDBList.FetchDB_DATA();
+    l_VmCustomerDBList.FncReciveList();
+    // Fetch data from the view model here
   }
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {

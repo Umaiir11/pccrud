@@ -1,59 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class MyHomePage extends StatelessWidget {
-  final MyViewModel viewModel = Get.put(MyViewModel());
-  final FocusNode _focusNode = FocusNode();
+class my extends StatefulWidget {
+  const my({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('MVVM with GetX'),
-      ),
-      body: Column(
-        children: [
-          Obx(
-                () => TextField(
-              onChanged: (value) {
-                viewModel.Pr_txtCustID_Text = value;
-                moveCursorToEnd();
-              },
-              controller: TextEditingController(
-                text: viewModel.Pr_txtCustID_Text,
-              ),
-              focusNode: _focusNode,
-              autofocus: true, // Set autofocus to true
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () => viewModel.clearTextField(),
-            child: Text('Clear'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void moveCursorToEnd() {
-    if (!_focusNode.hasFocus) {
-      FocusScope.of(Get.context!).requestFocus(_focusNode);
-    }
-  }
+  State<my> createState() => _myState();
 }
 
-class MyViewModel extends GetxController {
-  RxString l_PrCustID = ''.obs;
+class _myState extends State<my> {
+  @override
+  Widget build(BuildContext context) {
 
-  String get Pr_txtCustID_Text {
-    return l_PrCustID.value;
-  }
 
-  set Pr_txtCustID_Text(String value) {
-    l_PrCustID.value = value;
-  }
+    Widget MyWidget(){
 
-  void clearTextField() {
-    Pr_txtCustID_Text = '';
+      return  Scaffold(
+        appBar: AppBar(title: Text("Test"),),
+        body:
+        Text("HI"),
+      ) ;
+    }
+    return GestureDetector(
+
+      onTap: (){  FocusManager.instance.primaryFocus?.unfocus();},
+          
+          child: OrientationBuilder(builder: (BuildContext c , Orientation or ){
+            return LayoutBuilder(builder: ( BuildContext c ,BoxConstraints bc  ){
+                double h = bc.maxHeight;
+                double w = bc.maxWidth;
+                 if(h>=300  && h<750 ){
+                   return MyWidget();
+                     }
+                   else{
+                   return MyWidget();
+                 }
+
+
+
+                 }
+
+            );
+
+          })
+    );
   }
 }

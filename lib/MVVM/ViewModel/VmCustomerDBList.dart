@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../DAL/DAL_DefineCust.dart';
 import 'Vm_Home.dart';
 
 class VmCustomerDBList extends GetxController {
@@ -26,5 +27,13 @@ class VmCustomerDBList extends GetxController {
 
 
 
+  Future<bool> FetchDB_DATA() async {
 
-}
+    if(await DAL_DefineCust().Fnc_Read(lVmDefineCustomer!.G_savedModDefineCustomer!, "") == true){
+
+      return true;
+    }
+    return false;
+  }
+  }
+

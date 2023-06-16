@@ -232,23 +232,9 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
-
-                              if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-
-                                if (await DAL_DefineCust().Fnc_Read(l_VmDefineCustomer.G_savedModDefineCustomer!,"")) {
-
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Fetched",  Colors.black);
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
-
-                                  Get.toNamed(AppRoutes.VwcustomDBlist);
+                              Get.toNamed(AppRoutes.VwcustomDBlist);
 
 
-                                  //Get.off(AppRoutes.VwcustomDBlist);
-                                }
-                              } else {
-                                l_CustomSnackBar.FncCustSnackBAR(
-                                    "Alert", "Not Added", Colors.black);
-                              }
                             },
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
