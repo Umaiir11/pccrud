@@ -55,7 +55,7 @@ class _VwHomeState extends State<VwHome> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-                      l_VmDefineCustomer.FncNewForm(TextEditingController(), TextEditingController());
+
                       Get.offNamedUntil(AppRoutes.VwDefineCust, ModalRoute.withName(AppRoutes.initialRoute));
 
                     },

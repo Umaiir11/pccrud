@@ -24,7 +24,6 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
   void initState() {
     super.initState();
     l_VmCustomerDBList.FetchDB_DATA();
-    l_VmCustomerDBList.FncReciveList();
     // Fetch data from the view model here
   }
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                 Expanded(
                   child: Obx(() {
 
-                    if ( l_VmCustomerDBList.l_DefineCustomerListDB.isEmpty) {
+                    if ( l_VmCustomerDBList.l_RxListModDefineCustomer.isEmpty) {
                       return  Center(
                         child: SizedBox(
                           width: 280,
@@ -86,16 +85,15 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
 
                     return ListView.builder(
                       shrinkWrap: true,
-                      itemCount:  l_VmCustomerDBList.l_DefineCustomerListDB.length,
+                      itemCount:  l_VmCustomerDBList.l_RxListModDefineCustomer.length,
                       itemBuilder: (context, lListindex) {
-                        final item =  l_VmCustomerDBList.l_DefineCustomerListDB[lListindex];
+                        final item =  l_VmCustomerDBList.l_RxListModDefineCustomer[lListindex];
 
                         return GestureDetector(
                           onTap: () async {
-                            bool operationSuccessful = await l_VmCustomerDBList
-                                .FncGetSelectedPKGUID(lListindex);
-                            print(lListindex);
-                            if (operationSuccessful) {
+                            bool operationSuccessful = await l_VmCustomerDBList.FncGetSelectedPKGUID(lListindex);
+                           print(lListindex);
+                           if (operationSuccessful) {
                               lVmDefineCustomer?.G_Operation = 5;
                               Get.offUntil(
                                 GetPageRoute(

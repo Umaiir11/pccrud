@@ -9,130 +9,101 @@ import 'Vm_Home.dart';
 class VmDefineCustomer extends GetxController {
 
 
-  int? G_Operation=1;
-  RxBool l_TextFieldsValidation = false.obs;
-  RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
-  ModDefineCustomer? lExtractedModel;
-  String? l_SelectedPKGUID ;
-  //RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
-  ModDefineCustomer? G_savedModDefineCustomer; // Variable to store the instance
-
+  final TextEditingController l_CustIDController = TextEditingController();
+  final TextEditingController l_CBController = TextEditingController();
 
 
   RxString l_PvCustID = ''.obs;
-
   String get Pv_txtCustID_Text {
     return l_PvCustID.value;
   }
-
   set Pv_txtCustID_Text(String value) {
     l_PvCustID.value = value;
   }
 
   RxString l_PvCB = ''.obs;
-
   String get Pv_txtCB_Text {
     return l_PvCB.value;
   }
-
   set Pv_txtCB_Text(String value) {
     l_PvCB.value = value;
   }
 
-  RxString l_PvISD = ''.obs;
+  RxString Text_TEst = ''.obs;
 
-  String get Pv_txtISD_Text {
-    return l_PvISD.value;
-  }
+  int? G_Operation;
+  String? G_GUIDCustomer;
 
-  set Pv_txtISD_Text(String value) {
-    l_PvISD.value = value;
-  }
-  RxList<ModDefineCustomer> FncGetDefineCustomerList() {
-    if (l_DefineCustomerListDB.isEmpty) {
-      print('List is empty');
-    }
-    return l_DefineCustomerListDB;
-  }
+  //RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
+
+  RxBool l_TextFieldsValidation = false.obs;
+
 
 
   ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
-    String lUuid =  const Uuid().v4();
+
+    l_ModDefineCustomer.Pr_PKGUID = G_GUIDCustomer;
+    l_ModDefineCustomer.Pr_CustID = l_CustIDController.text;
+    l_ModDefineCustomer.Pr_CB = l_CBController.text;
     l_ModDefineCustomer.Pr_Operation = G_Operation;
-    l_ModDefineCustomer.Pr_PKGUID = lUuid;
-    l_ModDefineCustomer.Pr_CustID = Pv_txtCustID_Text;
-    l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text;
-    l_ModDefineCustomer.Pr_CB = Pv_txtCB_Text;
-    //l_DefineCustomerList.add(l_ModDefineCustomer);
-
-    G_savedModDefineCustomer = l_ModDefineCustomer; // Save the instance
-
+    if (G_Operation == 3 ) {
+      l_ModDefineCustomer.Pr_ISD = "True";
+    }
     return l_ModDefineCustomer;
   }
 
-  Future<bool> Fnc_Create() async {
-    if (G_Operation == 1) {
-      Fnc_Set_Model_Data();
-      G_savedModDefineCustomer?.Pr_ISD = 'true';
-      await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+  Future<bool> Fnc_CUD() async {
+    ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
+      await DAL_DefineCust().Fnc_Cud(l_ModDefineCustomer!);
       return true;
     }
-    return false;
-  }
-  Future<bool> Fnc_Update() async {
-     if (G_Operation == 5) {
-        Fnc_Set_Model_Data();
-       // G_savedModDefineCustomer?.Pr_Operation=5;
-       await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
-       return true;
-     }
-      return false;
-   }
 
-   Future<bool> FncSearchData(String l_PKGUID) async {
-    G_savedModDefineCustomer?.Pr_Operation = 3;
-    l_SelectedPKGUID = l_PKGUID;
-    String l_WhereClause = "WHERE PKGUID = '${l_SelectedPKGUID}'";
-    return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
-  }
-  Future<bool> FncDelDATA() async {
-    G_savedModDefineCustomer?.Pr_ISD = 'false';
-    if (l_SelectedPKGUID!.isNotEmpty) {
-      try {
-        await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
-        G_Operation=1;
-        return true;
 
-      } catch (e) {
-        print("Error deleting data: $e");
-        return false;
-      }
-    }
+    Sb_SearchData(String l_PKGUID) async {
+    String l_WhereClause = "WHERE PKGUID = '${l_PKGUID}'";
 
-    return false;
+    List<ModDefineCustomer> l_ListModDefineCustomer= await DAL_DefineCust().Fnc_ReadNew(l_WhereClause);
+    ModDefineCustomer l_ModDefineCustomer = l_ListModDefineCustomer.first;
+    l_CBController.text = l_ModDefineCustomer.Pr_CB!;
+    l_CustIDController.text =  l_ModDefineCustomer.Pr_CustID!;
+    G_GUIDCustomer = l_PKGUID;
+
+
+
+
+    G_Operation = 2;
+
+    //l_ModDefineCustomer =
   }
 
-  FncNewForm(TextEditingController? T1, TextEditingController? T2,){
-    VmHome? lVmHome = Get.find<VmHome>();
-    lVmHome.Pr_txtPKGUID = const Uuid().v4();
-    l_DefineCustomerListDB.clear();
-    //l_DefineCustomerList.clear();
+  BTNSave_Click(){
+    Fnc_CUD();
+    Sb_ResetForm();
+  }
 
-    ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
-    l_ModDefineCustomer.Pr_Operation =  G_Operation;
-    l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
-    l_ModDefineCustomer.Pr_CustID = '';
-    l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text ='true';
-    lExtractedModel?.Pr_CustID='';
-    lExtractedModel?.Pr_CB='';
+  BTNDelete_Click(){
+    G_Operation = 3;
+    Fnc_CUD();
+  }
 
+  BTNClear_Click(){
+    Sb_ResetForm( );
 
-    l_ModDefineCustomer.Pr_CB = '';
-    T1?.text = '';
-    T2?.text = '';
 
   }
+
+
+  Sb_ResetForm(){
+    G_Operation = 1;
+    G_GUIDCustomer = const Uuid().v4();
+    Pv_txtCustID_Text ="";
+    Pv_txtCB_Text= "";
+    l_CustIDController.text="";
+    l_CBController.text="";
+
+  }
+
 
 
 }

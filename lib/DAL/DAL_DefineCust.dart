@@ -34,7 +34,6 @@ class DAL_DefineCust extends GetxController {
         if (query.trim().toUpperCase().startsWith('SELECT')) {
           String finalQuery= query+l_WhereClause;
           if (finalQuery.toUpperCase().contains('PKGUID')) {
-
             await FncFillModel(finalQuery);
           } else {
             await FncFetchData(query);
@@ -55,7 +54,7 @@ class DAL_DefineCust extends GetxController {
 
     VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
 
-    lVmDefineCustomer?.l_DefineCustomerListDB.clear();
+
 
     for (Map<String, dynamic> row in l_FetchedDATA) {
       ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
@@ -65,7 +64,7 @@ class DAL_DefineCust extends GetxController {
         Pr_ISD: row['ISD'],
         Pr_Operation: row['Operation'],
       );
-      lVmDefineCustomer?.l_DefineCustomerListDB.add(l_ModDefineCustomer);
+
     }
   }
 
@@ -80,9 +79,32 @@ class DAL_DefineCust extends GetxController {
         Pr_CB: row?['CB'],
       );
 
-      VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
-      lVmDefineCustomer.lExtractedModel = l_ModDefineCustomer;
+
     }
+  }
+
+  Future<List<ModDefineCustomer>>  Fnc_ReadNew(String l_WhereClause) async {
+    Database? lDatabase = await DBHelper().FncGetDatabaseIns();
+
+    String l_Query = "Select PKGUID, CustID, CB From TBUCustomer " ;
+  String   finalQiery = l_Query+l_WhereClause;
+    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(finalQiery);
+
+    List<ModDefineCustomer> l_test = [];
+    l_FetchedDATA.forEach((map) {
+      String PKGUID = map['PKGUID'];
+      String CustID = map['CustID'];
+      String CB = map['CB'];
+
+      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
+        Pr_PKGUID: PKGUID ,
+          Pr_CustID: CustID,
+          Pr_CB: CB
+      );
+      l_test.add(l_ModDefineCustomer);
+    });
+
+    return l_test;
   }
 
 }

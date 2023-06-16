@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/DAL/DAL_DefineCust.dart';
-import 'package:pccrud/MVVM/View/VwCustomerDBList.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 import '../../Routing/AppRoutes.dart';
@@ -21,18 +19,20 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
   final VmHome? lVmHome = Get.find<VmHome>();
 
   //Controllers For Sale TextFields
-  final TextEditingController l_CustIDController = TextEditingController();
-  final TextEditingController l_CBController = TextEditingController();
+
+
   CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch data from the view model here
+  }
 
   @override
   Widget build(BuildContext context) {
     //For Sale TextFields
-    if (l_VmDefineCustomer.lExtractedModel != null)
-      {
-      l_CustIDController.text = l_VmDefineCustomer.lExtractedModel!.Pr_CustID.toString();
-      l_CBController.text =  l_VmDefineCustomer.lExtractedModel!.Pr_CB.toString();
-    }
 
 
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
@@ -80,6 +80,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
                           ),
                         ),
+
+
                       ],
                     ),
                   ),
@@ -94,8 +96,8 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         SizedBox(
                             width: PrWidth * .745,
                             child: TextFormField(
-                              controller: l_CustIDController,
-                              decoration:InputDecoration(
+                              controller: l_VmDefineCustomer.l_CustIDController,
+                              decoration: InputDecoration(
                                 hintText: 'Customer ID',
                                 hintStyle: const TextStyle(color: Colors.black26),
                                 labelText: 'Customer id',
@@ -113,9 +115,6 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 }
                                 return null;
                               },
-                              onChanged: (value) {
-                                l_VmDefineCustomer.Pv_txtCustID_Text = value;
-                              },
                             )),
                       ],
                     ),
@@ -130,9 +129,9 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         SizedBox(
                             width: PrWidth * .745,
                             child: TextFormField(
-                              controller: l_CBController,
+                              controller: l_VmDefineCustomer.l_CBController,
 
-                              decoration:InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Created By',
                                 hintStyle: const TextStyle(color: Colors.black26),
                                 labelText: ' Created by',
@@ -150,14 +149,11 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 }
                                 return null;
                               },
-                              onChanged: (value) {
-                                l_VmDefineCustomer.Pv_txtCB_Text = value;
-                              },
+
                             )),
                       ],
                     ),
                   ),
-
 
 
                   Padding(
@@ -170,26 +166,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-
-                                if (await l_VmDefineCustomer.Fnc_Create() == true ){
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", Colors.black38);
-                                  l_CustIDController.clear();
-                                  l_CBController.clear();
-                                }
-
-                                  else  if (await l_VmDefineCustomer.Fnc_Update() == true ){
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", Colors.black38);
-                                  l_CustIDController.clear();
-                                  l_CBController.clear();
-                                }
-
-                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                                else {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Error",
-                                      Colors.redAccent );
-                                }
-                              } else {
-                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
+                                l_VmDefineCustomer.BTNSave_Click();
                               }
                             },
                             child: const FittedBox(
@@ -201,11 +178,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             )),
                         ElevatedButton(
                             onPressed: () async {
-                              if (G_ValidationKey.currentState!.validate()) {
-                                l_VmDefineCustomer.FncNewForm(l_CBController,l_CustIDController);
-                              } else {
-                                l_VmDefineCustomer.l_TextFieldsValidation.value = true;
-                              }
+                              l_VmDefineCustomer.BTNClear_Click();
                             },
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
@@ -216,10 +189,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             )),
                         ElevatedButton(
                             onPressed: () async {
-                              l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 2;
                               Get.toNamed(AppRoutes.VwcustomDBlist);
-
-
                             },
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
@@ -231,22 +201,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-                                if (l_VmDefineCustomer.G_savedModDefineCustomer != null) {
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio =4;
-                                  if (await l_VmDefineCustomer.FncDelDATA() == true) {
-                                    l_CustomSnackBar.FncCustSnackBAR(
-                                        "Alert", "Data Deleted",  Colors.black);
-                                    l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
-                                    l_CustIDController.clear();
-                                    l_CBController.clear();
-
-                                  }
-                                  // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
-                                } else {
-                                  l_CustomSnackBar.FncCustSnackBAR(
-                                      "Alert", "Data Not Deleted",
-                                      Colors.redAccent);
-                                }
+                                l_VmDefineCustomer.BTNDelete_Click();
                               }
                               else {
                                 l_VmDefineCustomer.l_TextFieldsValidation.value = true;
@@ -260,14 +215,14 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                               fit: BoxFit.scaleDown,
                               child: Text(
                                 'Delete',
-                                style: TextStyle(fontSize: 15,color: Colors.white),
+                                style: TextStyle(fontSize: 15, color: Colors.white),
                               ),
                             )),
+
                       ],
+
                     ),
                   ),
-
-
 
                 ],
               ),
