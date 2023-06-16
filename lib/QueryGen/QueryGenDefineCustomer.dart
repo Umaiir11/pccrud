@@ -32,7 +32,7 @@ class QueryGenDefineCust {
     } else if (lModDefineCustomer.Pr_Operation == 4) {
       // Delete operation based on PKGUID
       final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
-      final String l_WhereClause = "WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'";
+      final String l_WhereClause = "WHERE PKGUID = '${l_VmDefineCustomer?.l_SelectedPKGUID}'";
       final query = '''
         UPDATE TBUCustomer
         SET ISD = 'false' $l_WhereClause
@@ -46,7 +46,7 @@ class QueryGenDefineCust {
   SET
     CustID = '${lModDefineCustomer.Pr_CustID}',
     CB = '${lModDefineCustomer.Pr_CB}'
-  WHERE PKGUID = '${l_VmDefineCustomer?.Pr_txtSelectedPKGUID_Text}'
+  WHERE PKGUID = '${l_VmDefineCustomer?.l_SelectedPKGUID}'
 ''';
 
       lQueries.add(query);

@@ -114,7 +114,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 return null;
                               },
                               onChanged: (value) {
-                                l_VmDefineCustomer.Pr_txtCustID_Text = value;
+                                l_VmDefineCustomer.Pv_txtCustID_Text = value;
                               },
                             )),
                       ],
@@ -151,7 +151,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                                 return null;
                               },
                               onChanged: (value) {
-                                l_VmDefineCustomer.Pr_txtPr_CB_Text = value;
+                                l_VmDefineCustomer.Pv_txtCB_Text = value;
                               },
                             )),
                       ],

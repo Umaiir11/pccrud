@@ -9,80 +9,44 @@ import 'Vm_Home.dart';
 class VmDefineCustomer extends GetxController {
 
 
-  int? G_Operation;
-
-  //PV
-
-  RxInt PrSeletecIndex = RxInt(-1);
-
-  int get Pr_txtSeletecIndex {
-    return PrSeletecIndex.value;
-  }
-
-  set Pr_txtSeletecIndex(int value) {
-    PrSeletecIndex.value = value;
-  }
-
-
   RxBool l_TextFieldsValidation = false.obs;
 
   RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
   ModDefineCustomer? lExtractedModel;
-
-  RxString l_PrPKGUID = ''.obs;
-
-  String get Pr_txtPKGUID_Text {
-    return l_PrPKGUID.value;
-  }
-
-  set Pr_txtPKGUID_Text(String value) {
-    l_PrPKGUID.value = value;
-  }
-  RxString l_PrSelectedPKGUID = ''.obs;
-
-  String get Pr_txtSelectedPKGUID_Text {
-    return l_PrSelectedPKGUID.value;
-  }
-
-  set Pr_txtSelectedPKGUID_Text(String value) {
-    l_PrSelectedPKGUID.value = value;
-  }
-
-  RxString l_PrCustID = ''.obs;
-
-  String get Pr_txtCustID_Text {
-    return l_PrCustID.value;
-  }
-
-  set Pr_txtCustID_Text(String value) {
-    l_PrCustID.value = value;
-  }
-
-  RxString l_PrPr_CB = ''.obs;
-
-  String get Pr_txtPr_CB_Text {
-    return l_PrPr_CB.value;
-  }
-
-  set Pr_txtPr_CB_Text(String value) {
-    l_PrPr_CB.value = value;
-  }
-
-  RxString l_Pr_ISD = ''.obs;
-
-  String get Pr_txtPr_ISD_Text {
-    return l_Pr_ISD.value;
-  }
-
-  set Pr_txtPr_ISD_Text(String value) {
-    l_Pr_ISD.value = value;
-  }
-
-  // Retrieve the ModSaleDB object from the existing instance of VmSale
-
+  String? l_SelectedPKGUID ;
   RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
-
   ModDefineCustomer? G_savedModDefineCustomer; // Variable to store the instance
+
+
+  RxString l_PvCustID = ''.obs;
+
+  String get Pv_txtCustID_Text {
+    return l_PvCustID.value;
+  }
+
+  set Pv_txtCustID_Text(String value) {
+    l_PvCustID.value = value;
+  }
+
+  RxString l_PvCB = ''.obs;
+
+  String get Pv_txtCB_Text {
+    return l_PvCB.value;
+  }
+
+  set Pv_txtCB_Text(String value) {
+    l_PvCB.value = value;
+  }
+
+  RxString l_PvISD = ''.obs;
+
+  String get Pv_txtISD_Text {
+    return l_PvISD.value;
+  }
+
+  set Pv_txtISD_Text(String value) {
+    l_PvISD.value = value;
+  }
 
   ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
@@ -91,9 +55,9 @@ class VmDefineCustomer extends GetxController {
     lVmHome.Pr_txtOperatio = 1;
     l_ModDefineCustomer.Pr_Operation =lVmHome.Pr_txtOperatio;
     l_ModDefineCustomer.Pr_PKGUID = lUuid;
-    l_ModDefineCustomer.Pr_CustID = Pr_txtCustID_Text;
-    l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text;
-    l_ModDefineCustomer.Pr_CB = Pr_txtPr_CB_Text;
+    l_ModDefineCustomer.Pr_CustID = Pv_txtCustID_Text;
+    l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text;
+    l_ModDefineCustomer.Pr_CB = Pv_txtCB_Text;
     l_DefineCustomerList.add(l_ModDefineCustomer);
 
     G_savedModDefineCustomer = l_ModDefineCustomer; // Save the instance
@@ -111,14 +75,14 @@ class VmDefineCustomer extends GetxController {
   Future<bool> FncSearchData(String l_PKGUID) async {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
-    Pr_txtSelectedPKGUID_Text = l_PKGUID;
-    String l_WhereClause = "WHERE PKGUID = '${Pr_txtSelectedPKGUID_Text}'";
+    l_SelectedPKGUID = l_PKGUID;
+    String l_WhereClause = "WHERE PKGUID = '${l_SelectedPKGUID}'";
     return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
   }
 
   Future<bool> FncDelDATA() async {
     G_savedModDefineCustomer?.Pr_ISD = 'false';
-    if (Pr_txtSelectedPKGUID_Text.isNotEmpty) {
+    if (l_SelectedPKGUID!.isNotEmpty) {
       try {
         await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
         final VmHome? lVmHome = Get.find<VmHome>();
@@ -147,7 +111,7 @@ class VmDefineCustomer extends GetxController {
     l_ModDefineCustomer.Pr_Operation =  lVmHome.Pr_txtOperatio;
     l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModDefineCustomer.Pr_CustID = '';
-    l_ModDefineCustomer.Pr_ISD = Pr_txtPr_ISD_Text ='true';
+    l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text ='true';
     lExtractedModel?.Pr_CustID='';
     lExtractedModel?.Pr_CB='';
 
