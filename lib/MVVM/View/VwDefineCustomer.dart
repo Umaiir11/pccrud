@@ -170,38 +170,23 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                         ElevatedButton(
                             onPressed: () async {
                               if (G_ValidationKey.currentState!.validate()) {
-                                if (l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 1) {
-                                  l_VmDefineCustomer.Fnc_Set_Model_Data();
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_ISD = 'true';
-                                  DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!);
-                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added",
-                                        Colors.black38);
-                                    l_CustIDController.clear();
-                                    l_CBController.clear();
-                                  }
-                                  else  if(l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation == 5){
-                                  l_VmDefineCustomer.Fnc_Set_Model_Data();
-                                  l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=5;
-                                  if(await DAL_DefineCust().Fnc_Cud(l_VmDefineCustomer.G_savedModDefineCustomer!)){
 
-                                    l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated",
-                                        Colors.black);
-                                    l_VmDefineCustomer.l_DefineCustomerListDB.refresh();
+                                if (await l_VmDefineCustomer.Fnc_Create() == true ){
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added", Colors.black38);
+                                  l_CustIDController.clear();
+                                  l_CBController.clear();
+                                }
 
-                                    l_CustIDController.clear();
-                                    l_CBController.clear();
-                                    l_VmDefineCustomer.G_savedModDefineCustomer?.Pr_Operation=1;
-
-                                  }
-
-
-
-                                  }
+                                  else  if (await l_VmDefineCustomer.Fnc_Update() == true ){
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Updated", Colors.black38);
+                                  l_CustIDController.clear();
+                                  l_CBController.clear();
+                                }
 
                                   // l_VmDefineCustomer.FncClearData(l_CustIDController, l_CBController);
                                 else {
-                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Not Added",
-                                      Colors.black );
+                                  l_CustomSnackBar.FncCustSnackBAR("Alert", "Error",
+                                      Colors.redAccent );
                                 }
                               } else {
                                 l_VmDefineCustomer.l_TextFieldsValidation.value = true;

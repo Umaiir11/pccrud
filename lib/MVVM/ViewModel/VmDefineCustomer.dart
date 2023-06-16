@@ -9,13 +9,14 @@ import 'Vm_Home.dart';
 class VmDefineCustomer extends GetxController {
 
 
+  int? G_Operation=1;
   RxBool l_TextFieldsValidation = false.obs;
-
   RxList<ModDefineCustomer> l_DefineCustomerListDB = <ModDefineCustomer>[].obs;
   ModDefineCustomer? lExtractedModel;
   String? l_SelectedPKGUID ;
-  RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
+  //RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
   ModDefineCustomer? G_savedModDefineCustomer; // Variable to store the instance
+
 
 
   RxString l_PvCustID = ''.obs;
@@ -51,19 +52,39 @@ class VmDefineCustomer extends GetxController {
   ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
     String lUuid =  const Uuid().v4();
-    VmHome? lVmHome = Get.find<VmHome>();
-    lVmHome.Pr_txtOperatio = 1;
-    l_ModDefineCustomer.Pr_Operation =lVmHome.Pr_txtOperatio;
+    l_ModDefineCustomer.Pr_Operation = G_Operation;
     l_ModDefineCustomer.Pr_PKGUID = lUuid;
     l_ModDefineCustomer.Pr_CustID = Pv_txtCustID_Text;
     l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text;
     l_ModDefineCustomer.Pr_CB = Pv_txtCB_Text;
-    l_DefineCustomerList.add(l_ModDefineCustomer);
+    //l_DefineCustomerList.add(l_ModDefineCustomer);
 
     G_savedModDefineCustomer = l_ModDefineCustomer; // Save the instance
 
     return l_ModDefineCustomer;
   }
+
+  Future<bool> Fnc_Create() async {
+    if (G_Operation == 1) {
+      Fnc_Set_Model_Data();
+      G_savedModDefineCustomer?.Pr_ISD = 'true';
+      await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+      return true;
+    }
+    return false;
+  }
+    Future<bool> Fnc_Update() async {
+     if (G_Operation == 5) {
+        Fnc_Set_Model_Data();
+       // G_savedModDefineCustomer?.Pr_Operation=5;
+       await DAL_DefineCust().Fnc_Cud(G_savedModDefineCustomer!);
+       return true;
+     }
+      return false;
+   }
+
+
+
 
   RxList<ModDefineCustomer> FncGetDefineCustomerList() {
     if (l_DefineCustomerListDB.isEmpty) {
@@ -71,7 +92,6 @@ class VmDefineCustomer extends GetxController {
     }
     return l_DefineCustomerListDB;
   }
-
   Future<bool> FncSearchData(String l_PKGUID) async {
     final VmHome? lVmHome = Get.find<VmHome>();
     G_savedModDefineCustomer?.Pr_Operation = lVmHome?.Pr_txtOperatio = 3;
@@ -79,6 +99,9 @@ class VmDefineCustomer extends GetxController {
     String l_WhereClause = "WHERE PKGUID = '${l_SelectedPKGUID}'";
     return await DAL_DefineCust().Fnc_Read(G_savedModDefineCustomer!,l_WhereClause);
   }
+
+
+
 
   Future<bool> FncDelDATA() async {
     G_savedModDefineCustomer?.Pr_ISD = 'false';
@@ -98,17 +121,14 @@ class VmDefineCustomer extends GetxController {
     return false;
   }
 
-
-
   FncNewForm(TextEditingController? T1, TextEditingController? T2,){
     VmHome? lVmHome = Get.find<VmHome>();
-    lVmHome.Pr_txtOperatio = 1;
     lVmHome.Pr_txtPKGUID = const Uuid().v4();
     l_DefineCustomerListDB.clear();
-    l_DefineCustomerList.clear();
+    //l_DefineCustomerList.clear();
 
     ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
-    l_ModDefineCustomer.Pr_Operation =  lVmHome.Pr_txtOperatio;
+    l_ModDefineCustomer.Pr_Operation =  G_Operation;
     l_ModDefineCustomer.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     l_ModDefineCustomer.Pr_CustID = '';
     l_ModDefineCustomer.Pr_ISD = Pv_txtISD_Text ='true';
