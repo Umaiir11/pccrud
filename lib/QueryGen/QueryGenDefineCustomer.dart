@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
-import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 
 class QueryGenDefineCust {
   Future<List<String>> FncGenCrudQueriesDefineCust(ModDefineCustomer lModDefineCustomer) async {

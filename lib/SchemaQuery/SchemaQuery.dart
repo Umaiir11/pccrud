@@ -71,7 +71,7 @@ class SchemaQuery {
     await lDatabase.execute('''
       CREATE VIEW VW_${lTablename} AS
       SELECT *
-      FROM $lTablename
+      FROM $lTablename Where ISD = 'false'
     ''');
   }
 }
