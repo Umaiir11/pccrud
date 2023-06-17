@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
-import 'package:pccrud/QueryGen/QueryGenDefineCustomer.dart';
-import 'package:sqflite/sqflite.dart';
-
+import 'package:sqflite/sqlite_api.dart';
+import '../MVVM/Model/DB/ModDefineCustomer.dart';
+import '../QueryGen/QueryGenDefineCustomer.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {
