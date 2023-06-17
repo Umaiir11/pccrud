@@ -22,7 +22,7 @@ class VmCustomerDBList extends GetxController {
 
 
   Future<bool> FetchDB_DATA() async {
-    List<ModDefineCustomer> lListmoddefinecustomer =await DAL_DefineCust().Fnc_ReadNew("");
+    List<ModDefineCustomer> lListmoddefinecustomer =await DAL_DefineCust().Fnc_Read("");
     l_RxListModDefineCustomer.addAll(lListmoddefinecustomer);
     return true;
   }

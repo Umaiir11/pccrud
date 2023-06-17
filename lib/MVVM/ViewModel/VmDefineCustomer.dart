@@ -57,7 +57,7 @@ class VmDefineCustomer extends GetxController {
     Sb_SearchData(String lPkguid) async {
     String lWhereclause = "WHERE PKGUID = '$lPkguid'";
 
-    List<ModDefineCustomer> lListmoddefinecustomer= await DAL_DefineCust().Fnc_ReadNew(lWhereclause);
+    List<ModDefineCustomer> lListmoddefinecustomer= await DAL_DefineCust().Fnc_Read(lWhereclause);
     ModDefineCustomer lModdefinecustomer = lListmoddefinecustomer.first;
     l_CBController.text = lModdefinecustomer.Pr_CB!;
     l_CustIDController.text =  lModdefinecustomer.Pr_CustID!;
