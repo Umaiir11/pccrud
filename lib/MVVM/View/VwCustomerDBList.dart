@@ -94,7 +94,6 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                             bool operationSuccessful = await l_VmCustomerDBList.FncGetSelectedPKGUID(lListindex);
                            print(lListindex);
                            if (operationSuccessful) {
-                             //  lVmDefineCustomer?.G_Operation = 5;
                               Get.offUntil(
                                 GetPageRoute(
                                   settings: RouteSettings(name: AppRoutes.VwDefineCust),

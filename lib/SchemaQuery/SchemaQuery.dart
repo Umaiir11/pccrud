@@ -27,7 +27,7 @@ class SchemaQuery {
     ''');
 
     await lDatabase.execute('''
-      CREATE TABLE IF NOT EXISTS TBUCustomer (
+      CREATE TABLE IF NOT EXISTS TBU_Customer (
         ID INTEGER , 
         Operation INTEGER ,
         PKGUID TEXT PRIMARY KEY,
@@ -49,7 +49,7 @@ class SchemaQuery {
     });
     await FncCreateView(lDatabase, 'TBUSalesDetails');
 
-    await FncCreateView(lDatabase, 'TBUCustomer');
+    await FncCreateView(lDatabase, 'TBU_Customer');
   }
 
   Future<void> FncCheckAndAddColumns(Database lDatabase, String lTablename, Map<String, String> lColumnstoadd) async {
@@ -66,10 +66,10 @@ class SchemaQuery {
   }
 
   Future<void> FncCreateView(Database lDatabase, String lTablename) async {
-    await lDatabase.execute('DROP VIEW IF EXISTS ${lTablename}View');
+    await lDatabase.execute('DROP VIEW IF EXISTS   VW_${lTablename}');
 
     await lDatabase.execute('''
-      CREATE VIEW ${lTablename}View AS
+      CREATE VIEW VW_${lTablename} AS
       SELECT *
       FROM $lTablename
     ''');

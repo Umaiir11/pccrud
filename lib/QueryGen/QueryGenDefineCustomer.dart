@@ -9,44 +9,35 @@ class QueryGenDefineCust {
     if (lModDefineCustomer.Pr_Operation == 1) {
       // Insert operation
       final query = '''
-        INSERT INTO TBUCustomer (
+        INSERT INTO TBU_Customer (
           PKGUID, CustID, CB, ISD, Operation
         ) VALUES (
           '${lModDefineCustomer.Pr_PKGUID}', '${lModDefineCustomer.Pr_CustID}', '${lModDefineCustomer.Pr_CB}', 
-          '${lModDefineCustomer.Pr_ISD}','${lModDefineCustomer.Pr_Operation}'
+          'false','${lModDefineCustomer.Pr_Operation}'
         )
       ''';
       lQueries.add(query);
     }
     else if (lModDefineCustomer.Pr_Operation == 2) {
-      final query = ''' UPDATE TBUCustomer
+      final query = ''' UPDATE TBU_Customer
                         SET
                         CustID = '${lModDefineCustomer.Pr_CustID}',
-                        CB = '${lModDefineCustomer.Pr_CB}'
+                        CB = '${lModDefineCustomer.Pr_CB}',
+                        ISD = 'false'
                          WHERE PKGUID = '${lModDefineCustomer?.Pr_PKGUID}'
                     ''';
       lQueries.add(query);
     }
-
-
     else if (lModDefineCustomer.Pr_Operation == 3) {
-      // Fetch all operation
-      final query = '''
-        SELECT * FROM TBUCustomerView WHERE ISD = 'true';
-      ''';
-      lQueries.add(query);
-    }
-    else if (lModDefineCustomer.Pr_Operation == 4) {
       // Delete operation based on PKGUID
-      final VmDefineCustomer? l_VmDefineCustomer = Get.find<VmDefineCustomer>();
+
       final String l_WhereClause = "WHERE PKGUID = '${lModDefineCustomer?.Pr_PKGUID}'";
       final query = '''
-        UPDATE TBUCustomer
-        SET ISD = 'false' $l_WhereClause
+        UPDATE TBU_Customer
+        SET ISD = 'true' $l_WhereClause
       ''';
       lQueries.add(query);
     }
-
 
     return lQueries;
   }

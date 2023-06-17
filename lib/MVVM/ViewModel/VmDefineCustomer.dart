@@ -47,9 +47,7 @@ class VmDefineCustomer extends GetxController {
     l_ModDefineCustomer.Pr_CustID = l_CustIDController.text;
     l_ModDefineCustomer.Pr_CB = l_CBController.text;
     l_ModDefineCustomer.Pr_Operation = G_Operation;
-    if (G_Operation == 3 ) {
-      l_ModDefineCustomer.Pr_ISD = "True";
-    }
+
     return l_ModDefineCustomer;
   }
 
@@ -76,14 +74,15 @@ class VmDefineCustomer extends GetxController {
   }
 
   BTNSave_Click() async {
-     if( await Fnc_CUD() == true) {
+     await Fnc_CUD();
        Sb_ResetForm();
-     }
+
   }
 
-  BTNDelete_Click(){
+  BTNDelete_Click() async {
     G_Operation = 3;
-    Fnc_CUD();
+    await Fnc_CUD();
+    Sb_ResetForm();
   }
 
   BTNClear_Click(){

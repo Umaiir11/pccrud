@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../DAL/DAL_DefineCust.dart';
-import 'Vm_Home.dart';
 
 class VmCustomerDBList extends GetxController {
 
