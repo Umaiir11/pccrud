@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/View/VwSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 import '../../Routing/AppRoutes.dart';

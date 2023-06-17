@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomSnackBar {
-  void FncCustSnackBAR(String lTitle, String l_Message1, Color l_Color1) {
+  void FncCustSnackBAR(String lTitle, String lMessage1, Color lColor1) {
     Get.snackbar(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       lTitle,
-      l_Message1,
-      backgroundColor: l_Color1,
+      lMessage1,
+      backgroundColor: lColor1,
       colorText: Colors.white,
       snackPosition: SnackPosition.BOTTOM,
     );

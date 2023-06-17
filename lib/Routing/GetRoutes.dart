@@ -9,10 +9,10 @@ import 'AppRoutes.dart';
 class GetAppRoutes {
   static List<GetPage> Fnc_GetPages() {
     return [
-      GetPage(name: AppRoutes.initialRoute, page: () => VwHome()),
-      GetPage(name: AppRoutes.VwDefineCust, page: () => VwDefineCustomer()),
-      GetPage(name: AppRoutes.VwcustomDBlist, page: () => Vw_CustomerDBList()),
-      GetPage(name: AppRoutes.VwSale, page: () => VwSale()),
+      GetPage(name: AppRoutes.initialRoute, page: () => const VwHome()),
+      GetPage(name: AppRoutes.VwDefineCust, page: () => const VwDefineCustomer()),
+      GetPage(name: AppRoutes.VwcustomDBlist, page: () => const Vw_CustomerDBList()),
+      GetPage(name: AppRoutes.VwSale, page: () => const VwSale()),
     ];
   }
 }

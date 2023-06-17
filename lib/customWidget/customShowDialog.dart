@@ -76,11 +76,11 @@ class CustomAlertDialog {
                         if (value == null || value.isEmpty) {
                           return 'Please enter Quantity';
                         }
-                        final l_Rate = double.tryParse(value);
-                        if (l_Rate == null || l_Rate == 0) {
+                        final lRate = double.tryParse(value);
+                        if (lRate == null || lRate == 0) {
                           return 'Quantity value cannot be zero';
                         }
-                        if (l_Rate < 0) {
+                        if (lRate < 0) {
                           return 'Quantity value cannot be negative';
                         }
                         return null;
@@ -103,11 +103,11 @@ class CustomAlertDialog {
                             if (value == null || value.isEmpty) {
                               return 'Please enter Rate';
                             }
-                            final l_Rate = double.tryParse(value);
-                            if (l_Rate == null || l_Rate == 0) {
+                            final lRate = double.tryParse(value);
+                            if (lRate == null || lRate == 0) {
                               return 'Rate value cannot be zero';
                             }
-                            if (l_Rate < 0) {
+                            if (lRate < 0) {
                               return 'Rate value cannot be negative';
                             }
                             return null;

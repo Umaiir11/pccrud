@@ -50,15 +50,15 @@ class VmSale extends GetxController {
 
 
   FncFill_SaleModel() {
-    ModSale l_ModSale = ModSale();
+    ModSale lModsale = ModSale();
     VmHome? lVmHome = Get.find<VmHome>();
 
-    l_ModSale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
-    l_ModSale.Pr_Operation = lVmHome.Pr_txtOperatio;
-    l_ModSale.Pr_CustID = Pr_txtCustID_Text;
-    l_ModSale.Pr_Voucher = Pr_txtVoucher_Text;
-    l_ModSale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
-    return l_ModSale;
+    lModsale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
+    lModsale.Pr_Operation = lVmHome.Pr_txtOperatio;
+    lModsale.Pr_CustID = Pr_txtCustID_Text;
+    lModsale.Pr_Voucher = Pr_txtVoucher_Text;
+    lModsale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
+    return lModsale;
   }
 
   FncFillItemQuery() {
@@ -94,12 +94,12 @@ class VmSale extends GetxController {
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-    ModSale l_ModSale = FncFill_SaleModel();
-    l_ModPcSale.Pr_PKGUID = l_ModSale.Pr_PKGUID;
-    l_ModPcSale.Pr_Operation = l_ModSale.Pr_Operation;
-    l_ModPcSale.Pr_CustID = l_ModSale.Pr_CustID;
-    l_ModPcSale.Pr_Voucher = l_ModSale.Pr_Voucher;
-    l_ModPcSale.Pr_GrandTotal = l_ModSale.Pr_GrandTotal;
+    ModSale lModsale = FncFill_SaleModel();
+    l_ModPcSale.Pr_PKGUID = lModsale.Pr_PKGUID;
+    l_ModPcSale.Pr_Operation = lModsale.Pr_Operation;
+    l_ModPcSale.Pr_CustID = lModsale.Pr_CustID;
+    l_ModPcSale.Pr_Voucher = lModsale.Pr_Voucher;
+    l_ModPcSale.Pr_GrandTotal = lModsale.Pr_GrandTotal;
     //Get the filled SaleDetailsModel and add to the list
     ///VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     //ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
@@ -127,12 +127,12 @@ class VmSale extends GetxController {
     lVmHome.Pr_txtPKGUID = const Uuid().v4();
 
 
-    ModSale l_ModSale = FncFill_SaleModel();
-    l_ModSale.Pr_Operation =  lVmHome.Pr_txtOperatio;
-    l_ModSale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
-    l_ModSale.Pr_CustID = '';
-    l_ModSale.Pr_Voucher = '';
-    l_ModSale.Pr_GrandTotal = 0;
+    ModSale lModsale = FncFill_SaleModel();
+    lModsale.Pr_Operation =  lVmHome.Pr_txtOperatio;
+    lModsale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
+    lModsale.Pr_CustID = '';
+    lModsale.Pr_Voucher = '';
+    lModsale.Pr_GrandTotal = 0;
     //l_Pr_CustIDController.text = '';
     //l_Pr_VoucherController.text ='';
     T1?.text = '';
@@ -144,12 +144,12 @@ class VmSale extends GetxController {
    // VmSaleDetails? lVmSaleDetails = Get.find<VmSaleDetails>();
     ModSaleDetails? lModsaledetailsdb = VmSaleDetails().FncFill_SaleDetailsModel();
     lModsaledetailsdb!.Pr_PKGUID = '';
-    lModsaledetailsdb!.Pr_Operation = 0;
-    lModsaledetailsdb!.Pr_Quantity = 0;
-    lModsaledetailsdb!.Pr_Rate = 0;
-    lModsaledetailsdb!.Pr_Item = '';
-    lModsaledetailsdb!.Pr_ItemTotal = 0;
-    lModsaledetailsdb!.Pr_VmDID = '';
+    lModsaledetailsdb.Pr_Operation = 0;
+    lModsaledetailsdb.Pr_Quantity = 0;
+    lModsaledetailsdb.Pr_Rate = 0;
+    lModsaledetailsdb.Pr_Item = '';
+    lModsaledetailsdb.Pr_ItemTotal = 0;
+    lModsaledetailsdb.Pr_VmDID = '';
     l_ModPcSale.Pr_Operation = 0;
     l_ModPcSale.Pr_PKGUID = '';
     l_ModPcSale.Pr_CustID = '';

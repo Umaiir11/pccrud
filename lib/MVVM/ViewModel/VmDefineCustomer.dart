@@ -37,31 +37,31 @@ class VmDefineCustomer extends GetxController {
 
 
   ModDefineCustomer Fnc_Set_Model_Data() {
-    ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
-    l_ModDefineCustomer.Pr_PKGUID = G_GUIDCustomer;
-    l_ModDefineCustomer.Pr_CustID = l_CustIDController.text;
-    l_ModDefineCustomer.Pr_CB = l_CBController.text;
-    l_ModDefineCustomer.Pr_Operation = G_Operation;
-    return l_ModDefineCustomer;
+    ModDefineCustomer lModdefinecustomer = ModDefineCustomer();
+    lModdefinecustomer.Pr_PKGUID = G_GUIDCustomer;
+    lModdefinecustomer.Pr_CustID = l_CustIDController.text;
+    lModdefinecustomer.Pr_CB = l_CBController.text;
+    lModdefinecustomer.Pr_Operation = G_Operation;
+    return lModdefinecustomer;
   }
 
   Future<bool> Fnc_CUD() async {
-    ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
-      if(await DAL_DefineCust().Fnc_Cud(l_ModDefineCustomer!) == true){
+    ModDefineCustomer lModdefinecustomer = Fnc_Set_Model_Data();
+      if(await DAL_DefineCust().Fnc_Cud(lModdefinecustomer) == true){
         return true;
       }
       return false;
     }
 
 
-    Sb_SearchData(String l_PKGUID) async {
-    String l_WhereClause = "WHERE PKGUID = '${l_PKGUID}'";
+    Sb_SearchData(String lPkguid) async {
+    String lWhereclause = "WHERE PKGUID = '$lPkguid'";
 
-    List<ModDefineCustomer> l_ListModDefineCustomer= await DAL_DefineCust().Fnc_ReadNew(l_WhereClause);
-    ModDefineCustomer l_ModDefineCustomer = l_ListModDefineCustomer.first;
-    l_CBController.text = l_ModDefineCustomer.Pr_CB!;
-    l_CustIDController.text =  l_ModDefineCustomer.Pr_CustID!;
-    G_GUIDCustomer = l_PKGUID;
+    List<ModDefineCustomer> lListmoddefinecustomer= await DAL_DefineCust().Fnc_ReadNew(lWhereclause);
+    ModDefineCustomer lModdefinecustomer = lListmoddefinecustomer.first;
+    l_CBController.text = lModdefinecustomer.Pr_CB!;
+    l_CustIDController.text =  lModdefinecustomer.Pr_CustID!;
+    G_GUIDCustomer = lPkguid;
     G_Operation = 2;
   }
 

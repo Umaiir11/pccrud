@@ -69,10 +69,10 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.10,
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Enter your customer information",
@@ -209,7 +209,7 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                             },
 
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.redAccent, // Set the background color to red
+                              backgroundColor: Colors.redAccent, // Set the background color to red
                             ),
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,

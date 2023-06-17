@@ -10,11 +10,11 @@ class DAL_DefineCust extends GetxController {
   Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
     try {
       Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-      List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
+      List<String> lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
 
       final batch = lDatabase!.batch();
 
-      for (String query in l_Query) {
+      for (String query in lQuery) {
         batch.execute(query);
       }
 
@@ -26,12 +26,12 @@ class DAL_DefineCust extends GetxController {
     }
   }
 
-  Future<bool> Fnc_Read(ModDefineCustomer lModCustomerDetails, String l_WhereClause) async {
+  Future<bool> Fnc_Read(ModDefineCustomer lModCustomerDetails, String lWhereclause) async {
     try {
-      List<String> l_Query = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
-      for (String query in l_Query) {
+      List<String> lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
+      for (String query in lQuery) {
         if (query.trim().toUpperCase().startsWith('SELECT')) {
-          String finalQuery = query + l_WhereClause;
+          String finalQuery = query + lWhereclause;
           if (finalQuery.toUpperCase().contains('PKGUID')) {
             await FncFillModel(finalQuery);
           } else {
@@ -49,12 +49,12 @@ class DAL_DefineCust extends GetxController {
 
   Future<void> FncFetchData(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
+    List<Map<String, dynamic>> lFetcheddata = await lDatabase!.rawQuery(query);
 
     VmDefineCustomer? lVmDefineCustomer = Get.find<VmDefineCustomer>();
 
-    for (Map<String, dynamic> row in l_FetchedDATA) {
-      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
+    for (Map<String, dynamic> row in lFetcheddata) {
+      ModDefineCustomer lModdefinecustomer = ModDefineCustomer(
         Pr_PKGUID: row['PKGUID'],
         Pr_CustID: row['CustID'],
         Pr_CB: row['CB'],
@@ -66,35 +66,35 @@ class DAL_DefineCust extends GetxController {
 
   Future<void> FncFillModel(String query) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(query);
+    List<Map<String, dynamic>> lFetcheddata = await lDatabase!.rawQuery(query);
 
-    if (l_FetchedDATA.isNotEmpty) {
-      Map<String, dynamic>? row = l_FetchedDATA.first;
-      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(
-        Pr_CustID: row?['CustID'],
-        Pr_CB: row?['CB'],
+    if (lFetcheddata.isNotEmpty) {
+      Map<String, dynamic>? row = lFetcheddata.first;
+      ModDefineCustomer lModdefinecustomer = ModDefineCustomer(
+        Pr_CustID: row['CustID'],
+        Pr_CB: row['CB'],
       );
     }
   }
 
-  Future<List<ModDefineCustomer>> Fnc_ReadNew(String l_WhereClause) async {
+  Future<List<ModDefineCustomer>> Fnc_ReadNew(String lWhereclause) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
 
-    String l_Query = "Select PKGUID, CustID, CB From VW_TBU_Customer ";
-    String finalQiery = l_Query + l_WhereClause;
+    String lQuery = "Select PKGUID, CustID, CB From VW_TBU_Customer ";
+    String finalQiery = lQuery + lWhereclause;
 
-    List<Map<String, dynamic>> l_FetchedDATA = await lDatabase!.rawQuery(finalQiery);
+    List<Map<String, dynamic>> lFetcheddata = await lDatabase!.rawQuery(finalQiery);
 
-    List<ModDefineCustomer> l_test = [];
-    l_FetchedDATA.forEach((map) {
+    List<ModDefineCustomer> lTest = [];
+    for (var map in lFetcheddata) {
       String PKGUID = map['PKGUID'];
       String CustID = map['CustID'];
       String CB = map['CB'];
 
-      ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer(Pr_PKGUID: PKGUID, Pr_CustID: CustID, Pr_CB: CB);
-      l_test.add(l_ModDefineCustomer);
-    });
+      ModDefineCustomer lModdefinecustomer = ModDefineCustomer(Pr_PKGUID: PKGUID, Pr_CustID: CustID, Pr_CB: CB);
+      lTest.add(lModdefinecustomer);
+    }
 
-    return l_test;
+    return lTest;
   }
 }

@@ -66,10 +66,10 @@ class SchemaQuery {
   }
 
   Future<void> FncCreateView(Database lDatabase, String lTablename) async {
-    await lDatabase.execute('DROP VIEW IF EXISTS   VW_${lTablename}');
+    await lDatabase.execute('DROP VIEW IF EXISTS   VW_$lTablename');
 
     await lDatabase.execute('''
-      CREATE VIEW VW_${lTablename} AS
+      CREATE VIEW VW_$lTablename AS
       SELECT *
       FROM $lTablename Where ISD = 'false'
     ''');

@@ -34,7 +34,7 @@ class QueryGenSaleInfo {
     ''';
       lQueries.add(query);
     } else if (lModpcsale.Pr_Operation == 4) {
-      final query = '''
+      const query = '''
     SELECT * FROM TBUSalesInfo
     ''';
       lQueries.add(query);

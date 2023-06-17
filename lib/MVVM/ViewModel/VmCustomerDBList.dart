@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
@@ -12,9 +11,9 @@ class VmCustomerDBList extends GetxController {
 
 
   Future<bool> FncGetSelectedPKGUID(int index) async {
-    String? l_SelectedPKGHUID = l_RxListModDefineCustomer[index].Pr_PKGUID;
-    if (l_SelectedPKGHUID != null) {
-      return await lVmDefineCustomer!.Sb_SearchData(l_SelectedPKGHUID!) ?? true;
+    String? lSelectedpkghuid = l_RxListModDefineCustomer[index].Pr_PKGUID;
+    if (lSelectedpkghuid != null) {
+      return await lVmDefineCustomer!.Sb_SearchData(lSelectedpkghuid) ?? true;
     }
     return false;
   }
@@ -23,8 +22,8 @@ class VmCustomerDBList extends GetxController {
 
 
   Future<bool> FetchDB_DATA() async {
-    List<ModDefineCustomer> l_ListModDefineCustomer =await DAL_DefineCust().Fnc_ReadNew("");
-    l_RxListModDefineCustomer.addAll(l_ListModDefineCustomer);
+    List<ModDefineCustomer> lListmoddefinecustomer =await DAL_DefineCust().Fnc_ReadNew("");
+    l_RxListModDefineCustomer.addAll(lListmoddefinecustomer);
     return true;
   }
   }

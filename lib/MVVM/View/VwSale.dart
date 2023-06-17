@@ -43,8 +43,8 @@ class _VwSaleState extends State<VwSale> {
               Tuple2<List<String>?, List<String>?> errors =  DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
               DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
             } else {
-              CustomSnackBar l_CustomSnackBar = CustomSnackBar();
-              l_CustomSnackBar.FncCustSnackBAR("Alert", "Empty Data", Colors.deepOrange);
+              CustomSnackBar lCustomsnackbar = CustomSnackBar();
+              lCustomsnackbar.FncCustSnackBAR("Alert", "Empty Data", Colors.deepOrange);
             }
           },
           backgroundColor: Colors.lightBlueAccent, // Set the background color of the button
@@ -187,11 +187,11 @@ class _VwSaleState extends State<VwSale> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+                              CustomSnackBar lCustomsnackbar = CustomSnackBar();
                               if (G_MainValidationKey.currentState!.validate()) {
-                                CustomAlertDialog l_CustomAddAlertDialog = CustomAlertDialog();
+                                CustomAlertDialog lCustomaddalertdialog = CustomAlertDialog();
 
-                                l_CustomAddAlertDialog.FncCustAlertDialog(
+                                lCustomaddalertdialog.FncCustAlertDialog(
                                   // CustAlertDialog fill the ModSaleDetails Model from texxt field
                                     context,
                                     PrHeight,
@@ -203,8 +203,8 @@ class _VwSaleState extends State<VwSale> {
                                         if (G_DialogValidationKey.currentState!.validate()) {
                                           //ModSalesDetails Model assign to the List of ItemQuery
                                           l_VmSale.FncFillItemQuery();
-                                          l_VmSaleDetails.FncClearDialog(l_CustomAddAlertDialog);
-                                          l_CustomSnackBar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
+                                          l_VmSaleDetails.FncClearDialog(lCustomaddalertdialog);
+                                          lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                         }
@@ -286,7 +286,7 @@ class _VwSaleState extends State<VwSale> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+                                            CustomSnackBar lCustomsnackbar = CustomSnackBar();
                                             CustomAlertDialog lUpdatecustomalertdialog = CustomAlertDialog();
                                             lUpdatecustomalertdialog.FncCustAlertDialog(
                                                 context,
@@ -303,7 +303,7 @@ class _VwSaleState extends State<VwSale> {
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
                                                       l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
 
-                                                      l_CustomSnackBar.FncCustSnackBAR(
+                                                      lCustomsnackbar.FncCustSnackBAR(
                                                           "Alert",
                                                           "Data Updated",
 
@@ -344,7 +344,7 @@ class _VwSaleState extends State<VwSale> {
                                           icon: const Icon(Icons.delete, color: Colors.red),
                                           iconSize: 12.0,
                                           onPressed: () {
-                                            CustomSnackBar l_CustomSnackBar = CustomSnackBar();
+                                            CustomSnackBar lCustomsnackbar = CustomSnackBar();
                                             // Get the item at the current index
                                             ModSaleDetails item = l_VmSale.G_ListItemQuery[lListindex];
 
@@ -353,7 +353,7 @@ class _VwSaleState extends State<VwSale> {
 
                                             // Remove the current item from the list
                                             l_VmSale.G_ListItemQuery.removeAt(lListindex);
-                                            l_CustomSnackBar.FncCustSnackBAR("Alert", "Deleted",  Colors.black);
+                                            lCustomsnackbar.FncCustSnackBAR("Alert", "Deleted",  Colors.black);
                                           },
                                         )
                                       ],

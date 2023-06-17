@@ -65,38 +65,38 @@ class VmSaleDetails extends GetxController {
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
   FncFill_SaleDetailsModel() {
-    ModSaleDetails l_ModSaledetails = ModSaleDetails(); // Create a new instance
+    ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
 
     //Get the filled Sale model instace
     ModSale? lModSale = l_VmSale?.FncFill_SaleModel();
 
     String lUuid = const Uuid().v4();
-    l_ModSaledetails.Pr_PKGUID = lUuid;
-    l_ModSaledetails.Pr_Operation = 1;
-    l_ModSaledetails.Pr_VmDID = lModSale?.Pr_PKGUID;
-    l_ModSaledetails.Pr_Item = Pr_txtItem_Text;
-    l_ModSaledetails.Pr_Quantity = Pr_txtQuantity_Text;
-    l_ModSaledetails.Pr_Rate = Pr_txtRate_Text;
-    FncItemtotal(l_ModSaledetails);
+    lModsaledetails.Pr_PKGUID = lUuid;
+    lModsaledetails.Pr_Operation = 1;
+    lModsaledetails.Pr_VmDID = lModSale?.Pr_PKGUID;
+    lModsaledetails.Pr_Item = Pr_txtItem_Text;
+    lModsaledetails.Pr_Quantity = Pr_txtQuantity_Text;
+    lModsaledetails.Pr_Rate = Pr_txtRate_Text;
+    FncItemtotal(lModsaledetails);
 
-    return l_ModSaledetails; // Return the instance
+    return lModsaledetails; // Return the instance
   }
 
   //this method is  responsible for claculation in dialog box
-  FncSet_SalesDetailsModelData(ModSaleDetails l_FilledSaleDetailsModel) {
-    ModSaleDetails l_ModSaleDetails = ModSaleDetails(); // Create a new instance
+  FncSet_SalesDetailsModelData(ModSaleDetails lFilledsaledetailsmodel) {
+    ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
 
-    if (l_FilledSaleDetailsModel.Pr_Item != null) {
-      l_ModSaleDetails.Pr_Item = l_FilledSaleDetailsModel.Pr_Item;
+    if (lFilledsaledetailsmodel.Pr_Item != null) {
+      lModsaledetails.Pr_Item = lFilledsaledetailsmodel.Pr_Item;
     }
-    if (l_FilledSaleDetailsModel.Pr_Quantity != null) {
-      l_ModSaleDetails.Pr_Quantity = l_FilledSaleDetailsModel.Pr_Quantity;
+    if (lFilledsaledetailsmodel.Pr_Quantity != null) {
+      lModsaledetails.Pr_Quantity = lFilledsaledetailsmodel.Pr_Quantity;
     }
-    if (l_FilledSaleDetailsModel.Pr_Rate != null) {
-      l_ModSaleDetails.Pr_Rate = l_FilledSaleDetailsModel.Pr_Rate;
+    if (lFilledsaledetailsmodel.Pr_Rate != null) {
+      lModsaledetails.Pr_Rate = lFilledsaledetailsmodel.Pr_Rate;
     }
 
-    FncItemtotal(l_ModSaleDetails);
+    FncItemtotal(lModsaledetails);
   }
 
   FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {

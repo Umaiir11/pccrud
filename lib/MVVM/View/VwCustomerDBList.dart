@@ -26,6 +26,7 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
     l_VmCustomerDBList.FetchDB_DATA();
     // Fetch data from the view model here
   }
+  @override
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
@@ -97,7 +98,7 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                               Get.offUntil(
                                 GetPageRoute(
                                   settings: RouteSettings(name: AppRoutes.VwDefineCust),
-                                  page: () => VwDefineCustomer(),
+                                  page: () => const VwDefineCustomer(),
                                 ),
                                 ModalRoute.withName(AppRoutes.initialRoute),
                               );
@@ -116,8 +117,8 @@ class _Vw_CustomerDBListState extends State<Vw_CustomerDBList> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(top: PrHeight * 0.02),
-                                    child: Center(
-                                      child: const Text(
+                                    child: const Center(
+                                      child: Text(
                                         'Customer Information',
                                         style: TextStyle(
                                           color: Colors.black,

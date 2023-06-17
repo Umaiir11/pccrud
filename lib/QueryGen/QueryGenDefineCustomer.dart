@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 
 import '../Enum/EnumCrud.dart';
@@ -28,17 +27,17 @@ class QueryGenDefineCust {
        CustID = '${lModDefineCustomer.Pr_CustID}',
         CB = '${lModDefineCustomer.Pr_CB}',
          ISD = 'false'
-        WHERE PKGUID = '${lModDefineCustomer?.Pr_PKGUID}'
+        WHERE PKGUID = '${lModDefineCustomer.Pr_PKGUID}'
                       ''';
         lQueries.add(query);
         break;
 
       case Dbopp.delete:
       // Delete operation based on PKGUID
-        final String l_WhereClause = "WHERE PKGUID = '${lModDefineCustomer?.Pr_PKGUID}'";
+        final String lWhereclause = "WHERE PKGUID = '${lModDefineCustomer.Pr_PKGUID}'";
         final query = '''
         UPDATE TBU_Customer
-        SET ISD = 'true' $l_WhereClause
+        SET ISD = 'true' $lWhereclause
       ''';
         lQueries.add(query);
         break;

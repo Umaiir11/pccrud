@@ -19,11 +19,11 @@ class BLPc {
   }
 
 
-  RxList<ModSaleDetails> FncCalculateItemTotalAndGrandTotal2 (RxList<ModSaleDetails> l_List) {
-    for (var item in l_List) {
+  RxList<ModSaleDetails> FncCalculateItemTotalAndGrandTotal2 (RxList<ModSaleDetails> lList) {
+    for (var item in lList) {
       item.Pr_ItemTotal = item.Pr_Quantity! * item.Pr_Rate!;
     }
 
-    return l_List;
+    return lList;
   }
 }
