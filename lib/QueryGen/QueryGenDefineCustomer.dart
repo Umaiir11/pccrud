@@ -8,7 +8,7 @@ class QueryGenDefineCust {
     List<String> lQueries = [];
 
     switch (lModDefineCustomer.Pr_Operation) {
-      case Dbopp.insert:
+      case DBOPP.insert:
       // Insert operation
         final query = '''
         INSERT INTO TBU_Customer (
@@ -21,7 +21,7 @@ class QueryGenDefineCust {
         lQueries.add(query);
         break;
 
-      case Dbopp.update:
+      case DBOPP.update:
         final query = ''' UPDATE TBU_Customer
         SET
        CustID = '${lModDefineCustomer.Pr_CustID}',
@@ -32,7 +32,7 @@ class QueryGenDefineCust {
         lQueries.add(query);
         break;
 
-      case Dbopp.delete:
+      case DBOPP.delete:
       // Delete operation based on PKGUID
         final String lWhereclause = "WHERE PKGUID = '${lModDefineCustomer.Pr_PKGUID}'";
         final query = '''
