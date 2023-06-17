@@ -4,8 +4,6 @@ import 'package:pccrud/DAL/DAL_DefineCust.dart';
 import 'package:pccrud/MVVM/Model/DB/ModDefineCustomer.dart';
 import 'package:uuid/uuid.dart';
 
-import 'Vm_Home.dart';
-
 class VmDefineCustomer extends GetxController {
 
 
@@ -34,20 +32,16 @@ class VmDefineCustomer extends GetxController {
   int? G_Operation;
   String? G_GUIDCustomer;
 
-  //RxList<ModDefineCustomer> l_DefineCustomerList = <ModDefineCustomer>[].obs;
-
   RxBool l_TextFieldsValidation = false.obs;
 
 
 
   ModDefineCustomer Fnc_Set_Model_Data() {
     ModDefineCustomer l_ModDefineCustomer = ModDefineCustomer();
-
     l_ModDefineCustomer.Pr_PKGUID = G_GUIDCustomer;
     l_ModDefineCustomer.Pr_CustID = l_CustIDController.text;
     l_ModDefineCustomer.Pr_CB = l_CBController.text;
     l_ModDefineCustomer.Pr_Operation = G_Operation;
-
     return l_ModDefineCustomer;
   }
 
@@ -69,8 +63,6 @@ class VmDefineCustomer extends GetxController {
     l_CustIDController.text =  l_ModDefineCustomer.Pr_CustID!;
     G_GUIDCustomer = l_PKGUID;
     G_Operation = 2;
-
-    //l_ModDefineCustomer =
   }
 
   BTNSave_Click() async {
@@ -87,10 +79,7 @@ class VmDefineCustomer extends GetxController {
 
   BTNClear_Click(){
     Sb_ResetForm( );
-
-
   }
-
 
   Sb_ResetForm(){
     G_Operation = 1;
@@ -99,9 +88,6 @@ class VmDefineCustomer extends GetxController {
     Pv_txtCB_Text= "";
     l_CustIDController.text="";
     l_CBController.text="";
-
   }
-
-
 
 }
