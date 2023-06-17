@@ -55,7 +55,7 @@ class _VwHomeState extends State<VwHome> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-
+                      l_VmDefineCustomer.Sb_ResetForm();
                       Get.offNamedUntil(AppRoutes.VwDefineCust, ModalRoute.withName(AppRoutes.initialRoute));
 
                     },

@@ -55,8 +55,10 @@ class VmDefineCustomer extends GetxController {
 
   Future<bool> Fnc_CUD() async {
     ModDefineCustomer l_ModDefineCustomer = Fnc_Set_Model_Data();
-      await DAL_DefineCust().Fnc_Cud(l_ModDefineCustomer!);
-      return true;
+      if(await DAL_DefineCust().Fnc_Cud(l_ModDefineCustomer!) == true){
+        return true;
+      }
+      return false;
     }
 
 
@@ -68,18 +70,15 @@ class VmDefineCustomer extends GetxController {
     l_CBController.text = l_ModDefineCustomer.Pr_CB!;
     l_CustIDController.text =  l_ModDefineCustomer.Pr_CustID!;
     G_GUIDCustomer = l_PKGUID;
-
-
-
-
     G_Operation = 2;
 
     //l_ModDefineCustomer =
   }
 
-  BTNSave_Click(){
-    Fnc_CUD();
-    Sb_ResetForm();
+  BTNSave_Click() async {
+     if( await Fnc_CUD() == true) {
+       Sb_ResetForm();
+     }
   }
 
   BTNDelete_Click(){
