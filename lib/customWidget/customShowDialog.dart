@@ -120,8 +120,7 @@ class CustomAlertDialog {
                               if (l_VmSaleDetails.Pv_txtQuantity_Text == 0 || l_VmSaleDetails.Pv_txtRate_Text <= 0) {
                                 l_VmSaleDetails.l_PrTotal.value = 0;
                               } else {
-                                ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
-                                l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
+                                l_VmSaleDetails.FncFill_SaleDetailsModel();
                               }
                             }
                           })),

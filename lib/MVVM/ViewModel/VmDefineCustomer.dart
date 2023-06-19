@@ -10,23 +10,6 @@ class VmDefineCustomer extends GetxController {
   final TextEditingController l_CustIDController = TextEditingController();
   final TextEditingController l_CBController = TextEditingController();
 
-
-  RxString l_PvCustID = ''.obs;
-  String get Pv_txtCustID_Text {
-    return l_PvCustID.value;
-  }
-  set Pv_txtCustID_Text(String value) {
-    l_PvCustID.value = value;
-  }
-
-  RxString l_PvCB = ''.obs;
-  String get Pv_txtCB_Text {
-    return l_PvCB.value;
-  }
-  set Pv_txtCB_Text(String value) {
-    l_PvCB.value = value;
-  }
-
   RxString Text_TEst = ''.obs;
 
   int? G_Operation;
@@ -84,8 +67,6 @@ class VmDefineCustomer extends GetxController {
   Sb_ResetForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
-    Pv_txtCustID_Text ="";
-    Pv_txtCB_Text= "";
     l_CustIDController.text="";
     l_CBController.text="";
   }

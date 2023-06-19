@@ -88,12 +88,14 @@ class VmSaleDetails extends GetxController {
 }
 
 
+
+
   FncFillItemQuery() {
     ModSaleDetails? lModsaledetailsdb = FncFill_SaleDetailsModel();
     G_ListItemQuery.add(lModsaledetailsdb!);
-    FncCalculateItemTotal2();
+    FncCalculateItemTotall();
   }
-  FncCalculateItemTotal2() {
+  FncCalculateItemTotall() {
     int grandTotal = 0;
     G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
@@ -104,39 +106,20 @@ class VmSaleDetails extends GetxController {
     l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
     print("Done");
   }
-  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
+  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetails) {
     if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
-      G_ListItemQuery[lSelectedindex] = lModsaledetailsdb;
+      G_ListItemQuery[lSelectedindex] = lModsaledetails;
     }
-    FncCalculateItemTotal2();
+    FncCalculateItemTotall();
     G_ListItemQuery.refresh();
   }
-  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
-    lModsaledetailsdb.Pr_Operation = 2;
-    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
-    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
-    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
+  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetails, CustomAlertDialog lCustomalertdialog) {
+    lModsaledetails.Pr_Operation = 2;
+    lModsaledetails.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
+    lModsaledetails.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
+    lModsaledetails.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
   }
 
-
-
-
-  //this method is  responsible for claculation in dialog box
-  FncSet_SalesDetailsModelData(ModSaleDetails lFilledsaledetailsmodel) {
-    ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
-
-    if (lFilledsaledetailsmodel.Pr_Item != null) {
-      lModsaledetails.Pr_Item = lFilledsaledetailsmodel.Pr_Item;
-    }
-    if (lFilledsaledetailsmodel.Pr_Quantity != null) {
-      lModsaledetails.Pr_Quantity = lFilledsaledetailsmodel.Pr_Quantity;
-    }
-    if (lFilledsaledetailsmodel.Pr_Rate != null) {
-      lModsaledetails.Pr_Rate = lFilledsaledetailsmodel.Pr_Rate;
-    }
-
-    FncItemtotal(lModsaledetails);
-  }
 
 
   FncClearDialog(CustomAlertDialog lCustomalertdialog) {
