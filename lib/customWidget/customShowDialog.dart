@@ -21,7 +21,7 @@ class CustomAlertDialog {
       l_Pr_ItemController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
       l_Pr_QuantityController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Quantity.toString();
       l_Pr_RateController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Rate.toString();
-      l_VmSaleDetails.Pr_txtTotal_Text=int.parse(l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_ItemTotal.toString());
+      l_VmSaleDetails.l_PrTotal.value=int.parse(l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_ItemTotal.toString());
     }
 
     showGeneralDialog(
@@ -61,7 +61,7 @@ class CustomAlertDialog {
                         return null;
                       },
                       onChanged: (value) {
-                        l_VmSaleDetails.Pr_txtItem_Text = value;
+                        l_VmSaleDetails.Pv_txtItem_Text = value;
                       },
                     ),
                   ),
@@ -88,7 +88,7 @@ class CustomAlertDialog {
                       },
                       onChanged: (value) {
                         int parsedValue = int.tryParse(value) ?? 0;
-                        l_VmSaleDetails.Pr_txtQuantity_Text = parsedValue;
+                        l_VmSaleDetails.Pv_txtQuantity_Text = parsedValue;
                       },
                     ),
                   ),
@@ -115,10 +115,10 @@ class CustomAlertDialog {
                           },
                           onChanged: (value) {
                             int parsedValue = int.tryParse(value) ?? 0;
-                            l_VmSaleDetails.Pr_txtRate_Text = parsedValue;
+                            l_VmSaleDetails.Pv_txtRate_Text = parsedValue;
                             if (parsedValue >= 0) {
-                              if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 || l_VmSaleDetails.Pr_txtRate_Text <= 0) {
-                                l_VmSaleDetails.Pr_txtTotal_Text = 0;
+                              if (l_VmSaleDetails.Pv_txtQuantity_Text == 0 || l_VmSaleDetails.Pv_txtRate_Text <= 0) {
+                                l_VmSaleDetails.l_PrTotal.value = 0;
                               } else {
                                 ModSaleDetails lModSaleDetails = l_VmSaleDetails.FncFill_SaleDetailsModel();
                                 l_VmSaleDetails.FncSet_SalesDetailsModelData(lModSaleDetails);
@@ -137,7 +137,7 @@ class CustomAlertDialog {
                           style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
                         ),
                         Obx(() {
-                          if (l_VmSaleDetails.Pr_txtQuantity_Text == 0 && l_VmSaleDetails.Pr_txtRate_Text == 0) {
+                          if (l_VmSaleDetails.Pv_txtQuantity_Text == 0 && l_VmSaleDetails.Pv_txtRate_Text == 0) {
                             return const Text(
                               '0',
                               style: TextStyle(
@@ -147,7 +147,7 @@ class CustomAlertDialog {
                             );
                           } else {
                             return Text(
-                              l_VmSaleDetails.Pr_txtTotal_Text.toString(),
+                              l_VmSaleDetails.l_PrTotal.value.toString(),
                               style: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w300, fontSize: 18),
                             );
                           }
@@ -165,7 +165,7 @@ class CustomAlertDialog {
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
                         ),
                         onPressed: () {
-                          l_VmSaleDetails.Pr_txtTotal_Text=0;
+                          l_VmSaleDetails.l_PrTotal.value=0;
                           Navigator.of(context).pop();
                         },
                       ),

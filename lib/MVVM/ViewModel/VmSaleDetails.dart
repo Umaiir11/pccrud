@@ -11,63 +11,44 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 class VmSaleDetails extends GetxController {
   VmSale? l_VmSale = Get.find<VmSale>();
 
+  int? G_Operation;
+  String? G_GUIDCustomer;
+  String? Pv_txtVmDID_Text;
   RxBool l_TextFieldsValidation = false.obs;
 
-  RxString l_PrVmDID = ''.obs;
 
-  String get Pr_txtVmDID_Text {
-    return l_PrVmDID.value;
+
+  RxString l_PvItem = ''.obs;
+  String get Pv_txtItem_Text {
+    return l_PvItem.value;
+  }
+  set Pv_txtItem_Text(String value) {
+    l_PvItem.value = value;
   }
 
-  set Pr_txtVmDID_Text(String value) {
-    l_PrVmDID.value = value;
+  RxInt l_PvQuantity = RxInt(0);
+  int get Pv_txtQuantity_Text {
+    return l_PvQuantity.value;
+  }
+  set Pv_txtQuantity_Text(int value) {
+    l_PvQuantity.value = value;
   }
 
-  RxString l_PrItem = ''.obs;
-
-  String get Pr_txtItem_Text {
-    return l_PrItem.value;
+  RxInt l_PvRate = RxInt(0);
+  int get Pv_txtRate_Text {
+    return l_PvRate.value;
   }
-
-  set Pr_txtItem_Text(String value) {
-    l_PrItem.value = value;
-  }
-
-  RxInt l_PrQuantity = RxInt(0);
-
-  int get Pr_txtQuantity_Text {
-    return l_PrQuantity.value;
-  }
-
-  set Pr_txtQuantity_Text(int value) {
-    l_PrQuantity.value = value;
-  }
-
-  RxInt l_PrRate = RxInt(0);
-
-  int get Pr_txtRate_Text {
-    return l_PrRate.value;
-  }
-
-  set Pr_txtRate_Text(int value) {
-    l_PrRate.value = value;
+  set Pv_txtRate_Text(int value) {
+    l_PvRate.value = value;
   }
 
   RxInt l_PrTotal = RxInt(0);
 
-  int get Pr_txtTotal_Text {
-    return l_PrTotal.value;
-  }
-
-  set Pr_txtTotal_Text(int value) {
-    l_PrTotal.value = value;
-  }
   RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
 
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
-  int? G_Operation;
-  String? G_GUIDCustomer;
+
 
   Sb_ResetForm(){
     G_Operation = 1;
@@ -83,9 +64,9 @@ class VmSaleDetails extends GetxController {
     lModsaledetails.Pr_PKGUID = G_GUIDCustomer;
     lModsaledetails.Pr_Operation = G_Operation;
     lModsaledetails.Pr_VmDID = lModSale?.Pr_PKGUID;
-    lModsaledetails.Pr_Item = Pr_txtItem_Text;
-    lModsaledetails.Pr_Quantity = Pr_txtQuantity_Text;
-    lModsaledetails.Pr_Rate = Pr_txtRate_Text;
+    lModsaledetails.Pr_Item = Pv_txtItem_Text;
+    lModsaledetails.Pr_Quantity = Pv_txtQuantity_Text;
+    lModsaledetails.Pr_Rate = Pv_txtRate_Text;
     FncItemtotal(lModsaledetails);
 
     return lModsaledetails; // Return the instance
@@ -113,7 +94,7 @@ class VmSaleDetails extends GetxController {
     G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     for (var item in G_ListItemQuery) {
-      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+      lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
       grandTotal += item.Pr_ItemTotal!;
     }
     l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
@@ -158,12 +139,12 @@ class VmSaleDetails extends GetxController {
     lCustomalertdialog.l_Pr_QuantityController.clear();
     lCustomalertdialog.l_Pr_ItemController.clear();
     lCustomalertdialog.l_Pr_RateController.clear();
-    Pr_txtTotal_Text = 0;
+    l_PrTotal.value = 0;
   }
 
   //Calculate the model values
   FncItemtotal(ModSaleDetails lModsaledetailsdb) {
     lModsaledetailsdb = BLSaleDetails().FncItemTotal(lModsaledetailsdb);
-    Pr_txtTotal_Text = lModsaledetailsdb.Pr_ItemTotal!;
+    l_PrTotal.value = lModsaledetailsdb.Pr_ItemTotal!;
   }
 }

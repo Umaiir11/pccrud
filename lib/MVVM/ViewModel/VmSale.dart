@@ -85,7 +85,7 @@ class VmSale extends GetxController {
     G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     for (var item in G_ListItemQuery) {
-      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+      lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
       grandTotal += item.Pr_ItemTotal!;
     }
     Pv_txtGrandTotal_Text = grandTotal;
@@ -117,7 +117,7 @@ class VmSale extends GetxController {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     for (var item in l_ModPcSale.l_PCSaleDetailsDBList) {
-      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+      lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
     }
     Pv_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
