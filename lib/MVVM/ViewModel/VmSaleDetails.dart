@@ -96,8 +96,11 @@ class VmSaleDetails extends GetxController {
     Sb_ResetForm();
   }
 
-  BTNUpdate_Click(int lSelectedindex, ModSaleDetails lModsaledetailsdb   ) async {
-    FncUpdateList (lSelectedindex ,lModsaledetailsdb);
+  BTNUpdate_Click(int lSelectedindex, CustomAlertDialog lCustomalertdialog ) async {
+    ModSaleDetails l_ModSaleDetails = FncFill_SaleDetailsModel();
+    FncSaleUpdateDetailsModel(l_ModSaleDetails ,lCustomalertdialog );
+    FncUpdateList (lSelectedindex ,l_ModSaleDetails);
+
   }
 
   FncFillItemQuery() {
@@ -116,13 +119,18 @@ class VmSaleDetails extends GetxController {
     l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
     print("Done");
   }
-
   FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
     if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
       G_ListItemQuery[lSelectedindex] = lModsaledetailsdb;
     }
     FncCalculateItemTotal2();
     G_ListItemQuery.refresh();
+  }
+  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
+    lModsaledetailsdb.Pr_Operation = 2;
+    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
+    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
+    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
   }
 
 
@@ -145,12 +153,6 @@ class VmSaleDetails extends GetxController {
     FncItemtotal(lModsaledetails);
   }
 
-  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetailsdb, CustomAlertDialog lCustomalertdialog) {
-    lModsaledetailsdb.Pr_Operation = 2;
-    lModsaledetailsdb.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
-    lModsaledetailsdb.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
-    lModsaledetailsdb.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
-  }
 
   FncClearDialog(CustomAlertDialog lCustomalertdialog) {
     lCustomalertdialog.l_Pr_QuantityController.clear();

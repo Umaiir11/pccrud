@@ -296,12 +296,7 @@ class _VwSaleState extends State<VwSale> {
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
-                                                      ModSaleDetails lModSaleDetailsDB =
-                                                          l_VmSaleDetails.FncFill_SaleDetailsModel();
-                                                      l_VmSaleDetails.FncSaleUpdateDetailsModel(
-                                                          lModSaleDetailsDB, lUpdatecustomalertdialog);
-                                                      l_VmSaleDetails.BTNUpdate_Click(lListindex, lModSaleDetailsDB);
-
+                                                      l_VmSaleDetails.BTNUpdate_Click(lListindex, lUpdatecustomalertdialog);
                                                       lCustomsnackbar.FncCustSnackBAR(
                                                           "Alert",
                                                           "Data Updated",
