@@ -1,41 +1,52 @@
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 
+import '../Enum/EnumCrud.dart';
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 
 class QueryGenSaleDetails {
   Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale lModpcsale) async {
-    List<String> lQueries = [];
-
-    for (ModSaleDetails l_ModUserDB in lModpcsale.l_PCSaleDetailsDBList) {
-      if (l_ModUserDB.Pr_Operation == 1) {
-        final query = '''
-        INSERT INTO TBUSalesDetails (
+    try {
+      List<String> lQueries = [];
+      for (ModSaleDetails l_ModSaleDetails in lModpcsale.l_PCSaleDetailsDBList) {
+        switch (l_ModSaleDetails.Pr_Operation) {
+          case DBOPP.insert:
+            final query = '''
+        INSERT INTO TBU_SalesDetails (
           Item, Quantity, Rate, VmDID, Operation, PKGUID
         ) VALUES (
-          '${l_ModUserDB.Pr_Item}', '${l_ModUserDB.Pr_Quantity}', '${l_ModUserDB.Pr_Rate}', 
-          '${l_ModUserDB.Pr_VmDID}', '${l_ModUserDB.Pr_Operation}', '${l_ModUserDB.Pr_PKGUID}'
+          '${l_ModSaleDetails.Pr_Item}', '${l_ModSaleDetails.Pr_Quantity}', '${l_ModSaleDetails.Pr_Rate}', 
+          '${l_ModSaleDetails.Pr_VmDID}', '${l_ModSaleDetails.Pr_Operation}', '${l_ModSaleDetails.Pr_PKGUID}'
         )
       ''';
-        lQueries.add(query);
-      } else if (l_ModUserDB.Pr_Operation == 2) {
-        final query = '''
-        UPDATE TBUSalesDetails SET
-          Item = '${l_ModUserDB.Pr_Item}',
-          Quantity = '${l_ModUserDB.Pr_Quantity}',
-          Rate = '${l_ModUserDB.Pr_Rate}',
-          Operation = '${l_ModUserDB.Pr_Operation}'
-        WHERE Item = '${l_ModUserDB.Pr_Item}'
-      ''';
-        lQueries.add(query); // Add the query to the list
-      } else if (l_ModUserDB.Pr_Operation == 3) {
-        final query = '''
-        DELETE FROM TBUSalesDetails
-        WHERE Item = '${l_ModUserDB.Pr_Item}'
-      ''';
-        lQueries.add(query);
-      }
-    }
+            lQueries.add(query);
+            break;
 
-    return lQueries;
+          case DBOPP.update:
+            final query = '''
+        UPDATE TBU_SalesDetails SET
+          Item = '${l_ModSaleDetails.Pr_Item}',
+          Quantity = '${l_ModSaleDetails.Pr_Quantity}',
+          Rate = '${l_ModSaleDetails.Pr_Rate}',
+          Operation = '${l_ModSaleDetails.Pr_Operation}'
+       WHERE PKGUID = '${l_ModSaleDetails.Pr_PKGUID}'
+      ''';
+            lQueries.add(query);
+            break;
+
+          case DBOPP.delete:
+            final query = '''
+        DELETE FROM TBU_SalesDetails
+        WHERE Item = '${l_ModSaleDetails.Pr_Item}'
+      ''';
+            lQueries.add(query);
+            break;
+        }
+      }
+      return lQueries;
+    }
+     catch (e) {
+      // Throw an exception
+      throw Exception('An error occurred while generating CRUD queries: $e');
+    }
   }
 }

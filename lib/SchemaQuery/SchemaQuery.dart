@@ -4,7 +4,7 @@ class SchemaQuery {
   Future<void> FncSchemaQuries(Database lDatabase) async {
     //CreateTab1
     await lDatabase.execute('''
-      CREATE TABLE IF NOT EXISTS TBUSalesInfo (
+      CREATE TABLE IF NOT EXISTS TBU_SalesInfo (
         ID INTEGER ,
         PKGUID TEXT PRIMARY KEY,
         CustID TEXT,
@@ -15,7 +15,7 @@ class SchemaQuery {
     ''');
     //CreateTab1
     await lDatabase.execute('''
-      CREATE TABLE IF NOT EXISTS TBUSalesDetails (
+      CREATE TABLE IF NOT EXISTS TBU_SalesDetails (
         ID INTEGER ,
         PKGUID TEXT PRIMARY KEY,
         VmDID TEXT,
@@ -39,15 +39,15 @@ class SchemaQuery {
 
 
     //Altertable1
-    await FncCheckAndAddColumns(lDatabase, 'TBUSalesInfo', {
+    await FncCheckAndAddColumns(lDatabase, 'TBU_SalesInfo', {
       'DATA': 'INTEGER',
     });
-    await FncCreateView(lDatabase, 'TBUSalesInfo');
+    await FncCreateView(lDatabase, 'TBU_SalesInfo');
     //Altertable1
-    await FncCheckAndAddColumns(lDatabase, 'TBUSalesDetails', {
+    await FncCheckAndAddColumns(lDatabase, 'TBU_SalesDetails', {
       'DATA': 'INTEGER',
     });
-    await FncCreateView(lDatabase, 'TBUSalesDetails');
+    await FncCreateView(lDatabase, 'TBU_SalesDetails');
 
     await FncCreateView(lDatabase, 'TBU_Customer');
   }
@@ -57,7 +57,7 @@ class SchemaQuery {
     List<String> lExistingcolumnnames = lExistingcolumns.map((column) => column['name'] as String).toList();
 
     List<String> lNewcolumnnames =
-        lColumnstoadd.keys.where((columnName) => !lExistingcolumnnames.contains(columnName)).toList();
+    lColumnstoadd.keys.where((columnName) => !lExistingcolumnnames.contains(columnName)).toList();
 
     for (String columnName in lNewcolumnnames) {
       String columnType = lColumnstoadd[columnName]!;
