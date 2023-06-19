@@ -28,7 +28,7 @@ class QueryGenSaleDetails {
           Quantity = '${l_ModSaleDetails.Pr_Quantity}',
           Rate = '${l_ModSaleDetails.Pr_Rate}',
           Operation = '${l_ModSaleDetails.Pr_Operation}'
-       WHERE PKGUID = '${l_ModSaleDetails.Pr_PKGUID}'
+       WHERE PKGUID = '${l_ModSaleDetails.Pr_VmDID}'
       ''';
             lQueries.add(query);
             break;

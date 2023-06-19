@@ -154,8 +154,6 @@ class _VwDefineCustomerState extends State<VwDefineCustomer> {
                       ],
                     ),
                   ),
-
-
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,

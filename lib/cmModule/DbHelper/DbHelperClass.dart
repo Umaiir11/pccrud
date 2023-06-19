@@ -20,7 +20,7 @@ class DBHelper {
     final appDirectory = await getApplicationDocumentsDirectory();
     final dbDirectory = Directory('${appDirectory.path}/DATABASE');
     await dbDirectory.create(recursive: true);
-    final dbPath = path.join(dbDirectory.path, 'D9.db');
+    final dbPath = path.join(dbDirectory.path, 'D00.db');
     final databaseExists = await databaseFactory.databaseExists(dbPath);
     if (!databaseExists) {
       l_Database = await openDatabase(

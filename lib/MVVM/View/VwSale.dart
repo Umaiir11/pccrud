@@ -86,13 +86,18 @@ class _VwSaleState extends State<VwSale> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.03,
                     ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Enter your sale information",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Enter your sale information",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   //TextWidgets
@@ -100,79 +105,95 @@ class _VwSaleState extends State<VwSale> {
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                          controller: l_VmSale. l_Pr_CustIDController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.lightBlueAccent,
-                            hintText: 'Customer ID',
-                            hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            // Adjust the floating label behavior
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                        )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: PrWidth * .745,
+                            child: TextFormField(
+                              controller: l_VmSale. l_Pr_CustIDController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.lightBlueAccent,
+                                hintText: 'Customer ID',
+                                hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                // Adjust the floating label behavior
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                contentPadding: EdgeInsets.all(PrHeight * 0.007), // Adjust the vertical padding as needed
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a Customer ID';
+                                }
+                                return null;
+                              },
+                            )),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
                     ),
-                    child: SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                            controller: l_VmSale. l_Pr_VoucherController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.lightBlueAccent,
-                              hintText: 'Voucher',
-                              hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Voucher';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              if (l_VmSale.l_PvGrandTotal.value != null && l_VmSale.l_PvGrandTotal.value!= null) {
-                                l_VmSale.Fnc_Set_Model_Main_Data();
-                              }
-                            })),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: PrHeight * 0.01,
-                    ),
-                    child: SizedBox(
-                        width: PrWidth * .745,
-                        height: PrHeight * .055,
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.lightBlueAccent,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: EdgeInsets.all(PrHeight * 0.007),
-                            child: Obx(() {
-                              return Text(
-                                'Grand Total: ${l_VmSale.l_PvGrandTotal.value.toString()}',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            width: PrWidth * .745,
+                            child: TextFormField(
+                                controller: l_VmSale. l_Pr_VoucherController,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.lightBlueAccent,
+                                  hintText: 'Voucher',
+                                  hintStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                  contentPadding: EdgeInsets.all(PrHeight * 0.007),
                                 ),
-                              );
-                            }))),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Voucher';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  if (l_VmSale.l_PvGrandTotal.value != null && l_VmSale.l_PvGrandTotal.value!= null) {
+                                    l_VmSale.Fnc_Set_Model_Main_Data();
+                                  }
+                                })),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: PrHeight * 0.01,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        SizedBox(
+                            width: PrWidth * .745,
+                            height: PrHeight * .055,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.lightBlueAccent,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                padding: EdgeInsets.all(PrHeight * 0.007),
+                                child: Obx(() {
+                                  return Text(
+                                    'Grand Total: ${l_VmSale.l_PvGrandTotal.value.toString()}',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  );
+                                }))),
+                      ],
+                    ),
                   ),
                   //AlertDialogInsertion
 

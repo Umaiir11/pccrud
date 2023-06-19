@@ -101,11 +101,13 @@ class VmSale extends GetxController {
   BTN_DBSave_Click() async {
     ModPcSale l_ModPcSale = FncFillPCModelList();
     FncCalculateItemTotal(l_ModPcSale);
-    await Fnc_CUD();
-    Sb_ResetMainForm();
-    Sb_Reset_PCForm();
-    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
-    lVmsaledetails.Sb_ResetDetailsForm();
+     if(await Fnc_CUD() == true){
+       Sb_ResetMainForm();
+       Sb_Reset_PCForm();
+       VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+       lVmsaledetails.Sb_ResetDetailsForm();
+     }
+
   }
   BTN_Clear_Click() async {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
