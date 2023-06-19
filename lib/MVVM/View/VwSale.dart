@@ -201,8 +201,7 @@ class _VwSaleState extends State<VwSale> {
                                       onPressed: () async {
                                         if (G_DialogValidationKey.currentState!.validate()) {
                                           //ModSalesDetails Model assign to the List of ItemQuery
-                                         l_VmSaleDetails.BTNInsert_Click();
-                                          l_VmSaleDetails.FncClearDialog(lCustomaddalertdialog);
+                                         l_VmSaleDetails.BTN_Add_Click();
                                           lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
                                         } else {
                                           l_VmSaleDetails.l_TextFieldsValidation.value = true;
@@ -233,7 +232,8 @@ class _VwSaleState extends State<VwSale> {
                                 'Insert',
                                 style: TextStyle(fontSize: 15),
                               ),
-                            )),
+                            )
+                        ),
 
                         ElevatedButton(
                             onPressed: () {
@@ -296,7 +296,7 @@ class _VwSaleState extends State<VwSale> {
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
-                                                      l_VmSaleDetails.BTNUpdate_Click(lListindex, lUpdatecustomalertdialog);
+                                                      l_VmSaleDetails.BTN_Update_Click(lListindex, lUpdatecustomalertdialog);
                                                       lCustomsnackbar.FncCustSnackBAR(
                                                           "Alert",
                                                           "Data Updated",

@@ -91,17 +91,17 @@ class VmSaleDetails extends GetxController {
     return lModsaledetails; // Return the instance
   }
 
-  BTNInsert_Click() async {
+  BTN_Add_Click() async {
     FncFillItemQuery();
     Sb_ResetForm();
   }
 
-  BTNUpdate_Click(int lSelectedindex, CustomAlertDialog lCustomalertdialog ) async {
+  BTN_Update_Click(int lSelectedindex, CustomAlertDialog lCustomalertdialog ) async {
     ModSaleDetails l_ModSaleDetails = FncFill_SaleDetailsModel();
     FncSaleUpdateDetailsModel(l_ModSaleDetails ,lCustomalertdialog );
     FncUpdateList (lSelectedindex ,l_ModSaleDetails);
-
   }
+
 
   FncFillItemQuery() {
     ModSaleDetails? lModsaledetailsdb = FncFill_SaleDetailsModel();
