@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../BLSaleDetails/BLDetails.dart';
+import '../../BLSaleDetails/BLPc.dart';
 import '../../customWidget/customShowDialog.dart';
 import '../Model/DB/ModSaleDetailsDB.dart';
 
@@ -61,6 +62,8 @@ class VmSaleDetails extends GetxController {
   set Pr_txtTotal_Text(int value) {
     l_PrTotal.value = value;
   }
+  RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
+
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
   int? G_Operation;
@@ -70,8 +73,6 @@ class VmSaleDetails extends GetxController {
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
   }
-
-
 
   FncFill_SaleDetailsModel() {
     ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
@@ -89,6 +90,28 @@ class VmSaleDetails extends GetxController {
 
     return lModsaledetails; // Return the instance
   }
+
+  BTNInsert_Click() async {
+    FncFillItemQuery();
+  }
+
+  FncFillItemQuery() {
+    ModSaleDetails? lModsaledetailsdb = FncFill_SaleDetailsModel();
+    G_ListItemQuery.add(lModsaledetailsdb!);
+    FncCalculateItemTotal2();
+  }
+  FncCalculateItemTotal2() {
+    int grandTotal = 0;
+    G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    for (var item in G_ListItemQuery) {
+      lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
+      grandTotal += item.Pr_ItemTotal!;
+    }
+    l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
+    print("Done");
+  }
+
 
   //this method is  responsible for claculation in dialog box
   FncSet_SalesDetailsModelData(ModSaleDetails lFilledsaledetailsmodel) {

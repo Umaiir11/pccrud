@@ -201,7 +201,7 @@ class _VwSaleState extends State<VwSale> {
                                       onPressed: () async {
                                         if (G_DialogValidationKey.currentState!.validate()) {
                                           //ModSalesDetails Model assign to the List of ItemQuery
-                                          l_VmSale.FncFillItemQuery();
+                                         l_VmSaleDetails.BTNInsert_Click();
                                           l_VmSaleDetails.FncClearDialog(lCustomaddalertdialog);
                                           lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
                                         } else {
@@ -260,9 +260,9 @@ class _VwSaleState extends State<VwSale> {
                   Expanded(
                     child: Obx(() => ListView.builder(
                           shrinkWrap: true,
-                          itemCount: l_VmSale.G_ListItemQuery.length,
+                          itemCount: l_VmSaleDetails.G_ListItemQuery.length,
                           itemBuilder: (context, lListindex) {
-                            final item = l_VmSale.G_ListItemQuery[lListindex];
+                            final item = l_VmSaleDetails.G_ListItemQuery[lListindex];
                             return SizedBox(
                               height: PrHeight * .132,
                               child: Card(
