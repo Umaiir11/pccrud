@@ -51,8 +51,6 @@ class VmSale extends GetxController {
   set Pv_txtGrandTotal_Text(int value) {
     l_PvGrandTotal.value = value;
   }
-
-
   Sb_ResetForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
@@ -63,9 +61,6 @@ class VmSale extends GetxController {
     l_Pr_VoucherController.text="";
 
   }
-
-
-
   Fnc_Set_Model_Main_Data() {
     ModSale lModsale = ModSale();
     lModsale.Pr_PKGUID = G_GUIDCustomer;
@@ -76,21 +71,6 @@ class VmSale extends GetxController {
     return lModsale;
   }
 
-
-
-
-
-  FncCalculateItemTotal2() {
-    int grandTotal = 0;
-    G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
-    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
-    for (var item in G_ListItemQuery) {
-      lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
-      grandTotal += item.Pr_ItemTotal!;
-    }
-    Pv_txtGrandTotal_Text = grandTotal;
-    print("Done");
-  }
 
 
 //========================================================PC=====================================================================
@@ -105,10 +85,8 @@ class VmSale extends GetxController {
     l_ModPcSale.Pr_Voucher = lModsale.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = lModsale.Pr_GrandTotal;
     //Get the filled SaleDetailsModel and add to the list
-    ///VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
-    //ModSaleDetails? lModsaledetailsdb = lVmsaledetails.FncFill_SaleDetailsModel();
-    l_ModPcSale.l_PCSaleDetailsDBList.addAll(G_ListItemQuery);
-    // print(l_ModPcSale.l_PCSaleDetailsDBList);
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    l_ModPcSale.l_PCSaleDetailsDBList.addAll(lVmsaledetails.G_ListItemQuery);
     FncCalculateItemTotal();
   }
 

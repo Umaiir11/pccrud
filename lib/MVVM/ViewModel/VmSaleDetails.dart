@@ -95,6 +95,8 @@ class VmSaleDetails extends GetxController {
     G_ListItemQuery.add(lModsaledetailsdb!);
     FncCalculateItemTotall();
   }
+
+
   FncCalculateItemTotall() {
     int grandTotal = 0;
     G_ListItemQuery = BLPc().FncCalculateItemTotalAndGrandTotal2(G_ListItemQuery);
