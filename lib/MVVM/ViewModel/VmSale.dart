@@ -18,46 +18,16 @@ class VmSale extends GetxController {
   int? G_Operation;
   String? G_GUIDCustomer;
 
-  RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
-
   RxBool l_TextFieldsValidation = false.obs;
 
 //TextfieldsProp
-  RxString l_PvCustID = ''.obs;
-
-  String get Pv_txtCustID_Text {
-    return l_PvCustID.value;
-  }
-
-  set Pv_txtCustID_Text(String value) {
-    l_PvCustID.value = value;
-  }
-
-  RxString l_PvVoucher = ''.obs;
-
-  String get Pv_txtVoucher_Text {
-    return l_PvVoucher.value;
-  }
-
-  set Pv_txtVoucher_Text(String value) {
-    l_PvVoucher.value = value;
-  }
 
   RxInt l_PvGrandTotal = RxInt(0);
 
-  int get Pv_txtGrandTotal_Text {
-    return l_PvGrandTotal.value;
-  }
-
-  set Pv_txtGrandTotal_Text(int value) {
-    l_PvGrandTotal.value = value;
-  }
-  Sb_ResetForm(){
+  Sb_ResetMainForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
-    Pv_txtCustID_Text ="";
-    Pv_txtVoucher_Text= "";
-    Pv_txtGrandTotal_Text=0 ;
+    l_PvGrandTotal.value=0 ;
     l_Pr_CustIDController.text="";
     l_Pr_VoucherController.text="";
 
@@ -68,16 +38,13 @@ class VmSale extends GetxController {
     lModsale.Pr_Operation = G_Operation;
     lModsale.Pr_CustID = l_Pr_CustIDController.text;
     lModsale.Pr_Voucher = l_Pr_VoucherController.text;
-    lModsale.Pr_GrandTotal = Pv_txtGrandTotal_Text;
+    lModsale.Pr_GrandTotal = l_PvGrandTotal.value;
     return lModsale;
   }
 
 
 
 //========================================================PC=====================================================================
-
-
-
 
   FncFillPCModelList() {
     ModPcSale l_ModPcSale = ModPcSale();
@@ -99,9 +66,9 @@ class VmSale extends GetxController {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     for (var item in l_ModPcSale.l_PCSaleDetailsDBList) {
-      lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
+      lVmsaledetails.l_Pr_RateController.text = item.Pr_ItemTotal.toString();
     }
-    Pv_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+    l_PvGrandTotal.value = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
   }
 
@@ -112,57 +79,40 @@ class VmSale extends GetxController {
     }
     return false;
   }
+  Sb_Reset_PCForm(){
 
-  BTN_DBSave_Click() async {
-    ModPcSale l_ModPcSale = FncFillPCModelList();
-    FncCalculateItemTotal(l_ModPcSale);
-    await Fnc_CUD();
-  }
-
-
-
-  FncNewForm(TextEditingController? T1, TextEditingController? T2,  ){
-    VmHome? lVmHome = Get.find<VmHome>();
-    lVmHome.Pr_txtOperatio = 1;
-    lVmHome.Pr_txtPKGUID = const Uuid().v4();
-
-
-    ModSale lModsale = Fnc_Set_Model_Main_Data();
-    lModsale.Pr_Operation =  lVmHome.Pr_txtOperatio;
-    lModsale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
-    lModsale.Pr_CustID = '';
-    lModsale.Pr_Voucher = '';
-    lModsale.Pr_GrandTotal = 0;
-    //l_Pr_CustIDController.text = '';
-    //l_Pr_VoucherController.text ='';
-    T1?.text = '';
-    T2?.text = '';
-
-
-    G_ListItemQuery.clear();
-
-   // VmSaleDetails? lVmSaleDetails = Get.find<VmSaleDetails>();
+    l_PvGrandTotal.value=0 ;
+    l_Pr_CustIDController.text="";
+    l_Pr_VoucherController.text="";
     ModPcSale l_ModPcSale =  FncFillPCModelList();
-    ModSaleDetails? lModsaledetailsdb = VmSaleDetails().FncFill_SaleDetailsModel();
-    lModsaledetailsdb!.Pr_PKGUID = '';
-    lModsaledetailsdb.Pr_Operation = 0;
-    lModsaledetailsdb.Pr_Quantity = 0;
-    lModsaledetailsdb.Pr_Rate = 0;
-    lModsaledetailsdb.Pr_Item = '';
-    lModsaledetailsdb.Pr_ItemTotal = 0;
-    lModsaledetailsdb.Pr_VmDID = '';
     l_ModPcSale.Pr_Operation = 0;
-    l_ModPcSale.Pr_PKGUID = '';
+    l_ModPcSale.Pr_PKGUID = "";
     l_ModPcSale.Pr_CustID = '';
     l_ModPcSale.Pr_Voucher = '';
     l_ModPcSale.Pr_GrandTotal = 0;
     l_ModPcSale.l_PCSaleDetailsDBList.clear();
 
-    Pv_txtGrandTotal_Text = 0;
-    Pv_txtCustID_Text ='';
-    Pv_txtVoucher_Text = '';
-
+    l_PvGrandTotal.value = 0;
     print("Data Clear");
+  }
+
+
+
+  BTN_DBSave_Click() async {
+    ModPcSale l_ModPcSale = FncFillPCModelList();
+    FncCalculateItemTotal(l_ModPcSale);
+    await Fnc_CUD();
+    Sb_ResetMainForm();
+    Sb_Reset_PCForm();
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    lVmsaledetails.Sb_ResetDetailsForm();
+  }
+  BTN_Clear_Click() async {
+    VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
+    Sb_ResetMainForm();
+    lVmsaledetails.Sb_ResetDetailsForm();
+    Sb_Reset_PCForm();
+
   }
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
@@ -10,6 +11,11 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSaleDetails extends GetxController {
   VmSale? l_VmSale = Get.find<VmSale>();
+
+  final TextEditingController l_Pr_ItemController = TextEditingController();
+  final TextEditingController l_Pr_QuantityController = TextEditingController();
+  final TextEditingController l_Pr_RateController = TextEditingController();
+
 
   int? G_Operation;
   String? G_GUIDCustomer;
@@ -50,9 +56,13 @@ class VmSaleDetails extends GetxController {
   // Retrieve the ModSaleDB object from the existing instance of VmSale
 
 
-  Sb_ResetForm(){
+  Sb_ResetDetailsForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
+    l_Pr_QuantityController.text='';
+    l_Pr_RateController.text = '';
+    l_Pr_ItemController.text='';
+    G_ListItemQuery.clear();
   }
 
   FncFill_SaleDetailsModel() {
@@ -73,16 +83,17 @@ class VmSaleDetails extends GetxController {
 
   BTN_Add_Click() async {
     FncFillItemQuery();
-    Sb_ResetForm();
+    FncClearDialog();
+    //Sb_ResetDetailsForm();
   }
-  BTN_Update_Click(int lSelectedindex, CustomAlertDialog lCustomalertdialog ) async {
+  BTN_Update_Click(int lSelectedindex ) async {
     ModSaleDetails l_ModSaleDetails = FncFill_SaleDetailsModel();
-    FncSaleUpdateDetailsModel(l_ModSaleDetails ,lCustomalertdialog );
+    FncSaleUpdateDetailsModel(l_ModSaleDetails);
     FncUpdateList (lSelectedindex ,l_ModSaleDetails);
   }
   BTN_Delete_Click(int lSelectedindex) {
     ModSaleDetails l_ModSaleDetails  = G_ListItemQuery[lSelectedindex];
-    l_VmSale?.Pv_txtGrandTotal_Text -= l_ModSaleDetails.Pr_ItemTotal!;
+    l_VmSale?.l_PvGrandTotal.value -= l_ModSaleDetails.Pr_ItemTotal!;
     G_ListItemQuery.removeAt(lSelectedindex);
 }
 
@@ -104,7 +115,7 @@ class VmSaleDetails extends GetxController {
       lVmsaledetails.Pv_txtItem_Text = item.Pr_ItemTotal.toString();
       grandTotal += item.Pr_ItemTotal!;
     }
-    l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
+    l_VmSale?.l_PvGrandTotal.value = grandTotal;
     print("Done");
   }
   FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetails) {
@@ -114,19 +125,19 @@ class VmSaleDetails extends GetxController {
     FncCalculateItemTotall();
     G_ListItemQuery.refresh();
   }
-  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetails, CustomAlertDialog lCustomalertdialog) {
+  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetails) {
     lModsaledetails.Pr_Operation = 2;
-    lModsaledetails.Pr_Item = lCustomalertdialog.l_Pr_ItemController.text;
-    lModsaledetails.Pr_Quantity = int.parse(lCustomalertdialog.l_Pr_QuantityController.text);
-    lModsaledetails.Pr_Rate = int.parse(lCustomalertdialog.l_Pr_RateController.text);
+    lModsaledetails.Pr_Item = l_Pr_ItemController.text;
+    lModsaledetails.Pr_Quantity = int.parse(l_Pr_QuantityController.text);
+    lModsaledetails.Pr_Rate = int.parse(l_Pr_RateController.text);
   }
 
 
 
-  FncClearDialog(CustomAlertDialog lCustomalertdialog) {
-    lCustomalertdialog.l_Pr_QuantityController.clear();
-    lCustomalertdialog.l_Pr_ItemController.clear();
-    lCustomalertdialog.l_Pr_RateController.clear();
+  FncClearDialog() {
+    l_Pr_QuantityController.clear();
+    l_Pr_ItemController.clear();
+    l_Pr_RateController.clear();
     l_PrTotal.value = 0;
   }
 

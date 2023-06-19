@@ -28,7 +28,7 @@ class _VwSaleState extends State<VwSale> {
 
   void initState() {
     super.initState();
-    l_VmSale.Sb_ResetForm();
+    l_VmSale.Sb_ResetMainForm();
     // Fetch data from the view model here
   }
 
@@ -146,7 +146,7 @@ class _VwSaleState extends State<VwSale> {
                               return null;
                             },
                             onChanged: (value) {
-                              if (l_VmSale.Pv_txtCustID_Text.isNotEmpty && l_VmSale.Pv_txtVoucher_Text.isNotEmpty) {
+                              if (l_VmSale.l_PvGrandTotal.value != null && l_VmSale.l_PvGrandTotal.value!= null) {
                                 l_VmSale.Fnc_Set_Model_Main_Data();
                               }
                             })),
@@ -166,7 +166,7 @@ class _VwSaleState extends State<VwSale> {
                             padding: EdgeInsets.all(PrHeight * 0.007),
                             child: Obx(() {
                               return Text(
-                                'Grand Total: ${l_VmSale.Pv_txtGrandTotal_Text.toString()}',
+                                'Grand Total: ${l_VmSale.l_PvGrandTotal.value.toString()}',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,
@@ -235,8 +235,8 @@ class _VwSaleState extends State<VwSale> {
 
                         ElevatedButton(
                             onPressed: () {
-                              l_VmSale.FncNewForm(l_VmSale. l_Pr_CustIDController,l_VmSale.l_Pr_VoucherController);
-                              Get.to(() => const VwSale());
+                              //l_VmSale.FncNewForm();
+                           l_VmSale.BTN_Clear_Click();
                             },
                             child: const FittedBox(
                               fit: BoxFit.scaleDown,
@@ -294,7 +294,7 @@ class _VwSaleState extends State<VwSale> {
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     if (G_DialogValidationKey.currentState!.validate()) {
-                                                      l_VmSaleDetails.BTN_Update_Click(lListindex, lUpdatecustomalertdialog);
+                                                      l_VmSaleDetails.BTN_Update_Click(lListindex);
                                                       lCustomsnackbar.FncCustSnackBAR(
                                                           "Alert",
                                                           "Data Updated",
@@ -302,7 +302,7 @@ class _VwSaleState extends State<VwSale> {
                                                           Colors.black);
                                                       // Close the dialog
                                                       Navigator.of(context).pop();
-                                                      l_VmSaleDetails.FncClearDialog(lUpdatecustomalertdialog);
+                                                      l_VmSaleDetails.FncClearDialog();
                                                     } else {
                                                       l_VmSaleDetails.l_TextFieldsValidation.value = true;
                                                     }

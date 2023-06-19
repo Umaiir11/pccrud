@@ -8,19 +8,16 @@ import '../MVVM/ViewModel/VmSaleDetails.dart';
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
 
-  final TextEditingController l_Pr_ItemController = TextEditingController();
-  final TextEditingController l_Pr_QuantityController = TextEditingController();
-  final TextEditingController l_Pr_RateController = TextEditingController();
+
 
 
   void FncCustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
       ElevatedButton lAddbutton, int lSelectedindex) {
-   l_VmSaleDetails.Sb_ResetForm();
     //Fetching Data and extraxt on Widgets
     if (lSelectedindex >= 0 && lSelectedindex < l_VmSaleDetails. G_ListItemQuery.length) {
-      l_Pr_ItemController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
-      l_Pr_QuantityController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Quantity.toString();
-      l_Pr_RateController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Rate.toString();
+      l_VmSaleDetails.l_Pr_ItemController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
+      l_VmSaleDetails.l_Pr_QuantityController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Quantity.toString();
+      l_VmSaleDetails.l_Pr_RateController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Rate.toString();
       l_VmSaleDetails.l_PrTotal.value=int.parse(l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_ItemTotal.toString());
     }
 
@@ -50,7 +47,7 @@ class CustomAlertDialog {
                   Padding(
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
-                      controller: l_Pr_ItemController,
+                      controller: l_VmSaleDetails.l_Pr_ItemController,
                       decoration: const InputDecoration(
                         labelText: 'Item',
                       ),
@@ -69,7 +66,7 @@ class CustomAlertDialog {
                     padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      controller: l_Pr_QuantityController,
+                      controller: l_VmSaleDetails.l_Pr_QuantityController,
                       decoration: const InputDecoration(
                         labelText: 'Quantity',
                       ),
@@ -96,7 +93,7 @@ class CustomAlertDialog {
                       padding: EdgeInsets.only(top: PrHeight * 0.01),
                       child: TextFormField(
                           keyboardType: TextInputType.number,
-                          controller: l_Pr_RateController,
+                          controller: l_VmSaleDetails.l_Pr_RateController,
                           decoration: const InputDecoration(
                             labelText: 'Rate',
                           ),
