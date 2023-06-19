@@ -24,13 +24,14 @@ class QueryGenSaleInfo {
       Voucher = '${lModpcsale.Pr_Voucher}',
       GrandTotal = '${lModpcsale.Pr_GrandTotal}',
       Operation = '${lModpcsale.Pr_Operation}'
-    WHERE Pr_CustID = '${lModpcsale.Pr_CustID}'
+     WHERE PKGUID = '${lModpcsale.Pr_PKGUID}'
     ''';
       lQueries.add(query);
+
     } else if (lModpcsale.Pr_Operation == 3) {
       final query = '''
     DELETE FROM TBUSalesInfo
-    WHERE Pr_CustID = '${lModpcsale.Pr_CustID}'
+    WHERE PKGUID = '${lModpcsale.Pr_PKGUID}'
     ''';
       lQueries.add(query);
     } else if (lModpcsale.Pr_Operation == 4) {
