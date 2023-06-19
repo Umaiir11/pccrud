@@ -68,7 +68,7 @@ class VmSaleDetails extends GetxController {
     ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
 
     //Get the filled Sale model instace
-    ModSale? lModSale = l_VmSale?.FncFill_SaleModel();
+    ModSale? lModSale = l_VmSale?.Fnc_Set_Model_Main_Data();
 
     String lUuid = const Uuid().v4();
     lModsaledetails.Pr_PKGUID = lUuid;

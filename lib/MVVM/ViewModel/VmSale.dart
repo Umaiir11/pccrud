@@ -66,7 +66,7 @@ class VmSale extends GetxController {
 
 
 
-  FncFill_SaleModel() {
+  Fnc_Set_Model_Main_Data() {
     ModSale lModsale = ModSale();
     lModsale.Pr_PKGUID = G_GUIDCustomer;
     lModsale.Pr_Operation = G_Operation;
@@ -75,6 +75,14 @@ class VmSale extends GetxController {
     lModsale.Pr_GrandTotal = Pv_txtGrandTotal_Text;
     return lModsale;
   }
+
+
+  BTNSave_Click() async {
+    await Fnc_CUD();
+    Sb_ResetForm();
+
+  }
+
 
   FncFillItemQuery() {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
@@ -109,7 +117,7 @@ class VmSale extends GetxController {
   ModPcSale l_ModPcSale = ModPcSale();
 
   FncFillPCModelList() {
-    ModSale lModsale = FncFill_SaleModel();
+    ModSale lModsale = Fnc_Set_Model_Main_Data();
     l_ModPcSale.Pr_PKGUID = lModsale.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = lModsale.Pr_Operation;
     l_ModPcSale.Pr_CustID = lModsale.Pr_CustID;
@@ -142,7 +150,7 @@ class VmSale extends GetxController {
     lVmHome.Pr_txtPKGUID = const Uuid().v4();
 
 
-    ModSale lModsale = FncFill_SaleModel();
+    ModSale lModsale = Fnc_Set_Model_Main_Data();
     lModsale.Pr_Operation =  lVmHome.Pr_txtOperatio;
     lModsale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
     lModsale.Pr_CustID = '';

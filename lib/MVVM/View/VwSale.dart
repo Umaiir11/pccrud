@@ -149,12 +149,10 @@ class _VwSaleState extends State<VwSale> {
                             },
                             onChanged: (value) {
                               if (l_VmSale.Pv_txtCustID_Text.isNotEmpty && l_VmSale.Pv_txtVoucher_Text.isNotEmpty) {
-                                l_VmSale.FncFill_SaleModel();
+                                l_VmSale.Fnc_Set_Model_Main_Data();
                               }
                             })),
                   ),
-
-
                   Padding(
                     padding: EdgeInsets.only(
                       top: PrHeight * 0.01,
