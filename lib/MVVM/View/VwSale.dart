@@ -24,8 +24,14 @@ class _VwSaleState extends State<VwSale> {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
 
   //Controllers For Sale TextFields
-  final TextEditingController l_Pr_CustIDController = TextEditingController();
-  final TextEditingController l_Pr_VoucherController = TextEditingController();
+
+
+  void initState() {
+    super.initState();
+    l_VmSale.Sb_ResetForm();
+    // Fetch data from the view model here
+  }
+
 
 
   @override
@@ -99,7 +105,7 @@ class _VwSaleState extends State<VwSale> {
                     child: SizedBox(
                         width: PrWidth * .745,
                         child: TextFormField(
-                          controller: l_Pr_CustIDController,
+                          controller: l_VmSale. l_Pr_CustIDController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.lightBlueAccent,
@@ -116,9 +122,6 @@ class _VwSaleState extends State<VwSale> {
                             }
                             return null;
                           },
-                          onChanged: (value) {
-                            l_VmSale.Pr_txtCustID_Text = value;
-                          },
                         )),
                   ),
                   Padding(
@@ -128,7 +131,7 @@ class _VwSaleState extends State<VwSale> {
                     child: SizedBox(
                         width: PrWidth * .745,
                         child: TextFormField(
-                            controller: l_Pr_VoucherController,
+                            controller: l_VmSale. l_Pr_VoucherController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.lightBlueAccent,
@@ -145,7 +148,6 @@ class _VwSaleState extends State<VwSale> {
                               return null;
                             },
                             onChanged: (value) {
-                              l_VmSale.Pr_txtVoucher_Text = value;
                               if (l_VmSale.Pr_txtCustID_Text.isNotEmpty && l_VmSale.Pr_txtVoucher_Text.isNotEmpty) {
                                 l_VmSale.FncFill_SaleModel();
                               }
@@ -190,7 +192,6 @@ class _VwSaleState extends State<VwSale> {
                               CustomSnackBar lCustomsnackbar = CustomSnackBar();
                               if (G_MainValidationKey.currentState!.validate()) {
                                 CustomAlertDialog lCustomaddalertdialog = CustomAlertDialog();
-
                                 lCustomaddalertdialog.FncCustAlertDialog(
                                   // CustAlertDialog fill the ModSaleDetails Model from texxt field
                                     context,
@@ -238,7 +239,7 @@ class _VwSaleState extends State<VwSale> {
 
                         ElevatedButton(
                             onPressed: () {
-                              l_VmSale.FncNewForm(l_Pr_CustIDController,l_Pr_VoucherController);
+                              l_VmSale.FncNewForm(l_VmSale. l_Pr_CustIDController,l_VmSale.l_Pr_VoucherController);
                               Get.to(() => const VwSale());
                             },
                             child: const FittedBox(

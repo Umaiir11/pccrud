@@ -10,6 +10,13 @@ import '../Model/DB/ModSaleDetailsDB.dart';
 import 'Vm_Home.dart';
 
 class VmSale extends GetxController {
+
+  final TextEditingController l_Pr_CustIDController = TextEditingController();
+  final TextEditingController l_Pr_VoucherController = TextEditingController();
+
+  int? G_Operation;
+  String? G_GUIDCustomer;
+
   RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
 
   RxBool l_TextFieldsValidation = false.obs;
@@ -48,15 +55,25 @@ class VmSale extends GetxController {
   }
 
 
+  Sb_ResetForm(){
+    G_Operation = 1;
+    G_GUIDCustomer = const Uuid().v4();
+    Pr_txtCustID_Text ="";
+    Pr_txtVoucher_Text= "";
+    Pr_txtGrandTotal_Text=0 ;
+    l_Pr_CustIDController.text="";
+    l_Pr_VoucherController.text="";
+
+  }
+
+
 
   FncFill_SaleModel() {
     ModSale lModsale = ModSale();
-    VmHome? lVmHome = Get.find<VmHome>();
-
-    lModsale.Pr_PKGUID = lVmHome.Pr_txtPKGUID;
-    lModsale.Pr_Operation = lVmHome.Pr_txtOperatio;
-    lModsale.Pr_CustID = Pr_txtCustID_Text;
-    lModsale.Pr_Voucher = Pr_txtVoucher_Text;
+    lModsale.Pr_PKGUID = G_GUIDCustomer;
+    lModsale.Pr_Operation = G_Operation;
+    lModsale.Pr_CustID = l_Pr_CustIDController.text;
+    lModsale.Pr_Voucher = l_Pr_VoucherController.text;
     lModsale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
     return lModsale;
   }
