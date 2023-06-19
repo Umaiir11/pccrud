@@ -13,8 +13,10 @@ class CustomAlertDialog {
   final TextEditingController l_Pr_QuantityController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
 
+
   void FncCustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
       ElevatedButton lAddbutton, int lSelectedindex) {
+    l_VmSaleDetails.Sb_ResetForm();
     //Fetching Data and extraxt on Widgets
     if (lSelectedindex >= 0 && lSelectedindex < l_VmSale. G_ListItemQuery.length) {
       l_Pr_ItemController.text = l_VmSale. G_ListItemQuery[lSelectedindex].Pr_Item.toString();

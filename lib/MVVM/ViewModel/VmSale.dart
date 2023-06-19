@@ -77,12 +77,6 @@ class VmSale extends GetxController {
   }
 
 
-  BTNSave_Click() async {
-    await Fnc_CUD();
-    Sb_ResetForm();
-
-  }
-
 
   FncFillItemQuery() {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();

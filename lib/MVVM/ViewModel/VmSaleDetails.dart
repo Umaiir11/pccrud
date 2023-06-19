@@ -63,6 +63,15 @@ class VmSaleDetails extends GetxController {
   }
 
   // Retrieve the ModSaleDB object from the existing instance of VmSale
+  int? G_Operation;
+  String? G_GUIDCustomer;
+
+  Sb_ResetForm(){
+    G_Operation = 1;
+    G_GUIDCustomer = const Uuid().v4();
+  }
+
+
 
   FncFill_SaleDetailsModel() {
     ModSaleDetails lModsaledetails = ModSaleDetails(); // Create a new instance
@@ -70,9 +79,8 @@ class VmSaleDetails extends GetxController {
     //Get the filled Sale model instace
     ModSale? lModSale = l_VmSale?.Fnc_Set_Model_Main_Data();
 
-    String lUuid = const Uuid().v4();
-    lModsaledetails.Pr_PKGUID = lUuid;
-    lModsaledetails.Pr_Operation = 1;
+    lModsaledetails.Pr_PKGUID = G_GUIDCustomer;
+    lModsaledetails.Pr_Operation = G_Operation;
     lModsaledetails.Pr_VmDID = lModSale?.Pr_PKGUID;
     lModsaledetails.Pr_Item = Pr_txtItem_Text;
     lModsaledetails.Pr_Quantity = Pr_txtQuantity_Text;
