@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pccrud/BLSaleDetails/BLPc.dart';
+import 'package:pccrud/DAL/DAL_PC.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:uuid/uuid.dart';
@@ -75,23 +76,26 @@ class VmSale extends GetxController {
 
 //========================================================PC=====================================================================
 
-  ModPcSale l_ModPcSale = ModPcSale();
+
+
 
   FncFillPCModelList() {
+    ModPcSale l_ModPcSale = ModPcSale();
+
     ModSale lModsale = Fnc_Set_Model_Main_Data();
     l_ModPcSale.Pr_PKGUID = lModsale.Pr_PKGUID;
     l_ModPcSale.Pr_Operation = lModsale.Pr_Operation;
     l_ModPcSale.Pr_CustID = lModsale.Pr_CustID;
     l_ModPcSale.Pr_Voucher = lModsale.Pr_Voucher;
     l_ModPcSale.Pr_GrandTotal = lModsale.Pr_GrandTotal;
-    //Get the filled SaleDetailsModel and add to the list
+
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     l_ModPcSale.l_PCSaleDetailsDBList.addAll(lVmsaledetails.G_ListItemQuery);
-    FncCalculateItemTotal();
+
+    return l_ModPcSale;
   }
 
-  //Calculation each item total by BLPC .
-  FncCalculateItemTotal() {
+  FncCalculateItemTotal(ModPcSale l_ModPcSale) {
     l_ModPcSale = BLPc().FncCalculateItemTotalAndGrandTotal(l_ModPcSale);
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     for (var item in l_ModPcSale.l_PCSaleDetailsDBList) {
@@ -99,6 +103,20 @@ class VmSale extends GetxController {
     }
     Pv_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
+  }
+
+  Future<bool> Fnc_CUD() async {
+    ModPcSale l_ModPcSale = FncFillPCModelList();
+    if (await DAL_PC().Fnc_Cud(l_ModPcSale) == true) {
+      return true;
+    }
+    return false;
+  }
+
+  BTN_DBSave_Click() async {
+    ModPcSale l_ModPcSale = FncFillPCModelList();
+    FncCalculateItemTotal(l_ModPcSale);
+    await Fnc_CUD();
   }
 
 
@@ -124,6 +142,7 @@ class VmSale extends GetxController {
     G_ListItemQuery.clear();
 
    // VmSaleDetails? lVmSaleDetails = Get.find<VmSaleDetails>();
+    ModPcSale l_ModPcSale =  FncFillPCModelList();
     ModSaleDetails? lModsaledetailsdb = VmSaleDetails().FncFill_SaleDetailsModel();
     lModsaledetailsdb!.Pr_PKGUID = '';
     lModsaledetailsdb.Pr_Operation = 0;

@@ -60,7 +60,6 @@ class VmSaleDetails extends GetxController {
 
     //Get the filled Sale model instace
     ModSale? lModSale = l_VmSale?.Fnc_Set_Model_Main_Data();
-
     lModsaledetails.Pr_PKGUID = G_GUIDCustomer;
     lModsaledetails.Pr_Operation = G_Operation;
     lModsaledetails.Pr_VmDID = lModSale?.Pr_PKGUID;

@@ -44,10 +44,8 @@ class _VwSaleState extends State<VwSale> {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
 
-            if (l_VmSale.G_ListItemQuery.isNotEmpty) {
-              l_VmSale.FncFillPCModelList();
-              Tuple2<List<String>?, List<String>?> errors =  DVMSalePC.Fnc_Validate(l_VmSale.l_ModPcSale);
-              DAL_PC().Fnc_Cud(l_VmSale.l_ModPcSale);
+            if (l_VmSaleDetails.G_ListItemQuery.isNotEmpty) {
+              l_VmSale.BTN_DBSave_Click();
             } else {
               CustomSnackBar lCustomsnackbar = CustomSnackBar();
               lCustomsnackbar.FncCustSnackBAR("Alert", "Empty Data", Colors.deepOrange);

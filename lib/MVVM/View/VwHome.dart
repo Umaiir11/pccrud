@@ -45,7 +45,7 @@ class _VwHomeState extends State<VwHome> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-                      l_VmSale.FncNewForm(TextEditingController(),TextEditingController());
+
                       Get.toNamed(AppRoutes.VwSale);
                     },
                     child: const Text("CREATE!")),
