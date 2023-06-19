@@ -300,7 +300,7 @@ class _VwSaleState extends State<VwSale> {
                                                           l_VmSaleDetails.FncFill_SaleDetailsModel();
                                                       l_VmSaleDetails.FncSaleUpdateDetailsModel(
                                                           lModSaleDetailsDB, lUpdatecustomalertdialog);
-                                                      l_VmSale.FncUpdateList(lListindex, lModSaleDetailsDB);
+                                                      l_VmSaleDetails.BTNUpdate_Click(lListindex, lModSaleDetailsDB);
 
                                                       lCustomsnackbar.FncCustSnackBAR(
                                                           "Alert",

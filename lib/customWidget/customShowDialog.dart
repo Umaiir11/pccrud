@@ -7,7 +7,6 @@ import '../MVVM/ViewModel/VmSaleDetails.dart';
 
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
-  final VmSale l_VmSale = Get.put(VmSale());
 
   final TextEditingController l_Pr_ItemController = TextEditingController();
   final TextEditingController l_Pr_QuantityController = TextEditingController();
@@ -16,13 +15,13 @@ class CustomAlertDialog {
 
   void FncCustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
       ElevatedButton lAddbutton, int lSelectedindex) {
-    l_VmSaleDetails.Sb_ResetForm();
+   l_VmSaleDetails.Sb_ResetForm();
     //Fetching Data and extraxt on Widgets
-    if (lSelectedindex >= 0 && lSelectedindex < l_VmSale. G_ListItemQuery.length) {
-      l_Pr_ItemController.text = l_VmSale. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
-      l_Pr_QuantityController.text = l_VmSale. G_ListItemQuery[lSelectedindex].Pr_Quantity.toString();
-      l_Pr_RateController.text = l_VmSale. G_ListItemQuery[lSelectedindex].Pr_Rate.toString();
-      l_VmSaleDetails.Pr_txtTotal_Text=int.parse(l_VmSale. G_ListItemQuery[lSelectedindex].Pr_ItemTotal.toString());
+    if (lSelectedindex >= 0 && lSelectedindex < l_VmSaleDetails. G_ListItemQuery.length) {
+      l_Pr_ItemController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
+      l_Pr_QuantityController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Quantity.toString();
+      l_Pr_RateController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Rate.toString();
+      l_VmSaleDetails.Pr_txtTotal_Text=int.parse(l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_ItemTotal.toString());
     }
 
     showGeneralDialog(

@@ -93,6 +93,11 @@ class VmSaleDetails extends GetxController {
 
   BTNInsert_Click() async {
     FncFillItemQuery();
+    Sb_ResetForm();
+  }
+
+  BTNUpdate_Click(int lSelectedindex, ModSaleDetails lModsaledetailsdb   ) async {
+    FncUpdateList (lSelectedindex ,lModsaledetailsdb);
   }
 
   FncFillItemQuery() {
@@ -111,6 +116,16 @@ class VmSaleDetails extends GetxController {
     l_VmSale?.Pv_txtGrandTotal_Text = grandTotal;
     print("Done");
   }
+
+  FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetailsdb) {
+    if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
+      G_ListItemQuery[lSelectedindex] = lModsaledetailsdb;
+    }
+    FncCalculateItemTotal2();
+    G_ListItemQuery.refresh();
+  }
+
+
 
 
   //this method is  responsible for claculation in dialog box
