@@ -76,12 +76,16 @@ class VmSaleDetails extends GetxController {
     FncFillItemQuery();
     Sb_ResetForm();
   }
-
   BTN_Update_Click(int lSelectedindex, CustomAlertDialog lCustomalertdialog ) async {
     ModSaleDetails l_ModSaleDetails = FncFill_SaleDetailsModel();
     FncSaleUpdateDetailsModel(l_ModSaleDetails ,lCustomalertdialog );
     FncUpdateList (lSelectedindex ,l_ModSaleDetails);
   }
+  BTN_Delete_Click(int lSelectedindex) {
+    ModSaleDetails l_ModSaleDetails  = G_ListItemQuery[lSelectedindex];
+    l_VmSale?.Pv_txtGrandTotal_Text -= l_ModSaleDetails.Pr_ItemTotal!;
+    G_ListItemQuery.removeAt(lSelectedindex);
+}
 
 
   FncFillItemQuery() {

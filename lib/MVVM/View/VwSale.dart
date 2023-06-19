@@ -339,14 +339,7 @@ class _VwSaleState extends State<VwSale> {
                                           iconSize: 12.0,
                                           onPressed: () {
                                             CustomSnackBar lCustomsnackbar = CustomSnackBar();
-                                            // Get the item at the current index
-                                            ModSaleDetails item = l_VmSale.G_ListItemQuery[lListindex];
-
-                                            // Subtract the item total from the grand total
-                                            l_VmSale.Pv_txtGrandTotal_Text -= item.Pr_ItemTotal!;
-
-                                            // Remove the current item from the list
-                                            l_VmSale.G_ListItemQuery.removeAt(lListindex);
+                                           l_VmSaleDetails  .  BTN_Delete_Click(lListindex);
                                             lCustomsnackbar.FncCustSnackBAR("Alert", "Deleted",  Colors.black);
                                           },
                                         )
