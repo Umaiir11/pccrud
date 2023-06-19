@@ -148,7 +148,7 @@ class _VwSaleState extends State<VwSale> {
                               return null;
                             },
                             onChanged: (value) {
-                              if (l_VmSale.Pr_txtCustID_Text.isNotEmpty && l_VmSale.Pr_txtVoucher_Text.isNotEmpty) {
+                              if (l_VmSale.Pv_txtCustID_Text.isNotEmpty && l_VmSale.Pv_txtVoucher_Text.isNotEmpty) {
                                 l_VmSale.FncFill_SaleModel();
                               }
                             })),
@@ -170,7 +170,7 @@ class _VwSaleState extends State<VwSale> {
                             padding: EdgeInsets.all(PrHeight * 0.007),
                             child: Obx(() {
                               return Text(
-                                'Grand Total: ${l_VmSale.Pr_txtGrandTotal_Text.toString()}',
+                                'Grand Total: ${l_VmSale.Pv_txtGrandTotal_Text.toString()}',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w300,
@@ -350,7 +350,7 @@ class _VwSaleState extends State<VwSale> {
                                             ModSaleDetails item = l_VmSale.G_ListItemQuery[lListindex];
 
                                             // Subtract the item total from the grand total
-                                            l_VmSale.Pr_txtGrandTotal_Text -= item.Pr_ItemTotal!;
+                                            l_VmSale.Pv_txtGrandTotal_Text -= item.Pr_ItemTotal!;
 
                                             // Remove the current item from the list
                                             l_VmSale.G_ListItemQuery.removeAt(lListindex);

@@ -20,47 +20,45 @@ class VmSale extends GetxController {
   RxList<ModSaleDetails> G_ListItemQuery = <ModSaleDetails>[].obs;
 
   RxBool l_TextFieldsValidation = false.obs;
-  RxBool l_HideItem = false.obs;
-  String? l_Uuid;
 
 //TextfieldsProp
-  RxString l_PrCustID = ''.obs;
+  RxString l_PvCustID = ''.obs;
 
-  String get Pr_txtCustID_Text {
-    return l_PrCustID.value;
+  String get Pv_txtCustID_Text {
+    return l_PvCustID.value;
   }
 
-  set Pr_txtCustID_Text(String value) {
-    l_PrCustID.value = value;
+  set Pv_txtCustID_Text(String value) {
+    l_PvCustID.value = value;
   }
 
-  RxString l_PrVoucher = ''.obs;
+  RxString l_PvVoucher = ''.obs;
 
-  String get Pr_txtVoucher_Text {
-    return l_PrVoucher.value;
+  String get Pv_txtVoucher_Text {
+    return l_PvVoucher.value;
   }
 
-  set Pr_txtVoucher_Text(String value) {
-    l_PrVoucher.value = value;
+  set Pv_txtVoucher_Text(String value) {
+    l_PvVoucher.value = value;
   }
 
-  RxInt l_PrGrandTotal = RxInt(0);
+  RxInt l_PvGrandTotal = RxInt(0);
 
-  int get Pr_txtGrandTotal_Text {
-    return l_PrGrandTotal.value;
+  int get Pv_txtGrandTotal_Text {
+    return l_PvGrandTotal.value;
   }
 
-  set Pr_txtGrandTotal_Text(int value) {
-    l_PrGrandTotal.value = value;
+  set Pv_txtGrandTotal_Text(int value) {
+    l_PvGrandTotal.value = value;
   }
 
 
   Sb_ResetForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
-    Pr_txtCustID_Text ="";
-    Pr_txtVoucher_Text= "";
-    Pr_txtGrandTotal_Text=0 ;
+    Pv_txtCustID_Text ="";
+    Pv_txtVoucher_Text= "";
+    Pv_txtGrandTotal_Text=0 ;
     l_Pr_CustIDController.text="";
     l_Pr_VoucherController.text="";
 
@@ -74,7 +72,7 @@ class VmSale extends GetxController {
     lModsale.Pr_Operation = G_Operation;
     lModsale.Pr_CustID = l_Pr_CustIDController.text;
     lModsale.Pr_Voucher = l_Pr_VoucherController.text;
-    lModsale.Pr_GrandTotal = Pr_txtGrandTotal_Text;
+    lModsale.Pr_GrandTotal = Pv_txtGrandTotal_Text;
     return lModsale;
   }
 
@@ -101,7 +99,7 @@ class VmSale extends GetxController {
       lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
       grandTotal += item.Pr_ItemTotal!;
     }
-    Pr_txtGrandTotal_Text = grandTotal;
+    Pv_txtGrandTotal_Text = grandTotal;
     print("Done");
   }
 
@@ -132,7 +130,7 @@ class VmSale extends GetxController {
     for (var item in l_ModPcSale.l_PCSaleDetailsDBList) {
       lVmsaledetails.Pr_txtItem_Text = item.Pr_ItemTotal.toString();
     }
-    Pr_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
+    Pv_txtGrandTotal_Text = l_ModPcSale.Pr_GrandTotal!;
     print("Done");
   }
 
@@ -174,9 +172,9 @@ class VmSale extends GetxController {
     l_ModPcSale.Pr_GrandTotal = 0;
     l_ModPcSale.l_PCSaleDetailsDBList.clear();
 
-    Pr_txtGrandTotal_Text = 0;
-    Pr_txtCustID_Text ='';
-    Pr_txtVoucher_Text = '';
+    Pv_txtGrandTotal_Text = 0;
+    Pv_txtCustID_Text ='';
+    Pv_txtVoucher_Text = '';
 
     print("Data Clear");
   }
