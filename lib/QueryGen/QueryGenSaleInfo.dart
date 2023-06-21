@@ -43,8 +43,11 @@ class QueryGenSaleInfo {
       }
 
 
+
+
       return lQueries;
     }
+
       catch (e) {
       // Throw an exception
       throw Exception('An error occurred while generating CRUD queries: $e');

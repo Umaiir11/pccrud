@@ -4,6 +4,7 @@ import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 
 import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
 import '../MVVM/ViewModel/VmSaleDetails.dart';
+import 'customSnackBar.dart';
 
 class CustomAlertDialog {
   final VmSaleDetails l_VmSaleDetails = Get.put(VmSaleDetails());
@@ -12,7 +13,7 @@ class CustomAlertDialog {
 
 
   void FncCustAlertDialog(BuildContext context, double PrHeight, PrWidth, GlobalKey<FormState> lValidationkey, String lTitle,
-      ElevatedButton lAddbutton, int lSelectedindex) {
+      int lSelectedindex, String l_BTNText) {
     //Fetching Data and extraxt on Widgets
     if (lSelectedindex >= 0 && lSelectedindex < l_VmSaleDetails. G_ListItemQuery.length) {
       l_VmSaleDetails.l_Pr_ItemController.text = l_VmSaleDetails. G_ListItemQuery[lSelectedindex].Pr_Item.toString();
@@ -161,14 +162,63 @@ class CustomAlertDialog {
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
                         ),
                         onPressed: () {
-                          l_VmSaleDetails.l_PrTotal.value=0;
+                          l_VmSaleDetails.l_PrTotal.value = 0;
                           Navigator.of(context).pop();
                         },
                       ),
                       const SizedBox(width: 8),
-                      lAddbutton,
+                      if (l_BTNText == 'Add')
+                        ElevatedButton(
+                          onPressed: () async {
+                            CustomSnackBar lCustomsnackbar = CustomSnackBar();
+                            l_VmSaleDetails.BTN_Add_Click();
+                            lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added", Colors.black);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.lightGreen,
+                            elevation: 7,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          child: Text(
+                            "$l_BTNText",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        )
+                      else if (l_BTNText == 'Update')
+                        ElevatedButton(
+                          onPressed: () async {
+                            CustomSnackBar lCustomsnackbar = CustomSnackBar();
+
+                              l_VmSaleDetails.BTN_Update_Click(lSelectedindex);
+                              lCustomsnackbar.FncCustSnackBAR(
+                                  "Alert",
+                                  "Data Updated",
+
+                                  Colors.black);
+                              // Close the dialog
+                              Navigator.of(context).pop();
+                              l_VmSaleDetails.FncClearDialog();
+
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.lightGreen,
+                            elevation: 7,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          child: const Text(
+                            "Update",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        )
                     ],
                   ),
+
                 ],
               ),
             ),

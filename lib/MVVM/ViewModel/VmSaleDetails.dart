@@ -62,7 +62,7 @@ class VmSaleDetails extends GetxController {
     l_Pr_QuantityController.text='';
     l_Pr_RateController.text = '';
     l_Pr_ItemController.text='';
-    G_ListItemQuery.clear();
+    //G_ListItemQuery.clear();
   }
 
   FncFill_SaleDetailsModel() {
@@ -82,14 +82,15 @@ class VmSaleDetails extends GetxController {
   }
 
   BTN_Add_Click() async {
+    Sb_ResetDetailsForm();
     FncFillItemQuery();
     FncClearDialog();
     //Sb_ResetDetailsForm();
   }
   BTN_Update_Click(int lSelectedindex ) async {
     ModSaleDetails l_ModSaleDetails = FncFill_SaleDetailsModel();
-    FncSaleUpdateDetailsModel(l_ModSaleDetails);
-    FncUpdateList (lSelectedindex ,l_ModSaleDetails);
+    ModSaleDetails  l_ModSaleDetailsUpdate  =   FncSaleUpdateDetailsModel(l_ModSaleDetails);
+    FncUpdateList (lSelectedindex ,l_ModSaleDetailsUpdate);
   }
   BTN_Delete_Click(int lSelectedindex) {
     ModSaleDetails l_ModSaleDetails  = G_ListItemQuery[lSelectedindex];
@@ -125,11 +126,13 @@ class VmSaleDetails extends GetxController {
     FncCalculateItemTotall();
     G_ListItemQuery.refresh();
   }
-  FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetails) {
-    lModsaledetails.Pr_Operation = 2;
+  ModSaleDetails FncSaleUpdateDetailsModel(ModSaleDetails lModsaledetails) {
+     G_Operation = 2;
     lModsaledetails.Pr_Item = l_Pr_ItemController.text;
     lModsaledetails.Pr_Quantity = int.parse(l_Pr_QuantityController.text);
     lModsaledetails.Pr_Rate = int.parse(l_Pr_RateController.text);
+
+    return lModsaledetails;
   }
 
 

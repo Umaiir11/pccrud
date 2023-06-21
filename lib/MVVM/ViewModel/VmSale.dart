@@ -113,6 +113,7 @@ class VmSale extends GetxController {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     Sb_ResetMainForm();
     lVmsaledetails.Sb_ResetDetailsForm();
+
     Sb_Reset_PCForm();
 
   }

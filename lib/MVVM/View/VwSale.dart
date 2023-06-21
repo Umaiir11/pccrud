@@ -206,7 +206,7 @@ class _VwSaleState extends State<VwSale> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              CustomSnackBar lCustomsnackbar = CustomSnackBar();
+
                               if (G_MainValidationKey.currentState!.validate()) {
                                 CustomAlertDialog lCustomaddalertdialog = CustomAlertDialog();
                                 lCustomaddalertdialog.FncCustAlertDialog(
@@ -216,30 +216,7 @@ class _VwSaleState extends State<VwSale> {
                                     PrWidth,
                                     G_DialogValidationKey,
                                     "Sale Details",
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        if (G_DialogValidationKey.currentState!.validate()) {
-                                          //ModSalesDetails Model assign to the List of ItemQuery
-                                         l_VmSaleDetails.BTN_Add_Click();
-                                          lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added",  Colors.black);
-                                        } else {
-                                          l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white, backgroundColor: Colors.lightGreen,
-                                        elevation: 7,
-                                        // minimumSize: Size(150, 48),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                      child: const Text(
-                                        "Add",
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ),
-                                    -1);
+                                    -1, "Add"  );
                                 //SaleDetails Dialog
                               } else {
                                 l_VmSale.l_TextFieldsValidation.value = true;
@@ -304,7 +281,6 @@ class _VwSaleState extends State<VwSale> {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            CustomSnackBar lCustomsnackbar = CustomSnackBar();
                                             CustomAlertDialog lUpdatecustomalertdialog = CustomAlertDialog();
                                             lUpdatecustomalertdialog.FncCustAlertDialog(
                                                 context,
@@ -312,36 +288,7 @@ class _VwSaleState extends State<VwSale> {
                                                 PrWidth,
                                                 G_DialogValidationKey,
                                                 "Update Data",
-                                                ElevatedButton(
-                                                  onPressed: () async {
-                                                    if (G_DialogValidationKey.currentState!.validate()) {
-                                                      l_VmSaleDetails.BTN_Update_Click(lListindex);
-                                                      lCustomsnackbar.FncCustSnackBAR(
-                                                          "Alert",
-                                                          "Data Updated",
-
-                                                          Colors.black);
-                                                      // Close the dialog
-                                                      Navigator.of(context).pop();
-                                                      l_VmSaleDetails.FncClearDialog();
-                                                    } else {
-                                                      l_VmSaleDetails.l_TextFieldsValidation.value = true;
-                                                    }
-                                                  },
-                                                  style: ElevatedButton.styleFrom(
-                                                    foregroundColor: Colors.white,
-                                                    backgroundColor: Colors.lightGreen,
-                                                    elevation: 7,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(5),
-                                                    ),
-                                                  ),
-                                                  child: const Text(
-                                                    "Update",
-                                                    style: TextStyle(fontSize: 15),
-                                                  ),
-                                                ),
-                                                lListindex);
+                                                lListindex, "Update");
                                           },
                                         ),
                                         const Text(

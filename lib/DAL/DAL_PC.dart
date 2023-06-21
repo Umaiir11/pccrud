@@ -12,19 +12,18 @@ class DAL_PC extends GetxController {
 
     List<String> lSaleinfoqueries = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(lModpcsale);
     List<String> lSaledetailsqueries = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(lModpcsale);
-
     final batch = lDatabase!.batch();
-
     for (String query in lSaleinfoqueries) {
       batch.execute(query);
     }
     for (String query in lSaledetailsqueries) {
       batch.execute(query);
     }
-
     await batch.commit();
-
-    // Clear the lists after the data is stored in the database.
+   // Clear the lists after the data is stored in the database.
     //l_SaleDetailsList.clear();
   }
+
+
+
 }
