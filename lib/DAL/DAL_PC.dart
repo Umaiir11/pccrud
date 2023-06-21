@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
+import 'package:pccrud/QueryGen/QG/QueryGenSalePC.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../QueryGen/QueryGenSaleDetails.dart';
@@ -10,13 +11,22 @@ class DAL_PC extends GetxController {
   Fnc_Cud(ModPcSale lModpcsale) async {
     Database? lDatabase = await DBHelper().FncGetDatabaseIns();
 
-    List<String> lSaleinfoqueries = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(lModpcsale);
-    List<String> lSaledetailsqueries = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(lModpcsale);
+   // List<String> lSaleinfoqueries = await QueryGenSaleInfo().FncGenCrudQueriesSaleInfo(lModpcsale);
+   // List<String> lSaledetailsqueries = await QueryGenSaleDetails().FncGenCrudQueriesSaleDetails(lModpcsale);
+    List<String> lSaledMainQuries = await QueryGenSalePc().FncGenCrudQueriesSalePc(  );
+
+
+
     final batch = lDatabase!.batch();
-    for (String query in lSaleinfoqueries) {
-      batch.execute(query);
-    }
-    for (String query in lSaledetailsqueries) {
+
+   // for (String query in lSaleinfoqueries) {
+    //  batch.execute(query);
+  //  }
+  //  for (String query in lSaledetailsqueries) {
+  //    batch.execute(query);
+  //  }
+
+    for (String query in lSaledMainQuries) {
       batch.execute(query);
     }
     await batch.commit();
