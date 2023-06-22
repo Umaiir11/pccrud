@@ -1,17 +1,29 @@
-import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
-import '../Enum/EnumCrud.dart';
-import '../MVVM/Model/DB/ModSaleDetailsDB.dart';
+import '../../Enum/EnumCrud.dart';
+import '../../MVVM/Model/DB/ModSaleDetailsDB.dart';
 
-class QueryGenSaleDetails {
-  Future<List<String>> FncGenCrudQueriesSaleDetails(ModPcSale lModpcsale) async {
+class QueryGenSaleDetail {
+  Future<List<String>> FncGenCrudQueriesSaleDetailsList(List<ModSaleDetails> list_ModSaleDEtaiks) async {
     try {
       List<String> lQueries = [];
-      for (int i = 0; i < lModpcsale.l_PCSaleDetailsDBList.length; i++) {
-        ModSaleDetails l_ModSaleDetails = lModpcsale.l_PCSaleDetailsDBList[i];
 
-        switch (l_ModSaleDetails.Pr_Operation) {
-          case DBOPP.insert:
-            final query = '''
+      String? Query;
+      for (ModSaleDetails l_ModSaleDetails in list_ModSaleDEtaiks) {
+        Query =  await FncGenCrudQueriesSaleDetailsModel(l_ModSaleDetails);
+        lQueries.add(Query);
+      }
+      return lQueries;
+    } catch (e) {
+      throw Exception('An error occurred while generating CRUD queries: $e');
+    }
+  }
+
+
+  Future<String> FncGenCrudQueriesSaleDetailsModel(ModSaleDetails l_ModSaleDetails) async {
+    try {
+
+      switch (l_ModSaleDetails.Pr_Operation) {
+            case DBOPP.insert:
+              return '''
             INSERT INTO TBU_SalesDetails (
               Item, Quantity, Rate, VmDID, Operation, PKGUID
             ) VALUES (
@@ -19,11 +31,9 @@ class QueryGenSaleDetails {
               '${l_ModSaleDetails.Pr_VmDID}', '${l_ModSaleDetails.Pr_Operation}', '${l_ModSaleDetails.Pr_PKGUID}'
             )
           ''';
-            lQueries.add(query);
-            break;
 
-          case DBOPP.update:
-            final query = '''
+            case DBOPP.update:
+              return '''
             UPDATE TBU_SalesDetails SET
               Item = '${l_ModSaleDetails.Pr_Item}',
               Quantity = '${l_ModSaleDetails.Pr_Quantity}',
@@ -31,23 +41,18 @@ class QueryGenSaleDetails {
               Operation = '${l_ModSaleDetails.Pr_Operation}'
             WHERE PKGUID = '${l_ModSaleDetails.Pr_VmDID}'
           ''';
-            lQueries.add(query);
-            break;
 
-          case DBOPP.delete:
-            final query = '''
+            case DBOPP.delete:
+              return '''
             DELETE FROM TBU_SalesDetails
             WHERE Item = '${l_ModSaleDetails.Pr_Item}'
           ''';
-            lQueries.add(query);
-            break;
 
-          default:
-          // Handle unrecognized operation
-            break;
-        }
-      }
-      return lQueries;
+            default:
+            // Handle unrecognized operation
+              break;
+          }
+          return "";
     } catch (e) {
       throw Exception('An error occurred while generating CRUD queries: $e');
     }

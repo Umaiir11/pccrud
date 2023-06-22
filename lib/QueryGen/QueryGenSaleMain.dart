@@ -1,14 +1,30 @@
+import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
+import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import '../../Enum/EnumCrud.dart';
-import '../../MVVM/Model/DB/ModSaleDB.dart';
 
 class QueryGenSaleMain {
-  Future<List<String>> FncGenCrudQueriesSaleInfo(List<ModSale> list_lModSale) async {
+  Future<List<String>> FncGenCrudQueriesSaleMainList(List<ModSale> list_ModSale) async {
     try {
       List<String> lQueries = [];
-      for (ModSale l_ModSale in list_lModSale) {
+      String? Query;
+      for (ModSale l_ModPcSale in list_ModSale) {
+         Query =  await FncGenCrudQueriesSaleMainModel(l_ModPcSale);
+         lQueries.add(Query);
+
+      }
+      return lQueries;
+    } catch (e) {
+      // Throw an exception
+      throw Exception('An error occurred while generating CRUD queries: $e');
+    }
+  }
+
+  Future<String> FncGenCrudQueriesSaleMainModel(ModSale l_ModSale) async {
+    try {
+
         switch (l_ModSale.Pr_Operation) {
           case DBOPP.insert:
-            final query = '''
+            return  '''
               INSERT INTO TBU_SalesInfo (
                 CustID, Voucher, GrandTotal, Operation, PKGUID
               ) VALUES (
@@ -16,11 +32,11 @@ class QueryGenSaleMain {
                 '${l_ModSale.Pr_Operation}', '${l_ModSale.Pr_PKGUID}'
               )
             ''';
-            lQueries.add(query);
+
             break;
 
           case DBOPP.update:
-            final query = '''
+        return  '''
               UPDATE TBU_SalesInfo SET
                 CustID = '${l_ModSale.Pr_CustID}',
                 Voucher = '${l_ModSale.Pr_Voucher}',
@@ -28,20 +44,17 @@ class QueryGenSaleMain {
                 Operation = '${l_ModSale.Pr_Operation}'
               WHERE PKGUID = '${l_ModSale.Pr_PKGUID}'
             ''';
-            lQueries.add(query);
-            break;
+
+
 
           case DBOPP.delete:
-            final query = '''
+            return '''
               DELETE FROM TBU_SalesInfo
               WHERE PKGUID = '${l_ModSale.Pr_PKGUID}'
             ''';
-            lQueries.add(query);
-            break;
-        }
-      }
 
-      return lQueries;
+                   }
+                return "";
     } catch (e) {
       // Throw an exception
       throw Exception('An error occurred while generating CRUD queries: $e');

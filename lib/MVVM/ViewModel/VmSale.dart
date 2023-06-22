@@ -5,10 +5,7 @@ import 'package:pccrud/DAL/DAL_PC.dart';
 import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSaleDetails.dart';
 import 'package:uuid/uuid.dart';
-
 import '../Model/DB/ModSaleDB.dart';
-import '../Model/DB/ModSaleDetailsDB.dart';
-import 'Vm_Home.dart';
 
 class VmSale extends GetxController {
 
@@ -32,7 +29,7 @@ class VmSale extends GetxController {
     l_Pr_VoucherController.text="";
 
   }
-  Fnc_Set_Model_Main_Data() {
+  ModSale  Fnc_Set_Model_Main_Data() {
     ModSale lModsale = ModSale();
     lModsale.Pr_PKGUID = G_GUIDCustomer;
     lModsale.Pr_Operation = G_Operation;
@@ -46,7 +43,7 @@ class VmSale extends GetxController {
 
 //========================================================PC=====================================================================
 
-  FncFillPCModelList() {
+    FncFillPCModelList() {
     ModPcSale l_ModPcSale = ModPcSale();
 
     ModSale lModsale = Fnc_Set_Model_Main_Data();
@@ -58,7 +55,6 @@ class VmSale extends GetxController {
 
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     l_ModPcSale.l_PCSaleDetailsDBList.addAll(lVmsaledetails.G_ListItemQuery);
-
     return l_ModPcSale;
   }
 
