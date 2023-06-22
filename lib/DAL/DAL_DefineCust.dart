@@ -7,18 +7,10 @@ import '../cmModule/DbHelper/DbHelperClass.dart';
 class DAL_DefineCust extends GetxController {
   Future<bool> Fnc_Cud(ModDefineCustomer lModDefineCustomer) async {
     try {
-
       Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-      List<ModDefineCustomer> l_listModDefineCustomer = [];
-      l_listModDefineCustomer.add(lModDefineCustomer);
-      List<String> lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCustList(l_listModDefineCustomer);
-
+      String lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCustModel(lModDefineCustomer);
       final batch = lDatabase!.batch();
-
-      for (String query in lQuery) {
-        batch.execute(query);
-      }
-
+      batch.execute(lQuery);
       await batch.commit();
       return true;
     } catch (e) {
