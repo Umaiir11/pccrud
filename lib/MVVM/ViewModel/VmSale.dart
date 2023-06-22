@@ -102,6 +102,8 @@ class VmSale extends GetxController {
        Sb_Reset_PCForm();
        VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
        lVmsaledetails.Sb_ResetDetailsForm();
+       lVmsaledetails.G_ListItemQuery.clear();
+
      }
 
   }
@@ -109,6 +111,7 @@ class VmSale extends GetxController {
     VmSaleDetails? lVmsaledetails = Get.find<VmSaleDetails>();
     Sb_ResetMainForm();
     lVmsaledetails.Sb_ResetDetailsForm();
+    lVmsaledetails.G_ListItemQuery.clear();
 
     Sb_Reset_PCForm();
 
