@@ -4,6 +4,8 @@ import 'package:pccrud/MVVM/ViewModel/VmDefineCustomer.dart';
 import 'package:pccrud/MVVM/ViewModel/Vm_Home.dart';
 import '../../Routing/AppRoutes.dart';
 import '../ViewModel/VmSale.dart';
+import 'VwSingleMulti.dart';
+import 'VwSingleMulti.dart';
 
 class VwHome extends StatefulWidget {
   const VwHome({Key? key}) : super(key: key);
@@ -59,6 +61,16 @@ class _VwHomeState extends State<VwHome> {
 
                     },
                     child: const Text("Define Customer!")),
+              ),
+              SizedBox(height: PrHeight*0.02 ,),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      l_VmDefineCustomer.Sb_ResetForm();
+                      Get.offNamedUntil(AppRoutes.VwSingleMulti, ModalRoute.withName(AppRoutes.initialRoute));
+
+                    },
+                    child: const Text("Single Multi!")),
               ),
             ],
           ),

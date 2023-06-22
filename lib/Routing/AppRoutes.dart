@@ -3,4 +3,5 @@ class AppRoutes {
   static String VwcustomDBlist = '/VwcustomDBlist';
   static String VwDefineCust = '/VwDefineCust';
   static String VwSale = '/VwSale';
+  static String VwSingleMulti = '/VwSingleMulti';
 }
