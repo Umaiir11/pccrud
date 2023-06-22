@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSingleMulti.dart';
 
 import '../../customWidget/customShowDialog.dart';
+import '../../customWidget/customSnackBar.dart';
 
 class VwSingleMulti extends StatefulWidget {
   const VwSingleMulti({super.key});
@@ -16,11 +17,32 @@ class VwSingleMulti extends StatefulWidget {
 class _VwSingleMultiState extends State<VwSingleMulti> {
   final VmSingleMulti l_VmSingleMulti = Get.put(VmSingleMulti());
 
-
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    l_VmSingleMulti.Sb_ResetDetailsForm()
+;  }
   @override
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
+
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              CustomSnackBar lCustomsnackbar = CustomSnackBar();
+              if (l_VmSingleMulti.G_ListModSingleMulti.isNotEmpty) {
+                l_VmSingleMulti.BTN_DBSave_Click();
+                lCustomsnackbar.FncCustSnackBAR("Alert", "Data Added", Colors.black);
+              } else {
+
+                lCustomsnackbar.FncCustSnackBAR("Alert", "Empty Data", Colors.deepOrange);
+              }
+            },
+            backgroundColor: Colors.white, // Set the background color of the button
+            foregroundColor: Colors.black,
+            child: const Icon(Icons.save), // Set the color of the icon
+          ),
           bottomNavigationBar: Container(
             color: Colors.white,
             child: SizedBox(
@@ -75,7 +97,7 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: PrHeight * 0.10,
+                    top: PrHeight * 0.04,
                   ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -255,10 +277,24 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
                               }
                               return null;
                             },
+                              onChanged: (value) {
+                                int parsedValue = int.tryParse(value) ?? 0;
+                                l_VmSingleMulti.l_Pr_RateController.text =   parsedValue.toString();
+                                if (parsedValue >= 0) {
+                                  if (l_VmSingleMulti.l_Pr_QuanController.text.isEmpty  || l_VmSingleMulti.l_Pr_RateController.text.isEmpty) {
+                                    l_VmSingleMulti.l_PrTotal.value = 0;
+                                  } else {
+                                    l_VmSingleMulti.FncFill_SaleDetailsModel();
+                                  }
+                                }
+                              }
+
                           )),
                     ],
                   ),
                 ),
+
+
                 Padding(
                   padding: EdgeInsets.only(top: PrHeight * 0.01),
                   child: Row(

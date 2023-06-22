@@ -121,7 +121,9 @@ class CustomAlertDialog {
                                 l_VmSaleDetails.FncFill_SaleDetailsModel();
                               }
                             }
-                          })),
+                          }
+
+                          )),
 
                   //Conatiner to add Show Data
                   Padding(

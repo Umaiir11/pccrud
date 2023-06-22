@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pccrud/DAL/DALSingleMulti.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSingleMulti.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
@@ -78,9 +79,23 @@ class VmSingleMulti extends GetxController {
   BTN_Clear_Click() async {
      Fnc_ClearForm();
   }
+  BTN_DBSave_Click() async {
 
 
-  FncFillItemQuery() async {
+  }
+
+
+
+
+
+  Future<bool> Fnc_CUD() async {
+    if (await DAL_SingleMulti().Fnc_Cud(G_ListModSingleMulti) == true) {
+      return true;
+    }
+    return false;
+  }
+
+   FncFillItemQuery() async {
    ModSingleMulti l_ModSingleMulti = FncFill_SaleDetailsModel();
     G_ListModSingleMulti.add(l_ModSingleMulti!);
     FncCalculateItemTotall(G_ListModSingleMulti);
@@ -105,11 +120,4 @@ class VmSingleMulti extends GetxController {
     l_PrTotal.value = lModSingleMulti.Pr_Itemtotal!;
   }
 
-
-
-
-
-
-
-//Calculate the model values
 }
