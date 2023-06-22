@@ -5,11 +5,13 @@ import '../QueryGen/QueryGenDefineCustomer.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_DefineCust extends GetxController {
-  Future<bool> Fnc_Cud(ModDefineCustomer lModCustomerDetails) async {
+  Future<bool> Fnc_Cud(ModDefineCustomer lModDefineCustomer) async {
     try {
 
       Database? lDatabase = await DBHelper().FncGetDatabaseIns();
-      List<String> lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCust(lModCustomerDetails);
+      List<ModDefineCustomer> l_listModDefineCustomer = [];
+      l_listModDefineCustomer.add(lModDefineCustomer);
+      List<String> lQuery = await QueryGenDefineCust().FncGenCrudQueriesDefineCustList(l_listModDefineCustomer);
 
       final batch = lDatabase!.batch();
 
