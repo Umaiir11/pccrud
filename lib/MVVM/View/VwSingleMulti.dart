@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSingleMulti.dart';
 
+import '../../customWidget/customShowDialog.dart';
+
 class VwSingleMulti extends StatefulWidget {
   const VwSingleMulti({super.key});
 
@@ -19,209 +21,470 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          height: PrHeight,
-          width: PrWidth,
+          bottomNavigationBar: Container(
+            color: Colors.white,
+            child: SizedBox(
+              height: PrHeight * .027,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
 
-          decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage("assets/bk.png"), fit: BoxFit.cover),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-              ],
-              stops: [0.1, 0.5, 0.7, 0.9],
+                  Obx(() {
+                    return Padding(
+
+                      padding: EdgeInsets.only(
+                        right: PrWidth * 0.03,
+                      ),
+                      child: Text(
+                        'Grand Total: \PKR ${l_VmSingleMulti.l_PvGrandTotal.value.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
             ),
           ),
-          //color: Colors.black,
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: PrHeight * 0.10,
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Single Multi",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                      ),
-                    ),
 
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            height: PrHeight,
+            width: PrWidth,
 
-                  ],
-                ),
-              ),
+            decoration: const BoxDecoration(
 
-              Padding(
-                padding: EdgeInsets.only(
-                  top: PrHeight * 0.01,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                          controller: l_VmSingleMulti.l_Pr_nameController,
-                          decoration: InputDecoration(
-                            hintText: 'User Name',
-                            hintStyle: const TextStyle(color: Colors.black26),
-                            labelText: 'Name',
-                            floatingLabelBehavior:
-                            FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide:
-                                const BorderSide(color: Colors.white38)),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                        )),
-                  ],
-                ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                ],
+                stops: [0.1, 0.5, 0.7, 0.9],
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: PrHeight * 0.01,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                         controller: l_VmSingleMulti.l_Pr_CityController,
-                          decoration: InputDecoration(
-                            hintText: 'User City',
-                            hintStyle: const TextStyle(color: Colors.black26),
-                            labelText: 'City',
-                            floatingLabelBehavior:
-                            FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide:
-                                const BorderSide(color: Colors.white38)),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: PrHeight * 0.01,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        width: PrWidth * .745,
-                        child: TextFormField(
-                         controller: l_VmSingleMulti.l_Pr_CompanyController,
-                          decoration: InputDecoration(
-                            hintText:  'User Company',
-                            hintStyle: const TextStyle(color: Colors.black26),
-                            labelText: 'Company',
-                            floatingLabelBehavior:
-                            FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide:
-                                const BorderSide(color: Colors.white38)),
-                            contentPadding: EdgeInsets.all(PrHeight * 0.007),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Customer ID';
-                            }
-                            return null;
-                          },
-                        )),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: PrHeight * 0.01,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: PrHeight * 0.01,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () async {
-                         // if (G_ValidationKey.currentState!.validate()) {
-                          //  l_VmDefineCustomer.BTNSave_Click();
-                         // }
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'ADD',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )),
-                    ElevatedButton(
-                        onPressed: () async {
-                         // l_VmDefineCustomer.BTNClear_Click();
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Clear',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )),
-                    ElevatedButton(
-                        onPressed: () async {
-                         // l_VmDefineCustomer.BTNClear_Click();
-                        },
-                        child: const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(fontSize: 15,color: Colors.white),
-                          ),
+            ),
+            //color: Colors.black,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.10,
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Single Multi",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
                         ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.redAccent, // Set the background color to red
                       ),
-                    ),
 
-                  ],
 
+                    ],
+                  ),
                 ),
-              ),
-              // Display the list builder here
 
-            ],
-          ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: PrWidth * .745,
+                          child: TextFormField(
+                            controller: l_VmSingleMulti.l_Pr_nameController,
+                            decoration: InputDecoration(
+                              hintText: 'User Name',
+                              hintStyle: const TextStyle(color: Colors.black26),
+                              labelText: 'Name',
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                  const BorderSide(color: Colors.white38)),
+                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a Customer ID';
+                              }
+                              return null;
+                            },
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: PrWidth * .745,
+                          child: TextFormField(
+                            controller: l_VmSingleMulti.l_Pr_CityController,
+                            decoration: InputDecoration(
+                              hintText: 'User City',
+                              hintStyle: const TextStyle(color: Colors.black26),
+                              labelText: 'City',
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                  const BorderSide(color: Colors.white38)),
+                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a Customer ID';
+                              }
+                              return null;
+                            },
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: PrWidth * .745,
+                          child: TextFormField(
+                            controller: l_VmSingleMulti.l_Pr_CompanyController,
+                            decoration: InputDecoration(
+                              hintText: 'User Company',
+                              hintStyle: const TextStyle(color: Colors.black26),
+                              labelText: 'Company',
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                  const BorderSide(color: Colors.white38)),
+                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a Customer ID';
+                              }
+                              return null;
+                            },
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: PrWidth * .745,
+                          child: TextFormField(
+                            controller: l_VmSingleMulti.l_Pr_QuanController,
+                            decoration: InputDecoration(
+                              hintText: 'Item Quantity',
+                              hintStyle: const TextStyle(color: Colors.black26),
+                              labelText: 'Quantity',
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                  const BorderSide(color: Colors.white38)),
+                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a Customer ID';
+                              }
+                              return null;
+                            },
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: PrWidth * .745,
+                          child: TextFormField(
+                            controller: l_VmSingleMulti.l_Pr_RateController,
+                            decoration: InputDecoration(
+                              hintText: 'Item Rate',
+                              hintStyle: const TextStyle(color: Colors.black26),
+                              labelText: 'Rate',
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                  const BorderSide(color: Colors.white38)),
+                              contentPadding: EdgeInsets.all(PrHeight * 0.007),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a Customer ID';
+                              }
+                              return null;
+                            },
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: PrHeight * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: PrWidth * .745,
+                        height: PrHeight * .055,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.black12,
+                          ),
+                          padding: EdgeInsets.all(PrHeight * 0.015),
+                          child: Obx(() {
+                            return Text(
+                              'Item Total: ${l_VmSingleMulti.l_PvItemTotal.value.toString()}',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-        )
+                SizedBox(
+                  height: PrHeight * 0.01,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: PrHeight * 0.01,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () async {
+                            l_VmSingleMulti.BTN_Add_Click();
+                            // if (G_ValidationKey.currentState!.validate()) {
+                            //  l_VmDefineCustomer.BTNSave_Click();
+                            // }
+                          },
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'ADD',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          )),
+                      ElevatedButton(
+                          onPressed: () async {
+                      l_VmSingleMulti.BTN_Clear_Click();
+},
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Clear',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          )),
+
+                    ],
+
+                  ),
+                ),
+                SizedBox(
+                  height: PrHeight * 0.01,
+                ),
+                Expanded(
+                  child: Obx(() =>
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: l_VmSingleMulti.G_ListModSingleMulti.length,
+                        itemBuilder: (context, lListindex) {
+                          final item = l_VmSingleMulti.G_ListModSingleMulti[lListindex];
+                          return SizedBox(
+                            height: PrHeight * .132,
+                            child: Card(
+                              color: Colors.cyan,
+                              elevation: 15,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      //AlertDialogUpdate
+                                      IconButton(
+                                        iconSize: 12.0,
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+
+                                        },
+                                      ),
+                                      const Text(
+                                        'Sale Details',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      //DeleteButton
+                                      IconButton(
+                                        icon: const Icon(Icons.delete, color: Colors.red),
+                                        iconSize: 12.0,
+                                        onPressed: () {},
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: PrWidth * 0.05,
+                                      ),
+                                      SizedBox(
+                                        width: PrWidth * 0.03,
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: 'UserName: ',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: item.Pr_UserName.toString(),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: PrWidth * 0.03,
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: 'UserCity: ',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: item.Pr_UserCity.toString(),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: PrWidth * 0.05,
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: 'Item Total: ',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: item.Pr_Itemtotal.toString(),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: PrWidth * 0.35,
+                                      ),
+
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      )),
+                )
+
+                // Display the list builder here
+
+              ],
+            ),
+
+          )
       );
     }
 
@@ -248,8 +511,5 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
         },
       ),
     );
-
-
-
   }
 }

@@ -6,6 +6,7 @@ class ModSingleMulti {
     this.Pr_UserCompany,
     this.Pr_UserCity,
     this.Pr_GrandTotal,
+    this.Pr_Itemtotal,
   });
 
   String? Pr_PKGUID;
@@ -14,6 +15,9 @@ class ModSingleMulti {
   String? Pr_UserCity;
   int? Pr_GrandTotal;
   int? Pr_Operation;
+  int? Pr_Itemtotal;
+  int? Pr_Rate;
+  int? Pr_Quantity;
 
   Map<String, dynamic> UserToJson() {
     final jsonMap = <String, dynamic>{};
@@ -23,6 +27,7 @@ class ModSingleMulti {
     if (Pr_UserCity != null) jsonMap["Pr_UserCity"] = Pr_UserCity!;
     if (Pr_GrandTotal != null) jsonMap["Pr_GrandTotal"] = Pr_GrandTotal!;
     if (Pr_Operation != null) jsonMap["Pr_Operation"] = Pr_Operation!;
+    if (Pr_Itemtotal != null) jsonMap["Pr_Itemtotal"] = Pr_Itemtotal!;
     return jsonMap;
   }
 }

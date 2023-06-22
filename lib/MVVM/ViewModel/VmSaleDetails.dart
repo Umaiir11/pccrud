@@ -119,6 +119,8 @@ class VmSaleDetails extends GetxController {
     l_VmSale?.l_PvGrandTotal.value = grandTotal;
     print("Done");
   }
+
+
   FncUpdateList(int lSelectedindex, ModSaleDetails lModsaledetails) {
     if (lSelectedindex >= 0 && lSelectedindex < G_ListItemQuery.length) {
       G_ListItemQuery[lSelectedindex] = lModsaledetails;
