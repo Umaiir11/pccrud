@@ -16,7 +16,7 @@ class VwSingleMulti extends StatefulWidget {
 
 class _VwSingleMultiState extends State<VwSingleMulti> {
   final VmSingleMulti l_VmSingleMulti = Get.put(VmSingleMulti());
-
+  int? G_SelectedIndex;
    @override
   void initState() {
     // TODO: implement initState
@@ -350,6 +350,20 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
                           )),
                       ElevatedButton(
                           onPressed: () async {
+                            l_VmSingleMulti.BTN_Update_Click(G_SelectedIndex!);
+                            // if (G_ValidationKey.currentState!.validate()) {
+                            //  l_VmDefineCustomer.BTNSave_Click();
+                            // }
+                          },
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Update',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          )),
+                      ElevatedButton(
+                          onPressed: () async {
                       l_VmSingleMulti.BTN_Clear_Click();
 },
                           child: const FittedBox(
@@ -376,8 +390,8 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
                           final item = l_VmSingleMulti.G_ListModSingleMulti[lListindex];
                           return GestureDetector(
                             onTap: () async {
-                              bool operationSuccessful = await l_VmSingleMulti.FncGetSelectedPKGUID(lListindex);
-                              print(lListindex);
+                              l_VmSingleMulti.retrieveDataOfSelectedIndex(lListindex );
+                              G_SelectedIndex = lListindex;
                             },
 
                             child: SizedBox(

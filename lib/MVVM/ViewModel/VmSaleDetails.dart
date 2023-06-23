@@ -92,6 +92,8 @@ class VmSaleDetails extends GetxController {
     ModSaleDetails  l_ModSaleDetailsUpdate  =   FncSaleUpdateDetailsModel(l_ModSaleDetails);
     FncUpdateList (lSelectedindex ,l_ModSaleDetailsUpdate);
   }
+
+
   BTN_Delete_Click(int lSelectedindex) {
     ModSaleDetails l_ModSaleDetails  = G_ListItemQuery[lSelectedindex];
     l_VmSale?.l_PvGrandTotal.value -= l_ModSaleDetails.Pr_ItemTotal!;

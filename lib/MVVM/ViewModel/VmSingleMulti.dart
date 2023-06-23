@@ -55,17 +55,27 @@ class VmSingleMulti extends GetxController {
     Sb_ResetDetailsForm();
 
   }
+
+
   ModSingleMulti FncFill_SaleDetailsModel() {
     ModSingleMulti lModSingleMulti = ModSingleMulti(); // Create a new instance
 
-    //Get the filled Sale model instace
+    // Get the filled Sale model instance
     lModSingleMulti.Pr_PKGUID = G_GUIDCustomer;
     lModSingleMulti.Pr_Operation = G_Operation;
     lModSingleMulti.Pr_UserName = l_Pr_nameController.text;
     lModSingleMulti.Pr_UserCompany = l_Pr_CompanyController.text;
     lModSingleMulti.Pr_UserCity = l_Pr_CityController.text;
-    lModSingleMulti.Pr_Quantity =  int.parse(l_Pr_QuanController.text) ;
-    lModSingleMulti.Pr_Rate = int.parse(l_Pr_RateController.text) ;
+
+    // Parse Quantity and Rate only if they are valid integers
+    if (l_Pr_QuanController.text.isNotEmpty) {
+      lModSingleMulti.Pr_Quantity = int.parse(l_Pr_QuanController.text);
+    }
+
+    if (l_Pr_RateController.text.isNotEmpty) {
+      lModSingleMulti.Pr_Rate = int.parse(l_Pr_RateController.text);
+    }
+
     FncItemtotal(lModSingleMulti);
     return lModSingleMulti; // Return the instance
   }
@@ -84,27 +94,39 @@ class VmSingleMulti extends GetxController {
   }
 
 
-  Future<bool> FncGetSelectedPKGUID(int index) async {
-    String? lSelectedpkghuid = G_ListModSingleMulti[index].Pr_PKGUID;
-    if (lSelectedpkghuid != null) {
-      return await Sb_SearchData(lSelectedpkghuid) ?? true;
-    }
-    return false;
+
+  void retrieveDataOfSelectedIndex(int index) {
+
+    l_Pr_nameController.text = G_ListModSingleMulti[index].Pr_UserName!;
+    l_Pr_CompanyController.text = G_ListModSingleMulti[index].Pr_UserCompany!;
+    G_Operation =2;
+    G_GUIDCustomer = G_ListModSingleMulti[index].Pr_PKGUID!;;
+
+    // Use the retrieved data as needed
   }
 
-  Sb_SearchData(String lPkguid) async {
-    String lWhereclause = "WHERE PKGUID = '$lPkguid'";
-
-    List<ModSingleMulti> lListModSingleMulti= await DAL_SingleMulti().Fnc_Read(lWhereclause);
-    ModSingleMulti lModSingleMulti = lListModSingleMulti.first;
 
 
+  BTN_Update_Click(int lSelectedindex) async {
+    ModSingleMulti l_ModSingleMulti = FncFill_SaleDetailsModel();
+    ModSingleMulti l_ModSingleMultiUpdate = await FncSaleUpdateDetailsModel(l_ModSingleMulti);
+    FncUpdateList(lSelectedindex, l_ModSingleMultiUpdate);
+  }
+
+
+
+  ModSingleMulti FncSaleUpdateDetailsModel(ModSingleMulti lModSingleMulti) {
     G_Operation = 2;
-    l_Pr_nameController.text = lModSingleMulti.Pr_UserName!;
-    l_Pr_CompanyController.text = lModSingleMulti.Pr_UserCompany!;
-    G_GUIDCustomer = lPkguid;
+    lModSingleMulti.Pr_UserName = l_Pr_nameController.text;
+    lModSingleMulti.Pr_UserCompany = l_Pr_CompanyController.text;
+    return lModSingleMulti;
+  }
 
-
+  FncUpdateList(int lSelectedindex, ModSingleMulti lModSingleMulti) {
+    if (lSelectedindex >= 0 && lSelectedindex < G_ListModSingleMulti.length) {
+      G_ListModSingleMulti[lSelectedindex] = lModSingleMulti;
+    }
+    G_ListModSingleMulti.refresh();
   }
 
 
