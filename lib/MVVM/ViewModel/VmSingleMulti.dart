@@ -80,8 +80,7 @@ class VmSingleMulti extends GetxController {
      Fnc_ClearForm();
   }
   BTN_DBSave_Click() async {
-
-
+    await Fnc_CUD();
   }
 
 
@@ -90,6 +89,10 @@ class VmSingleMulti extends GetxController {
 
   Future<bool> Fnc_CUD() async {
     if (await DAL_SingleMulti().Fnc_Cud(G_ListModSingleMulti) == true) {
+      print("done");
+      print("done");
+      print("done");
+
       return true;
     }
     return false;

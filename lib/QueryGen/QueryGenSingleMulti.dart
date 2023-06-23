@@ -26,27 +26,25 @@ class QueryGenSingleMulti {
       switch (l_ModSingleMulti.Pr_Operation) {
         case DBOPP.insert:
           return '''
-            INSERT INTO TBU_SalesDetails (
-              Item, Quantity, Rate, VmDID, Operation, PKGUID
+            INSERT INTO TBU_SingleMulti (
+              UserName, UserCompany, Rate, Quantity, Operation, PKGUID
             ) VALUES (
-              '${l_ModSingleMulti.Pr_UserName}', '${l_ModSingleMulti.Pr_Quantity}', '${l_ModSingleMulti.Pr_Rate}',
-              '${l_ModSingleMulti.Pr_UserCity}', '${l_ModSingleMulti.Pr_Operation}', '${l_ModSingleMulti.Pr_PKGUID}'
+              '${l_ModSingleMulti.Pr_UserName}', '${l_ModSingleMulti.Pr_UserCompany}', '${l_ModSingleMulti.Pr_Rate}',
+              '${l_ModSingleMulti.Pr_Quantity}', '${l_ModSingleMulti.Pr_Operation}', '${l_ModSingleMulti.Pr_PKGUID}'
             )
           ''';
 
         case DBOPP.update:
           return '''
-            UPDATE TBU_SalesDetails SET
-              Item = '${l_ModSingleMulti.Pr_UserName}',
-              Quantity = '${l_ModSingleMulti.Pr_Quantity}',
-              Rate = '${l_ModSingleMulti.Pr_Rate}',
-              Operation = '${l_ModSingleMulti.Pr_Operation}'
+            UPDATE TBU_SingleMulti SET
+              UserName = '${l_ModSingleMulti.Pr_UserName}',
+              UserCompany = '${l_ModSingleMulti.Pr_Quantity}',
             WHERE PKGUID = '${l_ModSingleMulti.Pr_PKGUID}'
           ''';
 
         case DBOPP.delete:
           return '''
-            DELETE FROM TBU_SalesDetails
+            DELETE FROM TBU_SingleMulti
             WHERE Item = '${l_ModSingleMulti.Pr_PKGUID}'
           ''';
 

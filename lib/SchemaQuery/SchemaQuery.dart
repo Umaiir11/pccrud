@@ -25,6 +25,19 @@ class SchemaQuery {
         Operation INTEGER
       )
     ''');
+ //CreateTab1
+    await lDatabase.execute('''
+      CREATE TABLE IF NOT EXISTS TBU_SingleMulti (
+        ID INTEGER ,
+        PKGUID TEXT PRIMARY KEY,
+        UserName TEXT,
+        UserCompany TEXT,
+        Quantity TEXT,
+        Rate INTEGER,
+        Itemtotal INTEGER,
+        Operation INTEGER
+      )
+    ''');
 
     await lDatabase.execute('''
       CREATE TABLE IF NOT EXISTS TBU_Customer (
@@ -50,6 +63,8 @@ class SchemaQuery {
     await FncCreateView(lDatabase, 'TBU_SalesDetails');
 
     await FncCreateView(lDatabase, 'TBU_Customer');
+
+    await FncCreateView(lDatabase, 'TBU_SingleMulti');
   }
 
   Future<void> FncCheckAndAddColumns(Database lDatabase, String lTablename, Map<String, String> lColumnstoadd) async {
