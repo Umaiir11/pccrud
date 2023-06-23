@@ -34,6 +34,7 @@ class SchemaQuery {
         UserCompany TEXT,
         Quantity TEXT,
         Rate INTEGER,
+        ISD TEXT,
         Itemtotal INTEGER,
         Operation INTEGER
       )

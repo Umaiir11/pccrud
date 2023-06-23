@@ -84,6 +84,28 @@ class VmSingleMulti extends GetxController {
   }
 
 
+  Future<bool> FncGetSelectedPKGUID(int index) async {
+    String? lSelectedpkghuid = G_ListModSingleMulti[index].Pr_PKGUID;
+    if (lSelectedpkghuid != null) {
+      return await Sb_SearchData(lSelectedpkghuid) ?? true;
+    }
+    return false;
+  }
+
+  Sb_SearchData(String lPkguid) async {
+    String lWhereclause = "WHERE PKGUID = '$lPkguid'";
+
+    List<ModSingleMulti> lListModSingleMulti= await DAL_SingleMulti().Fnc_Read(lWhereclause);
+    ModSingleMulti lModSingleMulti = lListModSingleMulti.first;
+
+
+    G_Operation = 2;
+    l_Pr_nameController.text = lModSingleMulti.Pr_UserName!;
+    l_Pr_CompanyController.text = lModSingleMulti.Pr_UserCompany!;
+    G_GUIDCustomer = lPkguid;
+
+
+  }
 
 
 

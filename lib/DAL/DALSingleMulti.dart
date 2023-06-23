@@ -24,4 +24,34 @@ class DAL_SingleMulti extends GetxController {
       return false; // Queries failed to execute
     }
   }
+
+
+  Future<List<ModSingleMulti>> Fnc_Read(String lWhereclause) async {
+    try {
+      Database? lDatabase = await DBHelper().FncGetDatabaseIns();
+
+      String lQuery = "Select PKGUID, UserName, UserCompany From VW_TBU_SingleMulti ";
+      String finalQuery = lQuery + lWhereclause;
+
+      List<Map<String, dynamic>> lFetchedData = await lDatabase!.rawQuery(finalQuery);
+
+      List<ModSingleMulti> lTest = [];
+      for (var map in lFetchedData) {
+        String PKGUID = map['PKGUID'];
+        String UserCompany = map['UserCompany'];
+        String UserName = map['UserName'];
+
+        ModSingleMulti lModSingleMulti =
+        ModSingleMulti(Pr_PKGUID: PKGUID, Pr_UserCompany: UserCompany,Pr_UserName:UserName );
+        lTest.add(lModSingleMulti);
+      }
+
+      return lTest;
+    } catch (e) {
+      // Throw an exception
+      throw Exception('An error occurred while reading data: $e');
+    }
+  }
+
+
 }

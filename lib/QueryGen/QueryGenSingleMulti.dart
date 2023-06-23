@@ -27,10 +27,10 @@ class QueryGenSingleMulti {
         case DBOPP.insert:
           return '''
             INSERT INTO TBU_SingleMulti (
-              UserName, UserCompany, Rate, Quantity, Operation, PKGUID
+              UserName, UserCompany, Rate, Quantity, Operation, PKGUID,ISD
             ) VALUES (
               '${l_ModSingleMulti.Pr_UserName}', '${l_ModSingleMulti.Pr_UserCompany}', '${l_ModSingleMulti.Pr_Rate}',
-              '${l_ModSingleMulti.Pr_Quantity}', '${l_ModSingleMulti.Pr_Operation}', '${l_ModSingleMulti.Pr_PKGUID}'
+              '${l_ModSingleMulti.Pr_Quantity}', '${l_ModSingleMulti.Pr_Operation}', '${l_ModSingleMulti.Pr_PKGUID}','false'
             )
           ''';
 

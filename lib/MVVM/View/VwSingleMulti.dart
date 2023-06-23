@@ -374,140 +374,147 @@ class _VwSingleMultiState extends State<VwSingleMulti> {
                         itemCount: l_VmSingleMulti.G_ListModSingleMulti.length,
                         itemBuilder: (context, lListindex) {
                           final item = l_VmSingleMulti.G_ListModSingleMulti[lListindex];
-                          return SizedBox(
-                            height: PrHeight * .132,
-                            child: Card(
-                              color: Colors.cyan,
-                              elevation: 15,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      //AlertDialogUpdate
-                                      IconButton(
-                                        iconSize: 12.0,
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {
+                          return GestureDetector(
+                            onTap: () async {
+                              bool operationSuccessful = await l_VmSingleMulti.FncGetSelectedPKGUID(lListindex);
+                              print(lListindex);
+                            },
 
-                                        },
-                                      ),
-                                      const Text(
-                                        'Sale Details',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                      //DeleteButton
-                                      IconButton(
-                                        icon: const Icon(Icons.delete, color: Colors.red),
-                                        iconSize: 12.0,
-                                        onPressed: () {},
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: PrWidth * 0.05,
-                                      ),
-                                      SizedBox(
-                                        width: PrWidth * 0.03,
-                                      ),
-                                      Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            const TextSpan(
-                                              text: 'UserName: ',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: item.Pr_UserName.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: PrWidth * 0.03,
-                                      ),
-                                      Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            const TextSpan(
-                                              text: 'UserCity: ',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: item.Pr_UserCity.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: PrWidth * 0.05,
-                                      ),
-                                      Text.rich(
-                                        TextSpan(
-                                          children: [
-                                            const TextSpan(
-                                              text: 'Item Total: ',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: item.Pr_Itemtotal.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: PrWidth * 0.35,
-                                      ),
+                            child: SizedBox(
+                              height: PrHeight * .132,
+                              child: Card(
+                                color: Colors.cyan,
+                                elevation: 15,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        //AlertDialogUpdate
+                                        IconButton(
+                                          iconSize: 12.0,
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
 
-                                    ],
-                                  )
-                                ],
+                                          },
+                                        ),
+                                        const Text(
+                                          'Sale Details',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        //DeleteButton
+                                        IconButton(
+                                          icon: const Icon(Icons.delete, color: Colors.red),
+                                          iconSize: 12.0,
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: PrWidth * 0.05,
+                                        ),
+                                        SizedBox(
+                                          width: PrWidth * 0.03,
+                                        ),
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'UserName: ',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: item.Pr_UserName.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: PrWidth * 0.03,
+                                        ),
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'UserCity: ',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: item.Pr_UserCity.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: PrWidth * 0.05,
+                                        ),
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Item Total: ',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: item.Pr_Itemtotal.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: PrWidth * 0.35,
+                                        ),
+
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
