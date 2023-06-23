@@ -37,9 +37,10 @@ class QueryGenSingleMulti {
         case DBOPP.update:
           return '''
             UPDATE TBU_SingleMulti SET
-              UserName = '${l_ModSingleMulti.Pr_UserName}',
-              UserCompany = '${l_ModSingleMulti.Pr_Quantity}',
-            WHERE PKGUID = '${l_ModSingleMulti.Pr_PKGUID}'
+  UserName = '${l_ModSingleMulti.Pr_UserName}',
+  UserCompany = '${l_ModSingleMulti.Pr_Quantity}'
+WHERE PKGUID = '${l_ModSingleMulti.Pr_PKGUID}'
+
           ''';
 
         case DBOPP.delete:
