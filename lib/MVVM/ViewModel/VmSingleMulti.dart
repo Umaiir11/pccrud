@@ -5,36 +5,23 @@ import 'package:pccrud/MVVM/Model/DB/ModSaleDB.dart';
 import 'package:pccrud/MVVM/Model/DB/ModSingleMulti.dart';
 import 'package:pccrud/MVVM/ViewModel/VmSale.dart';
 import 'package:uuid/uuid.dart';
-import '../../BLSaleDetails/BLPc.dart';
 import '../../BLSaleDetails/BLSingleMulti.dart';
-import '../Model/DB/ModSaleDetailsDB.dart';
 
 class VmSingleMulti extends GetxController {
   VmSale? l_VmSale = Get.find<VmSale>();
-
   final TextEditingController l_Pr_nameController = TextEditingController();
   final TextEditingController l_Pr_CityController = TextEditingController();
   final TextEditingController l_Pr_CompanyController = TextEditingController();
   final TextEditingController l_Pr_RateController = TextEditingController();
   final TextEditingController l_Pr_QuanController = TextEditingController();
-
-
   int? G_Operation;
   String? G_GUIDCustomer;
   RxBool l_TextFieldsValidation = false.obs;
   RxString l_PvItemTotal = ''.obs;
   RxInt l_PvGrandTotal = RxInt(0);
-
-
-
   RxInt l_PrTotal = RxInt(0);
 
   RxList<ModSingleMulti> G_ListModSingleMulti = <ModSingleMulti>[].obs;
-
-
-  // Retrieve the ModSaleDB object from the existing instance of VmSale
-
-
   Sb_ResetDetailsForm(){
     G_Operation = 1;
     G_GUIDCustomer = const Uuid().v4();
@@ -43,20 +30,15 @@ class VmSingleMulti extends GetxController {
     l_Pr_CompanyController.clear() ;
     l_Pr_RateController .clear() ;
     l_Pr_QuanController.clear();
-
     //G_ListItemQuery.clear();
   }
 
   Fnc_ClearForm(){
-
-    G_ListModSingleMulti.clear();
+  G_ListModSingleMulti.clear();
      l_PvItemTotal.value  = '';
      l_PvGrandTotal.value = 0 ;
     Sb_ResetDetailsForm();
-
   }
-
-
   ModSingleMulti FncFill_SaleDetailsModel() {
     ModSingleMulti lModSingleMulti = ModSingleMulti(); // Create a new instance
 
@@ -83,7 +65,6 @@ class VmSingleMulti extends GetxController {
   BTN_Add_Click() async {
      await FncFill_list();
     Sb_ResetDetailsForm();
-    //Sb_ResetDetailsForm();
   }
 
   BTN_Clear_Click() async {
@@ -99,13 +80,10 @@ class VmSingleMulti extends GetxController {
   }
 
   void retrieveDataOfSelectedIndex(int index) {
-
-    l_Pr_nameController.text = G_ListModSingleMulti[index].Pr_UserName!;
+  l_Pr_nameController.text = G_ListModSingleMulti[index].Pr_UserName!;
     l_Pr_CompanyController.text = G_ListModSingleMulti[index].Pr_UserCompany!;
     G_Operation =2;
-    G_GUIDCustomer = G_ListModSingleMulti[index].Pr_PKGUID!;;
-
-    // Use the retrieved data as needed
+    G_GUIDCustomer = G_ListModSingleMulti[index].Pr_PKGUID!;
   }
 
   ModSingleMulti FncSaleUpdateDetailsModel(ModSingleMulti lModSingleMulti) {
@@ -118,8 +96,8 @@ class VmSingleMulti extends GetxController {
   FncUpdateList(int lSelectedindex, ModSingleMulti lModSingleMulti) {
     if (lSelectedindex >= 0 && lSelectedindex < G_ListModSingleMulti.length) {
       G_ListModSingleMulti[lSelectedindex] = lModSingleMulti;
-    }
-    G_ListModSingleMulti.refresh();
+    } G_ListModSingleMulti.refresh();
+
   }
 
 

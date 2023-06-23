@@ -8,14 +8,11 @@ import '../../SchemaQuery/SchemaQuery.dart';
 
 class DBHelper {
   Database? l_Database;
-
-  Future<Database?> FncGetDatabaseIns() async {
+Future<Database?> FncGetDatabaseIns() async {
     if (l_Database == null) {
       await FncCreateDataBase();
-    }
-    return l_Database;
+    }return l_Database;
   }
-
   Future<void> FncCreateDataBase() async {
     final appDirectory = await getApplicationDocumentsDirectory();
     final dbDirectory = Directory('${appDirectory.path}/Flutter');
@@ -25,12 +22,10 @@ class DBHelper {
     if (!databaseExists) {
       l_Database = await openDatabase(
         dbPath,
-        version: 1,
-      );
+        version: 1,);
       final lSchemaquery = SchemaQuery();
       await lSchemaquery.FncSchemaQuries(l_Database!);
-    } else {
-      try {
+    } else { try {
         l_Database = await openDatabase(dbPath);
         final lSchemaquery = SchemaQuery();
         await lSchemaquery.FncSchemaQuries(l_Database!);
