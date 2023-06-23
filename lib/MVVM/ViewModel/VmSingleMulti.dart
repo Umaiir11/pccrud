@@ -81,7 +81,7 @@ class VmSingleMulti extends GetxController {
   }
 
   BTN_Add_Click() async {
-     await FncFillItemQuery();
+     await FncFill_list();
     Sb_ResetDetailsForm();
     //Sb_ResetDetailsForm();
   }
@@ -92,8 +92,11 @@ class VmSingleMulti extends GetxController {
   BTN_DBSave_Click() async {
     await Fnc_CUD();
   }
-
-
+  BTN_Update_Click(int lSelectedindex) async {
+    ModSingleMulti l_ModSingleMulti = FncFill_SaleDetailsModel();
+    ModSingleMulti l_ModSingleMultiUpdate = await FncSaleUpdateDetailsModel(l_ModSingleMulti);
+    FncUpdateList(lSelectedindex, l_ModSingleMultiUpdate);
+  }
 
   void retrieveDataOfSelectedIndex(int index) {
 
@@ -104,16 +107,6 @@ class VmSingleMulti extends GetxController {
 
     // Use the retrieved data as needed
   }
-
-
-
-  BTN_Update_Click(int lSelectedindex) async {
-    ModSingleMulti l_ModSingleMulti = FncFill_SaleDetailsModel();
-    ModSingleMulti l_ModSingleMultiUpdate = await FncSaleUpdateDetailsModel(l_ModSingleMulti);
-    FncUpdateList(lSelectedindex, l_ModSingleMultiUpdate);
-  }
-
-
 
   ModSingleMulti FncSaleUpdateDetailsModel(ModSingleMulti lModSingleMulti) {
     G_Operation = 2;
@@ -133,16 +126,12 @@ class VmSingleMulti extends GetxController {
 
   Future<bool> Fnc_CUD() async {
     if (await DAL_SingleMulti().Fnc_Cud(G_ListModSingleMulti) == true) {
-      print("done");
-      print("done");
-      print("done");
-
       return true;
     }
     return false;
   }
 
-   FncFillItemQuery() async {
+   FncFill_list() async {
    ModSingleMulti l_ModSingleMulti = FncFill_SaleDetailsModel();
     G_ListModSingleMulti.add(l_ModSingleMulti!);
     FncCalculateItemTotall(G_ListModSingleMulti);
