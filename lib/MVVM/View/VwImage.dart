@@ -117,36 +117,16 @@ class _VwImageState extends State<VwImage> {
            Uint8List l_DecodedBytes = base64Decode(l_ListImage);
            MemoryImage lMemoryIMage = MemoryImage(l_DecodedBytes);
 
-            return SizedBox(
-            height: PrHeight * .132,
-            child: Card(color: Colors.cyan,
-             elevation: 15,
-            shape: RoundedRectangleBorder(
-             borderRadius: BorderRadius.circular(10.0),
-            ),
-           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                           Container(
-                             width: 120,
-                             height: 120,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                     image: lMemoryIMage,
-                                         fit: BoxFit.cover,
-                              ),
-                                ),
-                             ),
-                               ],
-                                 ),
-                               ],
-                         ),
-                         ),
-                           );
+            return    Container(
+              width: 190,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: lMemoryIMage,
+                ),
+              ),
+            );
                           },
                        )),
                           )

@@ -30,16 +30,21 @@ class DAL_Image extends GetxController {
     try {
       Database? lDatabase = await DBHelper().FncGetDatabaseIns();
 
-      String lQuery = "Select Image From VW_TBU_Image";
-
+      String lQuery = "SELECT DISTINCT Image FROM VW_TBU_Image";
 
       List<Map<String, dynamic>> lFetchedData = await lDatabase!.rawQuery(lQuery);
 
       List<Modimamge> lTest = [];
       for (var map in lFetchedData) {
-        String Image = map['Image'];
-        Modimamge lModimamge = Modimamge(Pr_Image: Image);
-        lTest.add(lModimamge);
+        String image = map['Image'];
+
+        // Check if the image already exists in the list
+        bool isDuplicate = lTest.any((item) => item.Pr_Image == image);
+
+        if (!isDuplicate) {
+          Modimamge lModimamge = Modimamge(Pr_Image: image);
+          lTest.add(lModimamge);
+        }
       }
 
       return lTest;
