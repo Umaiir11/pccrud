@@ -79,6 +79,7 @@ class VmImage extends GetxController {
   Modimamge Fnc_SetModel_DATA(){
 
     Modimamge l_Modimamge = Modimamge();
+    l_Modimamge.Pr_Operation = G_Operation;
     l_Modimamge.Pr_Image =  Pb_ImageString.value;
 
     return l_Modimamge;

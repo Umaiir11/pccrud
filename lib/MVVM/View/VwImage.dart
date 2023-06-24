@@ -17,6 +17,13 @@ class VwImage extends StatefulWidget {
 class _VwImageState extends State<VwImage> {
   @override
   final  l_VmImage = Get.put(VmImage());
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    l_VmImage.  Sb_ResetForm();
+
+   }
 
   Widget build(BuildContext context) {
     Widget _WidgetportraitMode(double PrHeight, PrWidth) {
