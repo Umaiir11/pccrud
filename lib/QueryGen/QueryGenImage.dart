@@ -28,11 +28,9 @@ class QueryGenImage {
             INSERT INTO TBU_Image (
              Image,ISD
             ) VALUES (
-              '${l_Modimamge.Pr_Image}',false
+              '${l_Modimamge.Pr_Image}','false'
             )
           ''';
-
-
         default:
         // Handle unrecognized operation
           break;

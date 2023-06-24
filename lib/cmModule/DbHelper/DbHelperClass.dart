@@ -17,7 +17,7 @@ Future<Database?> FncGetDatabaseIns() async {
     final appDirectory = await getApplicationDocumentsDirectory();
     final dbDirectory = Directory('${appDirectory.path}/Flutter');
     await dbDirectory.create(recursive: true);
-    final dbPath = path.join(dbDirectory.path, 'F1.db');
+    final dbPath = path.join(dbDirectory.path, 'F2.db');
     final databaseExists = await databaseFactory.databaseExists(dbPath);
     if (!databaseExists) {
       l_Database = await openDatabase(
