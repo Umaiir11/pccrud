@@ -9,6 +9,9 @@ import 'package:path/path.dart' as path;
 
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../DAL/DAL_Image.dart';
+import '../Model/DB/ModImages.dart';
+
 class VmImage extends GetxController {
 
   RxString Pb_ImageString = RxString('');
@@ -67,6 +70,38 @@ class VmImage extends GetxController {
     }
 
     return false;
+  }
+
+
+  Future<bool> Fnc_CUD( Modimamge l_Modimamge ) async {
+
+    if(await DAL_Image().Fnc_Cud(l_Modimamge) == true){
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> BTNUpload() async {
+    bool hasPermissions = await FncPermissions();
+
+    if (hasPermissions) {
+      bool hasUserImage = await FncUserImage();
+
+      if (hasUserImage) {
+
+        Modimamge l_Modimamge = Modimamge();
+        l_Modimamge.Pr_Image =  Pb_ImageString.value;
+        Fnc_CUD(l_Modimamge);
+        // Perform your action when both permissions and user image are available
+
+
+        Get.snackbar("Alert", "Image Saved On DB");
+      } else {
+        Get.snackbar("Alert", "Upload image");
+      }
+    } else {
+      Get.snackbar("Alert", "Permission denied");
+    }
   }
 
 

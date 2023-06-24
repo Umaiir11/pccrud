@@ -37,50 +37,7 @@ class _VwImageState extends State<VwImage> {
                            Center(
                              child: InkWell(
                                onTap: () async {
-                                 if ( await l_VmImage.FncPermissions() == true )
-
-                                 {
-                                   if (await l_VmImage.FncUserImage() == true) {
-
-                                   } else {
-                                     Get.snackbar("ALert", "Upload image");
-                                   }
-                                 }
-                                 else{
-
-                                   Get.snackbar(
-                                     'Permission Alert',
-                                     '',
-                                     messageText: Text(
-                                       'Permission denied',
-                                       style: const TextStyle(color: Colors.white),
-                                     ),
-                                     snackStyle: SnackStyle.FLOATING,
-                                     snackPosition: SnackPosition.BOTTOM,
-                                     backgroundColor: Colors.black87,
-                                     colorText: Colors.white,
-                                     margin: const EdgeInsets.all(10),
-                                     borderRadius: 10,
-                                     animationDuration: const Duration(milliseconds: 800),
-                                     overlayBlur: 0,
-                                     isDismissible: true,
-                                     mainButton: TextButton(
-                                       onPressed: () {
-                                         // Do something when main button is pressed
-                                       },
-                                       child: const Text(
-                                         'OK',
-                                         style: TextStyle(color: Colors.white),
-                                       ),
-                                     ),
-                                     icon: const Icon(
-                                       Icons.info_outline,
-                                       color: Colors.white,
-                                     ),
-                                   );
-                                 }
-
-
+                               l_VmImage.  BTNUpload();
                                },
                                child: Obx(
                                      () =>
