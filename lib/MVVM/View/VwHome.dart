@@ -72,6 +72,16 @@ class _VwHomeState extends State<VwHome> {
                     },
                     child: const Text("Single Multi!")),
               ),
+              SizedBox(height: PrHeight*0.02 ,),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      l_VmDefineCustomer.Sb_ResetForm();
+                      Get.offNamedUntil(AppRoutes.VwImage, ModalRoute.withName(AppRoutes.initialRoute));
+
+                    },
+                    child: const Text("Upload Image")),
+              ),
             ],
           ),
         ),

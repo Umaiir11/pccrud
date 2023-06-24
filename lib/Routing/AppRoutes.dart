@@ -4,4 +4,5 @@ class AppRoutes {
   static String VwDefineCust = '/VwDefineCust';
   static String VwSale = '/VwSale';
   static String VwSingleMulti = '/VwSingleMulti';
+  static String VwImage = '/VwImage';
 }
