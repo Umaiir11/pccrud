@@ -24,4 +24,30 @@ class DAL_Image extends GetxController {
       return false; // Queries failed to execute
     }
   }
+
+
+  Future<List<Modimamge>> Fnc_Read() async {
+    try {
+      Database? lDatabase = await DBHelper().FncGetDatabaseIns();
+
+      String lQuery = "Select Image From VW_TBU_Customer";
+
+
+      List<Map<String, dynamic>> lFetchedData = await lDatabase!.rawQuery(lQuery);
+
+      List<Modimamge> lTest = [];
+      for (var map in lFetchedData) {
+        String Image = map['Image'];
+        Modimamge lModimamge = Modimamge(Pr_Image: Image);
+        lTest.add(lModimamge);
+      }
+
+      return lTest;
+    } catch (e) {
+      // Throw an exception
+      throw Exception('An error occurred while reading data: $e');
+    }
+  }
+
+
 }

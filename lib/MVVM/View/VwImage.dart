@@ -44,7 +44,7 @@ class _VwImageState extends State<VwImage> {
                            Center(
                              child: InkWell(
                                onTap: () async {
-                               l_VmImage.  BTNUpload();
+                               await l_VmImage.  BTNFetch();
                                },
                                child: Obx(
                                      () =>
@@ -105,7 +105,41 @@ class _VwImageState extends State<VwImage> {
                    ),
                  ),
 
+                 Expanded(
+                   child: Obx(() => ListView.builder(
+                     shrinkWrap: true,
+                     itemCount: l_VmImage.l_RxListModImage.length,
+                     itemBuilder: (context, lListindex) {
+                       final item = l_VmImage.l_RxListModImage[lListindex];
+                       return SizedBox(
+                         height: PrHeight * .132,
+                         child: Card(
+                           color: Colors.cyan,
+                           elevation: 15,
+                           shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(10.0),
+                           ),
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   //AlertDialogUpdate
+
+                                 ],
+                               ),
+
+                             ],
+                           ),
+                         ),
+                       );
+                     },
+                   )),
+                 )
                     ],
+
+
 
  ),
 

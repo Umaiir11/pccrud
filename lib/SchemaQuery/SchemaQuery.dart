@@ -53,7 +53,8 @@ class SchemaQuery {
 
     await lDatabase.execute('''
       CREATE TABLE IF NOT EXISTS TBU_Image (
-        Image TEXT
+        Image TEXT,
+        ISD TEXT
        )
     ''');
 

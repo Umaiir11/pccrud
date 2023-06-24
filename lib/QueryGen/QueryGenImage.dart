@@ -26,9 +26,9 @@ class QueryGenImage {
         case DBOPP.insert:
           return '''
             INSERT INTO TBU_Image (
-             Image
+             Image,ISD
             ) VALUES (
-              '${l_Modimamge.Pr_Image}'
+              '${l_Modimamge.Pr_Image}',false
             )
           ''';
 

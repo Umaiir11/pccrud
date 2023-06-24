@@ -19,6 +19,7 @@ class VmImage extends GetxController {
   Rx<File?> G_compressedImage = Rx<File?>(null);
   RxInt G_compressedSize = 0.obs;
   RxString Pr_imageName = RxString('');
+  RxList<Modimamge> l_RxListModImage = <Modimamge>[].obs;
 
 
 
@@ -98,7 +99,7 @@ class VmImage extends GetxController {
     return false;
   }
 
-  Future<void> BTNUpload() async {
+  Future<void> BTNFetch() async {
     bool hasPermissions = await FncPermissions();
 
     if (hasPermissions) {
@@ -117,7 +118,16 @@ class VmImage extends GetxController {
       Get.snackbar("Alert", "Permission denied");
     }
   }
+  Future<void> BTNUpload() async {
+    await FetchDB_DATA();
+  }
 
+
+  Future<bool> FetchDB_DATA() async {
+    List<Modimamge> lListmoddefinecustomer =await DAL_Image().Fnc_Read();
+    l_RxListModImage.addAll(lListmoddefinecustomer);
+    return true;
+  }
 
 
 }
