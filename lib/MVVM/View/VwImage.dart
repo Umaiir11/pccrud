@@ -37,8 +37,6 @@ class _VwImageState extends State<VwImage> {
                            Center(
                              child: InkWell(
                                onTap: () async {
-
-
                                  if ( await l_VmImage.FncPermissions() == true )
 
                                  {
@@ -113,24 +111,31 @@ class _VwImageState extends State<VwImage> {
                              child: Obx(() => Text(l_VmImage.Pr_imageName.value)),
                            ),
                          ],
-                       ),
+                       )
 
-                       Column(
-                         children: [
-                           ElevatedButton(
-                               onPressed: () async {
+                     ],
 
-                               },
-                               child: const FittedBox(
-                                 fit: BoxFit.scaleDown,
-                                 child: Text(
-                                   'Fetch Image',
-                                   style: TextStyle(fontSize: 15),
-                                 ),
-                               )),
-                         ],
-                       ),
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(
+                     top: PrHeight * 0.10,
+                   ),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                     children: [
 
+                       ElevatedButton(
+                           onPressed: () async {
+
+                           },
+                           child: const FittedBox(
+                             fit: BoxFit.scaleDown,
+                             child: Text(
+                               'Fetch Image from DB',
+                               style: TextStyle(fontSize: 15),
+                             ),
+                           )),
                      ],
 
                    ),

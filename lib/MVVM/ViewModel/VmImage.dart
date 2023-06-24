@@ -11,7 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class VmImage extends GetxController {
 
-  String? Pb_ImageString;
+  RxString Pb_ImageString = RxString('');
   Rx<File?> G_compressedImage = Rx<File?>(null);
   RxInt G_compressedSize = 0.obs;
   RxString Pr_imageName = RxString('');
@@ -60,9 +60,8 @@ class VmImage extends GetxController {
 
       // Convert compressed image to a base64 string
       List<int> bytes = await compressedImage.readAsBytes();
-      String base64Image = base64Encode(bytes);
+      Pb_ImageString.value = base64Encode(bytes);
       // print('Base64 image: $base64Image');
-      Pb_ImageString = base64Image;
 
       return true;
     }
