@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:lottie/lottie.dart';
 
 import '../ViewModel/VmImage.dart';
 
@@ -23,36 +26,110 @@ class _VwImageState extends State<VwImage> {
 
                  Padding(
                    padding: EdgeInsets.only(
-                     top: PrHeight * 0.01,
+                     top: PrHeight * 0.10,
                    ),
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
-                       ElevatedButton(
-                           onPressed: () async {
-                             if ( await l_VmImage.FncPermissions() == true )
-                               {
+                       Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Center(
+                             child: InkWell(
+                               onTap: () async {
 
-                               }
-                           },
-                           child: const FittedBox(
-                             fit: BoxFit.scaleDown,
-                             child: Text(
-                               'Upload Image',
-                               style: TextStyle(fontSize: 15),
-                             ),
-                           )),
-                       ElevatedButton(
-                           onPressed: () async {
 
-                           },
-                           child: const FittedBox(
-                             fit: BoxFit.scaleDown,
-                             child: Text(
-                               'Fetch Image',
-                               style: TextStyle(fontSize: 15),
+                                 if ( await l_VmImage.FncPermissions() == true )
+
+                                 {
+                                   if (await l_VmImage.FncUserImage() == true) {
+
+                                   } else {
+                                     Get.snackbar("ALert", "Upload image");
+                                   }
+                                 }
+                                 else{
+
+                                   Get.snackbar(
+                                     'Permission Alert',
+                                     '',
+                                     messageText: Text(
+                                       'Permission denied',
+                                       style: const TextStyle(color: Colors.white),
+                                     ),
+                                     snackStyle: SnackStyle.FLOATING,
+                                     snackPosition: SnackPosition.BOTTOM,
+                                     backgroundColor: Colors.black87,
+                                     colorText: Colors.white,
+                                     margin: const EdgeInsets.all(10),
+                                     borderRadius: 10,
+                                     animationDuration: const Duration(milliseconds: 800),
+                                     overlayBlur: 0,
+                                     isDismissible: true,
+                                     mainButton: TextButton(
+                                       onPressed: () {
+                                         // Do something when main button is pressed
+                                       },
+                                       child: const Text(
+                                         'OK',
+                                         style: TextStyle(color: Colors.white),
+                                       ),
+                                     ),
+                                     icon: const Icon(
+                                       Icons.info_outline,
+                                       color: Colors.white,
+                                     ),
+                                   );
+                                 }
+
+
+                               },
+                               child: Obx(
+                                     () =>
+                                 l_VmImage.G_compressedImage.value != null
+                                     ? Container(
+                                   width: 120,
+                                   height: 120,
+                                   decoration: BoxDecoration(
+                                     shape: BoxShape.circle,
+                                     image: DecorationImage(
+                                       image: FileImage(File(l_VmImage.G_compressedImage.value!.path)),
+                                       fit: BoxFit.cover,
+                                     ),
+                                   ),
+                                 )
+                                     : SizedBox(
+                                   width: 140,
+                                   height: 120,
+                                   child: Lottie.asset(
+                                     'assets/upload.json',
+                                     fit: BoxFit.cover,
+                                   ),
+                                 ),
+                               ),
                              ),
-                           )),
+                           ),
+                           Center(
+                             child: Obx(() => Text(l_VmImage.Pr_imageName.value)),
+                           ),
+                         ],
+                       ),
+
+                       Column(
+                         children: [
+                           ElevatedButton(
+                               onPressed: () async {
+
+                               },
+                               child: const FittedBox(
+                                 fit: BoxFit.scaleDown,
+                                 child: Text(
+                                   'Fetch Image',
+                                   style: TextStyle(fontSize: 15),
+                                 ),
+                               )),
+                         ],
+                       ),
 
                      ],
 

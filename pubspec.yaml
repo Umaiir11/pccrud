@@ -19,7 +19,14 @@ dependencies:
   uuid: ^3.0.4
   material: ^1.0.0+2
   lottie: ^2.3.1
-  permission_handler: any
+  permission_handler: 9.0.2
+  flutter_native_image: any
+  image_picker: ^0.8.7+1
+
+
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
