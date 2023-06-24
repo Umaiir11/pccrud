@@ -14,10 +14,13 @@ import '../Model/DB/ModImages.dart';
 
 class VmImage extends GetxController {
 
+  int? G_Operation;
   RxString Pb_ImageString = RxString('');
   Rx<File?> G_compressedImage = Rx<File?>(null);
   RxInt G_compressedSize = 0.obs;
   RxString Pr_imageName = RxString('');
+
+
 
   Future<bool> FncPermissions() async {
     PermissionStatus l_mediaPermission = await Permission.photos.request();
@@ -73,8 +76,21 @@ class VmImage extends GetxController {
   }
 
 
-  Future<bool> Fnc_CUD( Modimamge l_Modimamge ) async {
+  Modimamge Fnc_SetModel_DATA(){
 
+    Modimamge l_Modimamge = Modimamge();
+    l_Modimamge.Pr_Image =  Pb_ImageString.value;
+
+    return l_Modimamge;
+  }
+
+  Sb_ResetForm(){
+    G_Operation = 1;
+  }
+
+  Future<bool> Fnc_CUD( ) async {
+
+    Modimamge l_Modimamge = Fnc_SetModel_DATA();
     if(await DAL_Image().Fnc_Cud(l_Modimamge) == true){
       return true;
     }
@@ -89,11 +105,8 @@ class VmImage extends GetxController {
 
       if (hasUserImage) {
 
-        Modimamge l_Modimamge = Modimamge();
-        l_Modimamge.Pr_Image =  Pb_ImageString.value;
-        Fnc_CUD(l_Modimamge);
-        // Perform your action when both permissions and user image are available
 
+        await Fnc_CUD();
 
         Get.snackbar("Alert", "Image Saved On DB");
       } else {

@@ -51,6 +51,12 @@ class SchemaQuery {
        )
     ''');
 
+    await lDatabase.execute('''
+      CREATE TABLE IF NOT EXISTS TBU_Image (
+        Image TEXT
+       )
+    ''');
+
 
     //Altertable1
     await FncCheckAndAddColumns(lDatabase, 'TBU_SalesInfo', {
@@ -66,6 +72,8 @@ class SchemaQuery {
     await FncCreateView(lDatabase, 'TBU_Customer');
 
     await FncCreateView(lDatabase, 'TBU_SingleMulti');
+
+    await FncCreateView(lDatabase, 'TBU_Image');
   }
 
   Future<void> FncCheckAndAddColumns(Database lDatabase, String lTablename, Map<String, String> lColumnstoadd) async {

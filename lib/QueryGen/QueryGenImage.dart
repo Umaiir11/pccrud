@@ -25,8 +25,8 @@ class QueryGenImage {
       switch (l_Modimamge.Pr_Operation) {
         case DBOPP.insert:
           return '''
-            INSERT INTO TBU_SalesDetails (
-              Item, Quantity, Rate, VmDID, Operation, PKGUID
+            INSERT INTO TBU_Image (
+             Image
             ) VALUES (
               '${l_Modimamge.Pr_Image}'
             )
