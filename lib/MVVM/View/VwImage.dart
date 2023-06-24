@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +46,7 @@ class _VwImageState extends State<VwImage> {
                            Center(
                              child: InkWell(
                                onTap: () async {
-                               await l_VmImage.  BTNFetch();
+                               await l_VmImage.  BTNUploadd();
                                },
                                child: Obx(
                                      () =>
@@ -91,7 +93,7 @@ class _VwImageState extends State<VwImage> {
 
                        ElevatedButton(
                            onPressed: () async {
-
+                             l_VmImage.BTNFetch();
                            },
                            child: const FittedBox(
                              fit: BoxFit.scaleDown,
@@ -104,40 +106,52 @@ class _VwImageState extends State<VwImage> {
 
                    ),
                  ),
+                SizedBox(height:  PrHeight*0.10,),
+      Expanded(
+      child: Obx(() => ListView.builder(
+         shrinkWrap: true,
+         itemCount: l_VmImage.l_RxListModImage.length,
+          itemBuilder: (context, lListindex) {
+           final item = l_VmImage.l_RxListModImage[lListindex];
+           String l_ListImage = item.Pr_Image!;
+           Uint8List l_DecodedBytes = base64Decode(l_ListImage);
+           MemoryImage lMemoryIMage = MemoryImage(l_DecodedBytes);
 
-                 Expanded(
-                   child: Obx(() => ListView.builder(
-                     shrinkWrap: true,
-                     itemCount: l_VmImage.l_RxListModImage.length,
-                     itemBuilder: (context, lListindex) {
-                       final item = l_VmImage.l_RxListModImage[lListindex];
-                       return SizedBox(
-                         height: PrHeight * .132,
-                         child: Card(
-                           color: Colors.cyan,
-                           elevation: 15,
-                           shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(10.0),
-                           ),
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                 children: [
-                                   //AlertDialogUpdate
-
-                                 ],
-                               ),
-
-                             ],
-                           ),
+            return SizedBox(
+            height: PrHeight * .132,
+            child: Card(color: Colors.cyan,
+             elevation: 15,
+            shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.circular(10.0),
+            ),
+           child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                 Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                           Container(
+                             width: 120,
+                             height: 120,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                     image: lMemoryIMage,
+                                         fit: BoxFit.cover,
+                              ),
+                                ),
+                             ),
+                               ],
+                                 ),
+                               ],
                          ),
-                       );
-                     },
-                   )),
-                 )
-                    ],
+                         ),
+                           );
+                          },
+                       )),
+                          )
+
+      ],
 
 
 

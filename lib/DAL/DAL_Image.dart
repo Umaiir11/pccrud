@@ -30,7 +30,7 @@ class DAL_Image extends GetxController {
     try {
       Database? lDatabase = await DBHelper().FncGetDatabaseIns();
 
-      String lQuery = "Select Image From VW_TBU_Customer";
+      String lQuery = "Select Image From VW_TBU_Image";
 
 
       List<Map<String, dynamic>> lFetchedData = await lDatabase!.rawQuery(lQuery);

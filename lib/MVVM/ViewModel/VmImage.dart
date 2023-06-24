@@ -99,7 +99,7 @@ class VmImage extends GetxController {
     return false;
   }
 
-  Future<void> BTNFetch() async {
+  Future<void> BTNUploadd() async {
     bool hasPermissions = await FncPermissions();
 
     if (hasPermissions) {
@@ -118,7 +118,7 @@ class VmImage extends GetxController {
       Get.snackbar("Alert", "Permission denied");
     }
   }
-  Future<void> BTNUpload() async {
+  Future<void> BTNFetch() async {
     await FetchDB_DATA();
   }
 
