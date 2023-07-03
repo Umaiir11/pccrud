@@ -19,9 +19,10 @@ dependencies:
   uuid: ^3.0.4
   material: ^1.0.0+2
   lottie: ^2.3.1
-  permission_handler: 9.0.2
   flutter_native_image: any
+  permission_handler: ^10.4.1
   image_picker: ^0.8.7+1
+  device_info_plus: ^9.0.2
 
 
 

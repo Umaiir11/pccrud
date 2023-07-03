@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../DAL/DAL_Image.dart';
 import '../Model/DB/ModImages.dart';
+
 
 class VmImage extends GetxController {
 
@@ -23,19 +25,34 @@ class VmImage extends GetxController {
 
 
 
-  Future<bool> FncPermissions() async {
-    PermissionStatus l_mediaPermission = await Permission.photos.request();
 
-    if (l_mediaPermission == PermissionStatus.granted) {
+
+
+  Future<bool> FncPermissions() async {
+    final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+    if (androidInfo.version.sdkInt >= 33) {
+      // Add the storage permissions
+      final photosStatus = await Permission.photos.request();
+      if (photosStatus.isGranted) {
+        return true;
+      }
+
+      if (photosStatus.isDenied || photosStatus.isRestricted) {
+        // Show a pop-up to request the photos permission
+        await Permission.photos.request();
+      }
+    }
+    // Request the storage permission
+    final storageStatus = await Permission.storage.request();
+
+    if (storageStatus.isGranted) {
       return true;
     }
 
-    if (l_mediaPermission == PermissionStatus.denied || l_mediaPermission == PermissionStatus.restricted) {
-      return false;
-    }
-
-    if (l_mediaPermission == PermissionStatus.permanentlyDenied) {
-      openAppSettings();
+    if (storageStatus.isDenied || storageStatus.isRestricted) {
+      // Show a pop-up to request the permission
+      await Permission.storage.request();
     }
 
     return false;
@@ -85,11 +102,9 @@ class VmImage extends GetxController {
 
     return l_Modimamge;
   }
-
   Sb_ResetForm(){
     G_Operation = 1;
   }
-
   Future<bool> Fnc_CUD( ) async {
 
     Modimamge l_Modimamge = Fnc_SetModel_DATA();

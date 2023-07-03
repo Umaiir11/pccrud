@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pccrud/MVVM/Model/DB/ModPcSale.dart';
 import 'package:pccrud/QueryGen/QueryGenImage.dart';
 import 'package:sqflite/sqflite.dart';
 import '../MVVM/Model/DB/ModImages.dart';
-import '../QueryGen/QueryGenSalePC.dart';
 import '../cmModule/DbHelper/DbHelperClass.dart';
 
 class DAL_Image extends GetxController {
